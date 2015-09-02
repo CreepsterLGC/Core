@@ -1,4 +1,4 @@
-Instruction:
+Instructions:
 ---
 Core is a open source plugin providing a good foundation for any server using Sponge (https://www.spongepowered.org/)
 It's commands are very extended so you are able to rollback your banlist, create private warps and invite players,
