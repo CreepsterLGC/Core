@@ -1,6 +1,9 @@
 package me.creepsterlgc.core.customized;
 
 import java.util.HashMap;
+import java.util.List;
+
+import org.spongepowered.api.text.Text;
 
 public class PLAYER {
 	
@@ -18,6 +21,9 @@ public class PLAYER {
 	private String reply;
 	HashMap<String, Double> tpa;
 	HashMap<String, Double> tpahere;
+	HashMap<Integer, List<Text>> pages;
+	Text page_title;
+	Text page_header;
 	
 	public PLAYER(String uuid, String name, String godmode, double flymode, String mails, String location, String lastdeath, double onlinetime, double lastonline) {
 		this.uuid = uuid;
@@ -34,6 +40,8 @@ public class PLAYER {
 		reply = "";
 		tpa = new HashMap<String, Double>();
 		tpahere = new HashMap<String, Double>();
+		pages = new HashMap<Integer, List<Text>>();
+		
 	}
 	
 	public void insert() {
@@ -71,6 +79,9 @@ public class PLAYER {
 	public void setReply(String reply) { this.reply = reply; }
 	public void setTPA(HashMap<String, Double> tpa) { this.tpa = tpa; }
 	public void setTPAHere(HashMap<String, Double> tpahere) { this.tpahere = tpahere; }
+	public void setPages(HashMap<Integer, List<Text>> pages) { this.pages = pages; }
+	public void setPageTitle(Text page_title) { this.page_title = page_title; }
+	public void setPageHeader(Text page_header) { this.page_header = page_header; }
 	
 	public String getUUID() { return uuid; }
 	public String getName() { return name; }
@@ -87,5 +98,8 @@ public class PLAYER {
 	public String getReply() { return reply; }
 	public HashMap<String, Double> getTPA() { return tpa; }
 	public HashMap<String, Double> getTPAHere() { return tpahere; }
+	public HashMap<Integer, List<Text>> getPages() { return pages; }
+	public Text getPageTitle() { return page_title; }
+	public Text getPageHeader() { return page_header; }
 	
 }

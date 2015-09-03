@@ -71,6 +71,10 @@ public class DATABASE {
 				execute("CREATE TABLE spawns (name TEXT, world TEXT, x DOUBLE, y DOUBLE, z DOUBLE, yaw DOUBLE, pitch DOUBLE, message TEXT)");
 			}
 			
+			if(!tables.contains("tickets")) {
+				execute("CREATE TABLE tickets (id DOUBLE, uuid TEXT, message TEXT, time DOUBLE, comments TEXT, world TEXT, x, y DOUBLE, z DOUBLE, yaw DOUBLE, pitch DOUBLE, assigned TEXT, priority TEXT, status TEXT)");
+			}
+			
 			if(!tables.contains("warps")) {
 				execute("CREATE TABLE warps (name TEXT, world TEXT, x DOUBLE, y DOUBLE, z DOUBLE, yaw DOUBLE, pitch DOUBLE, owner TEXT, invited TEXT, private TEXT, message TEXT)");
 			}
@@ -149,6 +153,20 @@ public class DATABASE {
 			while(rs.next()) {
 				SPAWN spawn = new SPAWN(rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"), rs.getString("message"));
 				DATABASE.addSpawn(spawn.getName(), spawn);
+			}
+			s.close();
+			c.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			Connection c = datasource.getConnection();
+			Statement s = c.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM tickets");
+			while(rs.next()) {
+				TICKET ticket = new TICKET((int)rs.getDouble("id"), rs.getString("uuid"), rs.getString("message"), rs.getDouble("time"), DESERIALIZE.messages(rs.getString("comments")), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"), rs.getString("assigned"), rs.getString("priority"), rs.getString("status"));
+				DATABASE.addTicket(ticket.getID(), ticket);
 			}
 			s.close();
 			c.close();
@@ -238,6 +256,13 @@ public class DATABASE {
 	public static void removeSpawn(String name) { if(spawns.containsKey(name)) spawns.remove(name); }
 	public static SPAWN getSpawn(String name) { return spawns.containsKey(name) ? spawns.get(name) : null; }
 	public static HashMap<String, SPAWN> getSpawns() { return spawns; }
+	
+	private static HashMap<Integer, TICKET> tickets = new HashMap<Integer, TICKET>();
+	public static void addTicket(int id, TICKET ticket) { if(!tickets.containsKey(id)) tickets.put(id, ticket); }
+	public static void removeTicket(int id) { if(tickets.containsKey(id)) tickets.remove(id); }
+	public static TICKET getTicket(int id) { return tickets.containsKey(id) ? tickets.get(id) : null; }
+	public static HashMap<Integer, TICKET> getTickets() { return tickets; }
+	public static void clearTickets() { tickets.clear(); }
 	
 	private static HashMap<String, WARP> warps = new HashMap<String, WARP>();
 	public static void addWarp(String name, WARP warp) { if(!warps.containsKey(name)) warps.put(name, warp); }

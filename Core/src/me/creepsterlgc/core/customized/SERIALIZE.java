@@ -20,4 +20,16 @@ public class SERIALIZE {
 		return world + ":" + x + ":" + y + ":" + z + ":" + yaw + ":" + pitch;
 	}
 	
+	public static String messages(List<String> messages) {
+		
+		if(messages.isEmpty()) return "";
+		
+		StringBuilder serialized = new StringBuilder();
+		for(String s : messages) serialized.append(s + "-;;");
+		serialized.deleteCharAt(serialized.length() - 1);
+		
+		return serialized.toString();
+		
+	}
+	
 }
