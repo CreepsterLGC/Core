@@ -40,6 +40,11 @@ public class CommandTicketComment {
 		
 		String message = COMMAND.combineArgs(2, args);
 		
+		if(message.contains("-;;")) {
+			sender.sendMessage(Texts.builder("'-;;' is not allowed in the message!").color(TextColors.RED).build());
+			return;
+		}
+		
 		if(!PERMISSIONS.has(sender, "core.ticket.comment.others")) {
 			if(ticket.getUUID().equalsIgnoreCase(player.getUniqueId().toString())) {
 				
