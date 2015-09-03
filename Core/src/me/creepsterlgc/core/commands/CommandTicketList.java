@@ -53,16 +53,23 @@ public class CommandTicketList {
 			else {
 				if(!ticket.getStatus().equalsIgnoreCase("open")) continue;
 			}
-			Text p = Texts.of(TextColors.DARK_GREEN, "Low");
+			Text p = Texts.of(TextColors.GREEN, "Low");
 			if(ticket.getPriority().equalsIgnoreCase("medium")) p = Texts.of(TextColors.YELLOW, "Medium");
 			else if(ticket.getPriority().equalsIgnoreCase("high")) p = Texts.of(TextColors.RED, "High");
-			Text message = Texts.of(TextColors.GREEN, "#", ticket.getID(), TextColors.GRAY, " | ", p, TextColors.GRAY, " | ", TextColors.WHITE, DATABASE.getPlayer(ticket.getUUID()).getName(), TextColors.GRAY, " | ", TextColors.WHITE, ticket.getMessage());
+			Text s = Texts.of(TextColors.DARK_GREEN, "Open");
+			if(ticket.getStatus().equalsIgnoreCase("closed")) s = Texts.of(TextColors.DARK_RED, "Closed");
+			Text message = Texts.of(TextColors.GREEN, "#", ticket.getID(), TextColors.GRAY, " | ", p, TextColors.GRAY, " | ", s, TextColors.GRAY, " | ", TextColors.WHITE, DATABASE.getPlayer(ticket.getUUID()).getName(), TextColors.GRAY, " | ", TextColors.WHITE, ticket.getMessage());
 			Text hover = Texts.of(TextColors.YELLOW, "Click", TextColors.GRAY, " to view information on Ticket ", TextColors.GREEN, "#", ticket.getID());
 			String command = "/ticket view " + ticket.getID();
 			tickets.put(counter, Texts.builder().append(message).onHover(TextActions.showText(hover)).onClick(TextActions.runCommand(command)).build());
 			counter += 1;
 		}
 	
+		if(counter == 1) {
+			sender.sendMessage(Texts.builder("No tickets found!").color(TextColors.RED).build());
+			return;
+		}
+		
 		counter = 0;
 		while(!tickets.isEmpty()) {
 			List<Text> c = new ArrayList<Text>();
@@ -81,7 +88,7 @@ public class CommandTicketList {
 		p.setPages(pages);
 		
 		p.setPageTitle(Texts.of(TextColors.GOLD, "Tickets"));
-		p.setPageHeader(Texts.of(TextColors.GREEN, "ID", TextColors.GRAY, " | ", TextColors.WHITE, "Priority", TextColors.GRAY, " | ", TextColors.WHITE, "Issued by", TextColors.GRAY, " | ", TextColors.WHITE, "Message"));
+		p.setPageHeader(Texts.of(TextColors.GREEN, "ID", TextColors.GRAY, " | ", TextColors.WHITE, "Priority", TextColors.GRAY, " | ", TextColors.WHITE, "Status", TextColors.GRAY, " | ", TextColors.WHITE, "Issued by", TextColors.GRAY, " | ", TextColors.WHITE, "Message"));
 		
 		Controller.getGame().getCommandDispatcher().process(sender.getCommandSource().get(), "page 1");
 		

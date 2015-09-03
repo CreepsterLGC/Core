@@ -57,7 +57,7 @@ public class CommandTicketPriority {
 			}
 		}
 		
-		ticket.setPriority("priority");
+		ticket.setPriority(priority);
 		ticket.update();
 		
 		Text p = Texts.of(TextColors.DARK_GREEN, "Low");

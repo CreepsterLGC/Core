@@ -17,9 +17,9 @@ public class CommandTicketClear {
 	
 		int size = DATABASE.getTickets().size();
 		
-		DATABASE.queue("TRUNCATE TABLE tickets");
+		DATABASE.queue("DELETE FROM tickets WHERE id != 0");
 		DATABASE.clearTickets();
-		
+
 		sender.sendMessage(Texts.of(TextColors.YELLOW, size, TextColors.GRAY," tickets have been removed!"));
 		
 	}
