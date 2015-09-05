@@ -48,6 +48,7 @@ import me.creepsterlgc.core.events.EventPlayerKick;
 import me.creepsterlgc.core.events.EventPlayerMove;
 import me.creepsterlgc.core.events.EventPlayerQuit;
 import me.creepsterlgc.core.events.EventPlayerRespawn;
+import me.creepsterlgc.core.events.EventSignChange;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.event.Subscribe;
@@ -95,6 +96,7 @@ public class Core {
     	game.getEventManager().register(this, new EventPlayerMove());
     	game.getEventManager().register(this, new EventPlayerRespawn());
     	game.getEventManager().register(this, new EventPlayerQuit());
+    	game.getEventManager().register(this, new EventSignChange());
     	
     	if(COMMANDS.AFK()) game.getCommandDispatcher().register(this, new CommandAFK(game), "afk");
     	if(COMMANDS.BAN()) game.getCommandDispatcher().register(this, new CommandBan(game), "ban");
