@@ -50,6 +50,8 @@ public class EventPlayerChat {
 		
 		DATABASE.addPlayer(p.getUUID(), p);
     	
+		if(!CONFIG.CHAT_USE()) return;
+		
     	Player player = event.getUser();
     	
     	Subject subject = player.getContainingCollection().get(player.getIdentifier());

@@ -37,7 +37,7 @@ public class CommandWarpCreate {
 			warps += 1;
 		}
 		
-		int possible = 1;
+		int possible = 0;
 		for(int i = 1; i <= 100; i++) {
 			if(PERMISSIONS.has(player, "core.warp.create." + i)) possible = i;
 		}

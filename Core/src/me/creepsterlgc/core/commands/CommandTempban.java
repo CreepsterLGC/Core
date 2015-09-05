@@ -66,7 +66,7 @@ public class CommandTempban implements CommandCallable {
 		int limit = CONFIG.LIMITS_MAX_TEMPBAN_TIME_IN_SECONDS();
 		limit *= 1000;
 		
-		if(!PERMISSIONS.has(sender, "core.tempban.unlimited") && duration > limit) {
+		if(!PERMISSIONS.has(sender, "core.tempban-unlimited") && duration > limit) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You can only ban for a maximum time of ", limit /= 1000, " seconds!"));
 			return CommandResult.success();
 		}

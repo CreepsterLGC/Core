@@ -22,8 +22,6 @@ public class CommandWarp implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.warp")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
-		
 		if(args.length == 0 || args.length > 3) { sender.sendMessage(usage); return CommandResult.success(); }
 		
 		if(args[0].equalsIgnoreCase("create")) { new CommandWarpCreate(sender, args); return CommandResult.success(); }

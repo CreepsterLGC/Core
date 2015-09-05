@@ -40,11 +40,11 @@ public class CommandTicketOpen {
 			return;
 		}
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.open.others")) {
+		if(!PERMISSIONS.has(sender, "core.ticket.open-others")) {
 			if(ticket.getUUID().equalsIgnoreCase(player.getUniqueId().toString())) {
 				
 			}
-			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PERMISSIONS.has(sender, "core.ticket.open.assigned")) {
+			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PERMISSIONS.has(sender, "core.ticket.open-assigned")) {
 				
 			}
 			else {

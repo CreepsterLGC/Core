@@ -22,8 +22,6 @@ public class CommandTicket implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.ticket")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
-		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(usage); return CommandResult.success(); }
 		
 		if(args[0].equalsIgnoreCase("create")) { new CommandTicketCreate(sender, args); return CommandResult.success(); }

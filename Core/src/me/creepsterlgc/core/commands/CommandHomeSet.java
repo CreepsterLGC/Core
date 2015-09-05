@@ -19,8 +19,6 @@ public class CommandHomeSet {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.home.set")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
-		
 		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.builder("Usage: /home set [name]").color(TextColors.YELLOW).build()); return; }
 		
 		Player player = (Player)sender;
@@ -34,12 +32,12 @@ public class CommandHomeSet {
 			return;
 		}
 		
-		int possible = 1;
+		int possible = 0;
 		for(int i = 1; i <= 100; i++) {
 			if(PERMISSIONS.has(player, "core.home.set." + i)) possible = i;
 		}
 		
-		if(!PERMISSIONS.has(player, "core.home.set.unlimited") && possible <= homes.size()) {
+		if(!PERMISSIONS.has(player, "core.home.set-unlimited") && possible <= homes.size()) {
 			if(possible == 1) sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " homes!").color(TextColors.RED).build());
 			else sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " homes!").color(TextColors.RED).build());
 			return;

@@ -48,7 +48,7 @@ public class CommandKill implements CommandCallable {
 		}
 		else if(args.length == 1) {
 			
-			if(!PERMISSIONS.has(sender, "core.kill.others")) {
+			if(!PERMISSIONS.has(sender, "core.kill-others")) {
 				sender.sendMessage(Texts.builder("You do not have permissions to kill other players!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}

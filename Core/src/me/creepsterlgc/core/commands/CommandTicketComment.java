@@ -45,11 +45,11 @@ public class CommandTicketComment {
 			return;
 		}
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.comment.others")) {
+		if(!PERMISSIONS.has(sender, "core.ticket.comment-others")) {
 			if(ticket.getUUID().equalsIgnoreCase(player.getUniqueId().toString())) {
 				
 			}
-			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PERMISSIONS.has(sender, "core.ticket.comment.assigned")) {
+			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PERMISSIONS.has(sender, "core.ticket.comment-assigned")) {
 				
 			}
 			else {

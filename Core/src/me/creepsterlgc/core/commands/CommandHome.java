@@ -22,8 +22,6 @@ public class CommandHome implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.home")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
-		
 		if(args.length > 3) { sender.sendMessage(usage); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { new CommandHomeTeleport(sender, args); return CommandResult.success(); }

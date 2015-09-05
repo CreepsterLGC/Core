@@ -28,7 +28,7 @@ public class CommandWarpTeleport {
 		
 		if(warp == null) { sender.sendMessage(Texts.builder("Warp does not exist!").color(TextColors.RED).build()); return; }
 		
-		if(PERMISSIONS.has(sender, "core.warp.teleport.unlimited")) {
+		if(PERMISSIONS.has(sender, "core.warp.teleport-unlimited")) {
 			if(!player.transferToWorld(warp.getWorld(), new Vector3d(warp.getX(), warp.getY(), warp.getZ()))) { sender.sendMessage(Texts.builder("Target world does not exist anymore!").color(TextColors.RED).build()); return; }
 			sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to warp: ", TextColors.YELLOW, name));
 			return;
@@ -36,7 +36,7 @@ public class CommandWarpTeleport {
 		
 		if(!warp.getOwner().equalsIgnoreCase(sender.getName().toLowerCase())) {
 			
-			if(warp.getPrivate().equalsIgnoreCase("yes") && !PERMISSIONS.has(sender, "core.warp.teleport.invited")) {
+			if(warp.getPrivate().equalsIgnoreCase("yes") && !PERMISSIONS.has(sender, "core.warp.teleport-invited")) {
 				sender.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to teleport to private warps!"));
 				return;
 			}

@@ -32,8 +32,6 @@ public class CommandWeather implements CommandCallable {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(!PERMISSIONS.has(sender, "core.weather")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
-		
 		if(args.length != 1) { sender.sendMessage(usage); return CommandResult.success(); }
 		
 		if(args[0].equalsIgnoreCase("sun")) { new CommandWeatherSun(sender, args, game); return CommandResult.success(); }

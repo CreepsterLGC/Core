@@ -48,7 +48,7 @@ public class CommandFeed implements CommandCallable {
 		}
 		else if(args.length == 1) {
 			
-			if(!PERMISSIONS.has(sender, "core.heal.others")) {
+			if(!PERMISSIONS.has(sender, "core.feed-others")) {
 				sender.sendMessage(Texts.builder("You do not have permissions to feed other players!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}

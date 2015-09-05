@@ -64,7 +64,7 @@ public class CommandMute implements CommandCallable {
 		int limit = CONFIG.LIMITS_MAX_MUTE_TIME_IN_SECONDS();
 		limit *= 1000;
 		
-		if(!PERMISSIONS.has(sender, "core.mute.unlimited") && duration > limit) {
+		if(!PERMISSIONS.has(sender, "core.mute-unlimited") && duration > limit) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You can only mute for a maximum time of ", limit /= 1000, " seconds!"));
 			return CommandResult.success();
 		}

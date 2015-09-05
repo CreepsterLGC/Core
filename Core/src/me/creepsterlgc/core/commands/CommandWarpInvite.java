@@ -25,7 +25,7 @@ public class CommandWarpInvite {
 		
 		if(warp == null) { sender.sendMessage(Texts.builder("Warp does not exist!").color(TextColors.RED).build()); return; }
 		
-		if(!warp.getOwner().equalsIgnoreCase(sender.getName()) && !PERMISSIONS.has(sender, "core.warp.invite.others")) {
+		if(!warp.getOwner().equalsIgnoreCase(sender.getName()) && !PERMISSIONS.has(sender, "core.warp.invite-others")) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You do not own this warp!"));
 			return;
 		}

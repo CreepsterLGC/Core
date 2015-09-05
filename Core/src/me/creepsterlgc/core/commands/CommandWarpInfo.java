@@ -23,7 +23,7 @@ public class CommandWarpInfo {
 		
 		if(warp == null) { sender.sendMessage(Texts.builder("Warp does not exist!").color(TextColors.RED).build()); return; }
 		
-		if(!warp.getOwner().equalsIgnoreCase(sender.getName()) && !PERMISSIONS.has(sender, "core.warp.info.others")) {
+		if(!warp.getOwner().equalsIgnoreCase(sender.getName()) && !PERMISSIONS.has(sender, "core.warp.info-others")) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You do not own this warp!"));
 			return;
 		}

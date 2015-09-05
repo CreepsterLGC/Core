@@ -29,6 +29,7 @@ public class CONFIG {
 				config.getNode("mysql", "password").setValue("password");
 				config.getNode("mysql", "database").setValue("minecraft");
 				
+				config.getNode("chat", "use").setValue(true);
 				config.getNode("chat", "format").setValue("%prefix%player%suffix&8: &f");
 				
 				config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").setValue(3600);
@@ -38,7 +39,7 @@ public class CONFIG {
 				config.getNode("afk", "KICK_ENABLE").setValue(false);
 				config.getNode("afk", "KICK_AFTER").setValue(300);
 				
-				config.getNode("version").setValue(3);
+				config.getNode("version").setValue(4);
 				
 		        manager.save(config);
 				
@@ -48,13 +49,14 @@ public class CONFIG {
 			
 			if(config.getNode("version").getInt() <= 1) {
 				
+				config.getNode("chat", "use").setValue(true);
 				config.getNode("chat", "format").setValue("%prefix%player%suffix&8: &f");
 				
 				config.getNode("afk", "TIMER_IN_SECONDS").setValue(180);
 				config.getNode("afk", "KICK_ENABLE").setValue(false);
 				config.getNode("afk", "KICK_AFTER").setValue(300);
 				
-				config.getNode("version").setValue(3);
+				config.getNode("version").setValue(4);
 				
 				manager.save(config);
 				
@@ -63,15 +65,30 @@ public class CONFIG {
 			
 			if(config.getNode("version").getInt() <= 2) {
 				
+				config.getNode("chat", "use").setValue(true);
 				config.getNode("chat", "format").setValue("%prefix%player%suffix&8: &f");
 				
-				config.getNode("version").setValue(3);
+				config.getNode("version").setValue(4);
 				
 				manager.save(config);
 				
 		        config = manager.load();
 				
 			}
+			
+			if(config.getNode("version").getInt() <= 3) {
+				
+				config.getNode("chat", "use").setValue(true);
+				
+				config.getNode("version").setValue(4);
+				
+				manager.save(config);
+				
+		        config = manager.load();
+				
+			}
+			
+			config.getNode("chat", "use").setValue(true);
 			
 		     
 		} catch (IOException e) { e.printStackTrace(); }
@@ -92,6 +109,7 @@ public class CONFIG {
 	public static boolean AFK_KICK_ENABLE() { return config.getNode("afk", "KICK_ENABLE").getBoolean(); }
 	public static double AFK_KICK_AFTER() { return config.getNode("afk", "KICK_AFTER").getDouble(); }
 	
+	public static boolean CHAT_USE() { return config.getNode("chat", "use").getBoolean(); }
 	public static String CHAT_FORMAT() { return config.getNode("chat", "format").getString(); }
 	
 }
