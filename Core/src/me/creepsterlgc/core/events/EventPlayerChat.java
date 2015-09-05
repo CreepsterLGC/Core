@@ -1,7 +1,9 @@
 package me.creepsterlgc.core.events;
 
+import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.MUTE;
+import me.creepsterlgc.core.customized.PLAYER;
 
 import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.entity.player.PlayerChatEvent;
@@ -27,9 +29,20 @@ public class EventPlayerChat {
     		else {
 	    		event.getEntity().sendMessage(Texts.of(TextColors.RED, mute.getReason()));
 	    		event.setCancelled(true);
+	    		return;
     		}
     		
     	}
+    	
+    	PLAYER p = DATABASE.getPlayer(uuid);
+		p.setLastaction((double)System.currentTimeMillis());
+		
+		if(p.getAFK()) {
+			Controller.broadcast(Texts.of(TextColors.YELLOW, event.getEntity().getName(), TextColors.GRAY, " is no longer afk."));
+			p.setAFK(false);
+		}
+		
+		DATABASE.addPlayer(p.getUUID(), p);
     	
     }
 	

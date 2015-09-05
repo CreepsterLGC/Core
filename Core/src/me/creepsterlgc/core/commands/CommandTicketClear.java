@@ -19,8 +19,15 @@ public class CommandTicketClear {
 		
 		DATABASE.queue("DELETE FROM tickets WHERE id != 0");
 		DATABASE.clearTickets();
+		
+		if(size == 1) {
+			sender.sendMessage(Texts.of(TextColors.YELLOW, size, TextColors.GRAY," ticket has been removed!"));
+		}
+		else {
+			sender.sendMessage(Texts.of(TextColors.YELLOW, size, TextColors.GRAY," tickets have been removed!"));
+		}
+		
 
-		sender.sendMessage(Texts.of(TextColors.YELLOW, size, TextColors.GRAY," tickets have been removed!"));
 		
 	}
 

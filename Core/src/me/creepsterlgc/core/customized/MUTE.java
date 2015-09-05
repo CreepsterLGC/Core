@@ -8,8 +8,8 @@ public class MUTE {
 	
 	public MUTE(String uuid, double duration, String reason) {
 		this.uuid = uuid;
-		this.reason = reason;
 		this.duration = duration;
+		this.reason = reason;
 	}
 	
 	public void setUUID(String uuid) { this.uuid = uuid; }

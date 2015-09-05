@@ -32,13 +32,31 @@ public class CONFIG {
 				config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").setValue(3600);
 				config.getNode("limits", "MAX_MUTE_TIME_IN_SECONDS").setValue(600);
 				
-				config.getNode("version").setValue(1);
+				config.getNode("afk", "TIMER_IN_SECONDS").setValue(180);
+				config.getNode("afk", "KICK_ENABLE").setValue(false);
+				config.getNode("afk", "KICK_AFTER").setValue(300);
+				
+				config.getNode("version").setValue(2);
 				
 		        manager.save(config);
 				
 			}
 			
+	        config = manager.load();
+			
+			if(config.getNode("version").getInt() == 1) {
+				
+				config.getNode("afk", "TIMER_IN_SECONDS").setValue(180);
+				config.getNode("afk", "KICK_ENABLE").setValue(false);
+				config.getNode("afk", "KICK_AFTER").setValue(300);
+				
+				config.getNode("version").setValue(2);
+				
+				manager.save(config);
+				
 		        config = manager.load();
+			}
+			
 		     
 		} catch (IOException e) { e.printStackTrace(); }
 		
@@ -53,5 +71,9 @@ public class CONFIG {
 	
 	public static int LIMITS_MAX_TEMPBAN_TIME_IN_SECONDS() { return config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").getInt(); }
 	public static int LIMITS_MAX_MUTE_TIME_IN_SECONDS() { return config.getNode("limits", "MAX_MUTE_TIME_IN_SECONDS").getInt(); }
+
+	public static double AFK_TIMER_IN_SECONDS() { return config.getNode("afk", "TIMER_IN_SECONDS").getDouble(); }
+	public static boolean AFK_KICK_ENABLE() { return config.getNode("afk", "KICK_ENABLE").getBoolean(); }
+	public static double AFK_KICK_AFTER() { return config.getNode("afk", "KICK_AFTER").getDouble(); }
 	
 }

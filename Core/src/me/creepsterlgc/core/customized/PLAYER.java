@@ -17,13 +17,15 @@ public class PLAYER {
 	private double onlinetime;
 	private double lastonline;
 	
+	private double lastaction;
+	private boolean afk;
 	private HashMap<String, HOME> homes;
 	private String reply;
-	HashMap<String, Double> tpa;
-	HashMap<String, Double> tpahere;
-	HashMap<Integer, List<Text>> pages;
-	Text page_title;
-	Text page_header;
+	private HashMap<String, Double> tpa;
+	private HashMap<String, Double> tpahere;
+	private HashMap<Integer, List<Text>> pages;
+	private Text page_title;
+	private Text page_header;
 	
 	public PLAYER(String uuid, String name, String godmode, double flymode, String mails, String location, String lastdeath, double onlinetime, double lastonline) {
 		this.uuid = uuid;
@@ -36,6 +38,8 @@ public class PLAYER {
 		this.onlinetime = onlinetime;
 		this.lastonline = lastonline;
 		
+		lastaction = 0;
+		afk = false;
 		homes = new HashMap<String, HOME>();
 		reply = "";
 		tpa = new HashMap<String, Double>();
@@ -74,6 +78,8 @@ public class PLAYER {
 	public void setOnlinetime(double onlinetime) { this.onlinetime = onlinetime; }
 	public void setLastonline(double lastonline) { this.lastonline = lastonline; }
 	
+	public void setLastaction(double lastaction) { this.lastaction = lastaction; }
+	public void setAFK(boolean afk) { this.afk = afk; }
 	public void setHome(String name, HOME home) { if(homes == null) homes = new HashMap<String, HOME>(); homes.put(name, home); }
 	public void setHomes(HashMap<String, HOME> homes) { if(homes == null) homes = new HashMap<String, HOME>(); this.homes = homes; }
 	public void setReply(String reply) { this.reply = reply; }
@@ -93,6 +99,8 @@ public class PLAYER {
 	public double getOnlinetime() { return onlinetime; }
 	public double getLastonline() { return lastonline; }
 	
+	public double getLastaction() { return lastaction; }
+	public boolean getAFK() { return afk; }
 	public HOME getHome(String name) { if(homes == null) homes = new HashMap<String, HOME>(); return homes.containsKey(name) ? homes.get(name) : null; }
 	public HashMap<String, HOME> getHomes() { if(homes == null) homes = new HashMap<String, HOME>(); return homes; }
 	public String getReply() { return reply; }
