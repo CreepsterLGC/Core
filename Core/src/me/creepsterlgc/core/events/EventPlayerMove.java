@@ -19,7 +19,8 @@ public class EventPlayerMove {
     	Player player = event.getEntity();
     	
     	PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
-		p.setLastaction((double)System.currentTimeMillis());
+    	if(p == null) return;
+		p.setLastaction((double) System.currentTimeMillis());
 		
 		if(p.getAFK()) {
 			Controller.broadcast(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " is no longer afk."));

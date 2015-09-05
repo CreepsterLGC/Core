@@ -1,6 +1,7 @@
 package me.creepsterlgc.core.events;
 
 import me.creepsterlgc.core.Controller;
+import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.MUTE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
@@ -9,6 +10,8 @@ import me.creepsterlgc.core.customized.PLAYER;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.entity.player.PlayerChatEvent;
+import org.spongepowered.api.service.permission.Subject;
+import org.spongepowered.api.service.permission.option.OptionSubject;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
@@ -20,21 +23,7 @@ public class EventPlayerChat {
     @Subscribe
     public void onPlayerChat(PlayerChatEvent event) {
     	
-    	Player player = event.getUser();
-    	
-    	if(PERMISSIONS.has(player, "core.chat.color")) {
-	    	String o = Texts.toPlain(event.getNewMessage());
-	    	try {
-	    		Text n = Texts.legacy('&').from(o);
-	    		event.setNewMessage(n);
-			} catch (TextMessageException e) {
-				System.out.println("Core: Error while formatting chat message!");
-				e.printStackTrace();
-			}
-    	}
-    	
     	String uuid = event.getEntity().getUniqueId().toString();
-    	
     	MUTE mute = DATABASE.getMute(uuid);
     	
     	if(mute != null) {
@@ -60,6 +49,48 @@ public class EventPlayerChat {
 		}
 		
 		DATABASE.addPlayer(p.getUUID(), p);
+    	
+    	Player player = event.getUser();
+    	
+    	Subject subject = player.getContainingCollection().get(player.getIdentifier());
+    	
+    	String name = player.getName();
+    	String prefix = "";
+    	String suffix = "";
+    	String m = Texts.toPlain(event.getNewMessage());
+    	m = m.replaceAll("<" + name + "> ", "");
+    	
+    	Text message = Texts.of();
+    	
+		if (subject instanceof OptionSubject) {
+			OptionSubject optionSubject = (OptionSubject) subject;
+			prefix = optionSubject.getOption("prefix").or("");
+			suffix = optionSubject.getOption("suffix").or("");
+		}
+    	
+    	if(PERMISSIONS.has(player, "core.chat.color")) {
+	    	try {
+	    		message = Texts.legacy('&').from(m);
+			} catch (TextMessageException e) {
+				System.out.println("Core: Error while formatting chat message!");
+				e.printStackTrace();
+			}
+    	}
+    	else {
+    		message = Texts.of(m);
+    	}
+    	
+    	String format = CONFIG.CHAT_FORMAT();
+    	format = format.replaceAll("%prefix", prefix).replaceAll("%suffix", suffix).replaceAll("%player", name);
+    	Text total = Texts.of();
+    	try {
+			total = Texts.legacy('&').from(format);
+		} catch (TextMessageException e) {
+			System.out.println("Core: Error while formatting chat message!");
+			e.printStackTrace();
+		}
+    	
+    	event.setNewMessage(Texts.of(total, message));
     	
     }
 	

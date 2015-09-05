@@ -27,6 +27,7 @@ public class EventPlayerJoin {
 		if(player_uuid == null && player_name == null) {
 			
 			PLAYER p = new PLAYER(uuid, name, "", 0, "", "", "", 0, 0);
+			p.setLastaction((double)System.currentTimeMillis());
 			p.insert();
 			
 			SERVER.broadcast(Texts.of(TextColors.GOLD, player.getName(), " has joined for the first time!"));
@@ -47,6 +48,7 @@ public class EventPlayerJoin {
 			player_name.update();
 			
 			PLAYER p = new PLAYER(uuid, name, "", 0, "", "", "", 0, 0);
+			p.setLastaction((double)System.currentTimeMillis());
 			p.insert();
 			
 			SERVER.broadcast(Texts.of(TextColors.GOLD, player.getName(), " has joined for the first time!"));
@@ -64,6 +66,7 @@ public class EventPlayerJoin {
 			DATABASE.removeUUID(player_uuid.getName());
 			
 			player_uuid.setName(name);
+			player_uuid.setLastaction((double)System.currentTimeMillis());
 			player_uuid.update();
 			
 			SERVER.broadcast(Texts.of(TextColors.GOLD, player_uuid.getName(), " is now known as ", player.getName(), "!"));

@@ -33,6 +33,7 @@ public class SERVER {
 		for(Player player : Controller.getServer().getOnlinePlayers()) {
 			
 			PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+			if(p == null) continue;
 			
 			double time = System.currentTimeMillis();
 			time -= CONFIG.AFK_TIMER_IN_SECONDS() * 1000;

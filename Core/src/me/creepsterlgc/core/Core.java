@@ -149,8 +149,10 @@ public class Core {
     public void onPlayerJoin(final PlayerJoinEvent event) {
     	
 		PLAYER p = DATABASE.getPlayer(event.getEntity().getUniqueId().toString());
-		p.setLastaction((double)System.currentTimeMillis());
-		DATABASE.addPlayer(p.getUUID(), p);
+		if(p != null) {
+			p.setLastaction((double)System.currentTimeMillis());
+			DATABASE.addPlayer(p.getUUID(), p);
+		}
 		
     	event.setNewMessage(Texts.of(TextColors.YELLOW, event.getUser().getName(), TextColors.GRAY, " has joined."));
     	
