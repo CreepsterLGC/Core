@@ -66,35 +66,35 @@ public class COMMANDS {
 		
 	}
 	
-	public static boolean COMMANDS_AFK() { return commands.getNode("enabled", "afk").getBoolean(); }
-	public static boolean COMMANDS_BAN() { return commands.getNode("enabled", "ban").getBoolean(); }
-	public static boolean COMMANDS_BANLIST() { return commands.getNode("enabled", "banlist").getBoolean(); }
-	public static boolean COMMANDS_BROADCAST() { return commands.getNode("enabled", "broadcast").getBoolean(); }
-	public static boolean COMMANDS_FEED() { return commands.getNode("enabled", "feed").getBoolean(); }
-	public static boolean COMMANDS_HEAL() { return commands.getNode("enabled", "heal").getBoolean(); }
-	public static boolean COMMANDS_HOME() { return commands.getNode("enabled", "home").getBoolean(); }
-	public static boolean COMMANDS_KICK() { return commands.getNode("enabled", "kick").getBoolean(); }
-	public static boolean COMMANDS_KILL() { return commands.getNode("enabled", "kill").getBoolean(); }
-	public static boolean COMMANDS_LIST() { return commands.getNode("enabled", "list").getBoolean(); }
-	public static boolean COMMANDS_MEMORY() { return commands.getNode("enabled", "memory").getBoolean(); }
-	public static boolean COMMANDS_MSG() { return commands.getNode("enabled", "msg").getBoolean(); }
-	public static boolean COMMANDS_MUTE() { return commands.getNode("enabled", "mute").getBoolean(); }
-	public static boolean COMMANDS_PING() { return commands.getNode("enabled", "ping").getBoolean(); }
-	public static boolean COMMANDS_REPLY() { return commands.getNode("enabled", "reply").getBoolean(); }
-	public static boolean COMMANDS_SPAWN() { return commands.getNode("enabled", "spawn").getBoolean(); }
-	public static boolean COMMANDS_TEMPBAN() { return commands.getNode("enabled", "tempban").getBoolean(); }
-	public static boolean COMMANDS_TICKET() { return commands.getNode("enabled", "ticket").getBoolean(); }
-	public static boolean COMMANDS_TIME() { return commands.getNode("enabled", "time").getBoolean(); }
-	public static boolean COMMANDS_TP() { return commands.getNode("enabled", "tp").getBoolean(); }
-	public static boolean COMMANDS_TPA() { return commands.getNode("enabled", "tpa").getBoolean(); }
-	public static boolean COMMANDS_TPACCEPT() { return commands.getNode("enabled", "tpaccept").getBoolean(); }
-	public static boolean COMMANDS_TPAHERE() { return commands.getNode("enabled", "tpahere").getBoolean(); }
-	public static boolean COMMANDS_TPDEATH() { return commands.getNode("enabled", "tpdeath").getBoolean(); }
-	public static boolean COMMANDS_TPDENY() { return commands.getNode("enabled", "tpdeny").getBoolean(); }
-	public static boolean COMMANDS_TPHERE() { return commands.getNode("enabled", "tphere").getBoolean(); }
-	public static boolean COMMANDS_UNBAN() { return commands.getNode("enabled", "unban").getBoolean(); }
-	public static boolean COMMANDS_UNMUTE() { return commands.getNode("enabled", "unmute").getBoolean(); }
-	public static boolean COMMANDS_WARP() { return commands.getNode("enabled", "warp").getBoolean(); }
-	public static boolean COMMANDS_WEATHER() { return commands.getNode("enabled", "weather").getBoolean(); }
+	public static boolean AFK() { return commands.getNode("enabled", "afk").getBoolean(); }
+	public static boolean BAN() { return commands.getNode("enabled", "ban").getBoolean(); }
+	public static boolean BANLIST() { return commands.getNode("enabled", "banlist").getBoolean(); }
+	public static boolean BROADCAST() { return commands.getNode("enabled", "broadcast").getBoolean(); }
+	public static boolean FEED() { return commands.getNode("enabled", "feed").getBoolean(); }
+	public static boolean HEAL() { return commands.getNode("enabled", "heal").getBoolean(); }
+	public static boolean HOME() { return commands.getNode("enabled", "home").getBoolean(); }
+	public static boolean KICK() { return commands.getNode("enabled", "kick").getBoolean(); }
+	public static boolean KILL() { return commands.getNode("enabled", "kill").getBoolean(); }
+	public static boolean LIST() { return commands.getNode("enabled", "list").getBoolean(); }
+	public static boolean MEMORY() { return commands.getNode("enabled", "memory").getBoolean(); }
+	public static boolean MSG() { return commands.getNode("enabled", "msg").getBoolean(); }
+	public static boolean MUTE() { return commands.getNode("enabled", "mute").getBoolean(); }
+	public static boolean PING() { return commands.getNode("enabled", "ping").getBoolean(); }
+	public static boolean REPLY() { return commands.getNode("enabled", "reply").getBoolean(); }
+	public static boolean SPAWN() { return commands.getNode("enabled", "spawn").getBoolean(); }
+	public static boolean TEMPBAN() { return commands.getNode("enabled", "tempban").getBoolean(); }
+	public static boolean TICKET() { return commands.getNode("enabled", "ticket").getBoolean(); }
+	public static boolean TIME() { return commands.getNode("enabled", "time").getBoolean(); }
+	public static boolean TP() { return commands.getNode("enabled", "tp").getBoolean(); }
+	public static boolean TPA() { return commands.getNode("enabled", "tpa").getBoolean(); }
+	public static boolean TPACCEPT() { return commands.getNode("enabled", "tpaccept").getBoolean(); }
+	public static boolean TPAHERE() { return commands.getNode("enabled", "tpahere").getBoolean(); }
+	public static boolean TPDEATH() { return commands.getNode("enabled", "tpdeath").getBoolean(); }
+	public static boolean TPDENY() { return commands.getNode("enabled", "tpdeny").getBoolean(); }
+	public static boolean TPHERE() { return commands.getNode("enabled", "tphere").getBoolean(); }
+	public static boolean UNBAN() { return commands.getNode("enabled", "unban").getBoolean(); }
+	public static boolean UNMUTE() { return commands.getNode("enabled", "unmute").getBoolean(); }
+	public static boolean WARP() { return commands.getNode("enabled", "warp").getBoolean(); }
+	public static boolean WEATHER() { return commands.getNode("enabled", "weather").getBoolean(); }
 	
 }
