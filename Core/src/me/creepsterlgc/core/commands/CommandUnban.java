@@ -28,7 +28,6 @@ public class CommandUnban implements CommandCallable {
 		this.game = game;
 	}
 	
-	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
 		String[] args = arguments.split(" ");

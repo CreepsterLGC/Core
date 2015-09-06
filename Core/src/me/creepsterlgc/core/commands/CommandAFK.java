@@ -9,7 +9,6 @@ import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.PLAYER;
 
-import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
