@@ -15,4 +15,10 @@ If you found a bug you can contact me at anytime on GitHub, SpongePowered or you
 
 Wiki:
 ---
-The [wiki](https://github.com/CreepsterLGC/Core/wiki) provides useful informations on installing & updating Core as well as its commands & permissions. Feel free to have a look at it!
+The [wiki](https://github.com/CreepsterLGC/Core/wiki) provides useful informations on installing & updating Core as well as its commands & permissions. Here's a quick navigation of the current pages:
+
+1. [Index](https://github.com/CreepsterLGC/Core/wiki)
+2. [Installing & Updating](https://github.com/CreepsterLGC/Core/wiki/Installing-&-Updating)
+3. [Commands & Permissions](https://github.com/CreepsterLGC/Core/wiki/Commands-&-Permissions)
+4. [File: Core.conf](https://github.com/CreepsterLGC/Core/wiki/Core.conf)
+5. [File: Commands.conf](https://github.com/CreepsterLGC/Core/wiki/Commands.conf)
