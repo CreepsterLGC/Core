@@ -40,15 +40,19 @@ public class EventPlayerChat {
     		
     	}
     	
-    	PLAYER p = DATABASE.getPlayer(uuid);
-		p.setLastaction((double)System.currentTimeMillis());
+    	if(CONFIG.AFK_ENABLE_SYSTEM()) {
+    	
+	    	PLAYER p = DATABASE.getPlayer(uuid);
+			p.setLastaction((double)System.currentTimeMillis());
+			
+			if(p.getAFK()) {
+				Controller.broadcast(Texts.of(TextColors.YELLOW, event.getEntity().getName(), TextColors.GRAY, " is no longer afk."));
+				p.setAFK(false);
+			}
+			
+			DATABASE.addPlayer(p.getUUID(), p);
 		
-		if(p.getAFK()) {
-			Controller.broadcast(Texts.of(TextColors.YELLOW, event.getEntity().getName(), TextColors.GRAY, " is no longer afk."));
-			p.setAFK(false);
-		}
-		
-		DATABASE.addPlayer(p.getUUID(), p);
+    	}
     	
 		if(!CONFIG.CHAT_USE()) return;
 		

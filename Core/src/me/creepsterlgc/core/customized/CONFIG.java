@@ -35,11 +35,12 @@ public class CONFIG {
 				config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").setValue(3600);
 				config.getNode("limits", "MAX_MUTE_TIME_IN_SECONDS").setValue(600);
 				
+				config.getNode("afk", "ENABLE_SYSTEM").setValue(true);
 				config.getNode("afk", "TIMER_IN_SECONDS").setValue(180);
 				config.getNode("afk", "KICK_ENABLE").setValue(false);
 				config.getNode("afk", "KICK_AFTER").setValue(300);
 				
-				config.getNode("version").setValue(4);
+				config.getNode("version").setValue(5);
 				
 		        manager.save(config);
 				
@@ -47,48 +48,17 @@ public class CONFIG {
 			
 	        config = manager.load();
 			
-			if(config.getNode("version").getInt() <= 1) {
+			if(config.getNode("version").getInt() <= 4) {
 				
-				config.getNode("chat", "use").setValue(true);
-				config.getNode("chat", "format").setValue("%prefix%player%suffix&8: &f");
+				config.getNode("afk", "ENABLE_SYSTEM").setValue(true);
 				
-				config.getNode("afk", "TIMER_IN_SECONDS").setValue(180);
-				config.getNode("afk", "KICK_ENABLE").setValue(false);
-				config.getNode("afk", "KICK_AFTER").setValue(300);
-				
-				config.getNode("version").setValue(4);
-				
-				manager.save(config);
-				
-		        config = manager.load();
-			}
-			
-			if(config.getNode("version").getInt() <= 2) {
-				
-				config.getNode("chat", "use").setValue(true);
-				config.getNode("chat", "format").setValue("%prefix%player%suffix&8: &f");
-				
-				config.getNode("version").setValue(4);
+				config.getNode("version").setValue(5);
 				
 				manager.save(config);
 				
 		        config = manager.load();
 				
 			}
-			
-			if(config.getNode("version").getInt() <= 3) {
-				
-				config.getNode("chat", "use").setValue(true);
-				
-				config.getNode("version").setValue(4);
-				
-				manager.save(config);
-				
-		        config = manager.load();
-				
-			}
-			
-			config.getNode("chat", "use").setValue(true);
 			
 		     
 		} catch (IOException e) { e.printStackTrace(); }
@@ -105,6 +75,7 @@ public class CONFIG {
 	public static int LIMITS_MAX_TEMPBAN_TIME_IN_SECONDS() { return config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").getInt(); }
 	public static int LIMITS_MAX_MUTE_TIME_IN_SECONDS() { return config.getNode("limits", "MAX_MUTE_TIME_IN_SECONDS").getInt(); }
 
+	public static boolean AFK_ENABLE_SYSTEM() { return config.getNode("afk", "ENABLE_SYSTEM").getBoolean(); }
 	public static double AFK_TIMER_IN_SECONDS() { return config.getNode("afk", "TIMER_IN_SECONDS").getDouble(); }
 	public static boolean AFK_KICK_ENABLE() { return config.getNode("afk", "KICK_ENABLE").getBoolean(); }
 	public static double AFK_KICK_AFTER() { return config.getNode("afk", "KICK_AFTER").getDouble(); }

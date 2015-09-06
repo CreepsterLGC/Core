@@ -30,6 +30,8 @@ public class SERVER {
 	
 	public static void heartbeat() {
 		
+		if(!CONFIG.AFK_ENABLE_SYSTEM()) return;
+		
 		for(Player player : Controller.getServer().getOnlinePlayers()) {
 			
 			PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());

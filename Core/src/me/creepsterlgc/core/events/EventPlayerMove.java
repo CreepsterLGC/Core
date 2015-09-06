@@ -1,6 +1,7 @@
 package me.creepsterlgc.core.events;
 
 import me.creepsterlgc.core.Controller;
+import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PLAYER;
 
@@ -15,6 +16,8 @@ public class EventPlayerMove {
 
     @Subscribe
     public void onPlayerMove(PlayerMoveEvent event) {
+    	
+    	if(!CONFIG.AFK_ENABLE_SYSTEM()) return;
     	
     	Player player = event.getEntity();
     	
