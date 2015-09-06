@@ -15,4 +15,4 @@ If you found a bug you can contact me at anytime on GitHub, SpongePowered or you
 
 Wiki:
 ---
-The [wiki](https://github.com/CreepsterLGC/Core/wiki) provides useful information on installing & updating Core as well as its commands & permissions. Feel free to have a look at it!
+The [wiki](https://github.com/CreepsterLGC/Core/wiki) provides useful informations on installing & updating Core as well as its commands & permissions. Feel free to have a look at it!
