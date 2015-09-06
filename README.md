@@ -1,4 +1,4 @@
-Instructions:
+Description:
 ---
 Core is a open source plugin providing a good foundation for any server using Sponge (https://www.spongepowered.org/)
 It's commands are very extended so you are able to rollback your banlist, create private warps and invite players,
@@ -12,3 +12,7 @@ Core is [licensed](https://github.com/CreepsterLGC/Core/blob/master/Core/license
 Bugs:
 ---
 If you found a bug you can contact me at anytime on GitHub, SpongePowered or you can use the [official thread](https://forums.spongepowered.org/t/core-v1-8-2b-kick-ban-mute-teleport-homes-warps-spawns-time-weather-and-much-more/9152) and report your bug in the comment section.
+
+Wiki:
+---
+The [wiki](https://github.com/CreepsterLGC/Core/wiki) provides useful information on installing & updating Core as well as its commands & permissions. Feel free to have a look at it!
