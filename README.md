@@ -11,7 +11,7 @@ Core is [licensed](https://github.com/CreepsterLGC/Core/blob/master/Core/license
 
 Bugs:
 ---
-If you found a bug you can contact me at anytime on GitHub, SpongePowered or you can use the [official thread](https://forums.spongepowered.org/t/core-v1-8-2b-kick-ban-mute-teleport-homes-warps-spawns-time-weather-and-much-more/9152) and report your bug in the comment section.
+If you found a bug you can contact me at anytime on GitHub, SpongePowered or you can use the [official thread](https://forums.spongepowered.org/t/core-v1-8-2b-kick-ban-mute-teleport-homes-warps-spawns-time-weather-and-much-more/9152) and report your bug in the comment section. Don't forget to leave a link for your server log as the log is needed to identify the exact line where it's causing the error.
 
 Wiki:
 ---
