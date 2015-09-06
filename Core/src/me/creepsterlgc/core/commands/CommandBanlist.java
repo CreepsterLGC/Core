@@ -3,8 +3,6 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
-
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
