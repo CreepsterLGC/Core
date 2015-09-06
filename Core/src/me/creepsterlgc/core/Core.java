@@ -98,7 +98,7 @@ public class Core {
     	game.getEventManager().register(this, new EventPlayerQuit());
     	game.getEventManager().register(this, new EventSignChange());
     	
-    	if(COMMANDS.AFK()) game.getCommandDispatcher().register(this, new CommandAFK(game), "afk");
+    	if(COMMANDS.AFK()) game.getCommandDispatcher().register(this, new CommandAFK(), "afk");
     	if(COMMANDS.BAN()) game.getCommandDispatcher().register(this, new CommandBan(game), "ban");
     	if(COMMANDS.BANLIST()) game.getCommandDispatcher().register(this, new CommandBanlist(), "banlist");
     	if(COMMANDS.BROADCAST()) game.getCommandDispatcher().register(this, new CommandBroadcast(), "broadcast");

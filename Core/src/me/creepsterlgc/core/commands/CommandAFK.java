@@ -24,12 +24,6 @@ import com.google.common.base.Optional;
 
 public class CommandAFK implements CommandCallable {
 	
-	public Game game;
-	
-	public CommandAFK(Game game) {
-		this.game = game;
-	}
-	
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
