@@ -1,22 +1,29 @@
 package me.creepsterlgc.core.events;
 
 import me.creepsterlgc.core.customized.DATABASE;
+import me.creepsterlgc.core.customized.MESSAGES;
 import me.creepsterlgc.core.customized.PLAYER;
 import me.creepsterlgc.core.customized.SERVER;
 import me.creepsterlgc.core.customized.SPAWN;
-import org.spongepowered.api.entity.player.Player;
-import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
+import me.creepsterlgc.core.customized.TEXT;
+
+import org.spongepowered.api.entity.Transform;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.world.World;
 
 import com.flowpowered.math.vector.Vector3d;
 
 
 public class EventPlayerJoin {
 	
-    public static void onPlayerJoin(PlayerJoinEvent event) {
+	@Listener
+    public void onPlayerJoin(ClientConnectionEvent.Join event) {
     	
-    	Player player = event.getUser();
+    	Player player = event.getTargetEntity();
     	
 		String uuid = player.getUniqueId().toString();
 		String name = player.getName().toLowerCase();
@@ -24,18 +31,39 @@ public class EventPlayerJoin {
 		PLAYER player_uuid = DATABASE.getPlayer(DATABASE.getUUID(name));
 		PLAYER player_name = DATABASE.getPlayer(uuid);
 		
+    	if(MESSAGES.EVENTS_JOIN_ENABLE()) {
+    		event.setMessage(TEXT.color(MESSAGES.EVENTS_JOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
+    	}
+    	
+		PLAYER pl = DATABASE.getPlayer(event.getTargetEntity().getUniqueId().toString());
+		if(pl != null) {
+			pl.setLastaction(System.currentTimeMillis());
+			DATABASE.addPlayer(pl.getUUID(), pl);
+		}
+		
 		if(player_uuid == null && player_name == null) {
 			
 			PLAYER p = new PLAYER(uuid, name, "", 0, "", "", "", 0, 0);
-			p.setLastaction((double)System.currentTimeMillis());
+			p.setLastaction(System.currentTimeMillis());
 			p.insert();
 			
-			SERVER.broadcast(Texts.of(TextColors.GOLD, player.getName(), " has joined for the first time!"));
-			SERVER.broadcast(Texts.of(TextColors.GOLD, DATABASE.getPlayers().size(), " unique players already joined."));
+	    	if(MESSAGES.EVENTS_FIRSTJOIN_ENABLE()) {
+	    		event.setMessage(TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
+	    		if(MESSAGES.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_SHOW()) {
+		    		event.setMessage(Texts.of(TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(DATABASE.getPlayers().size())))));
+	    		}
+	    	}
 			
 			SPAWN spawn = DATABASE.getSpawn("default");
 			if(spawn != null) {
-				if(!player.transferToWorld(spawn.getWorld(), new Vector3d(spawn.getX(), spawn.getY(), spawn.getZ()))) { }
+				
+				if(event.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {
+					Transform<World> t = event.getToTransform();
+					t.setExtent(event.getGame().getServer().getWorld(spawn.getWorld()).get());
+					t.setPosition(new Vector3d(spawn.getX(), spawn.getY(), spawn.getZ()));
+					event.setToTransform(t);				
+				}
+				
 			}
 			
 		}
@@ -48,15 +76,26 @@ public class EventPlayerJoin {
 			player_name.update();
 			
 			PLAYER p = new PLAYER(uuid, name, "", 0, "", "", "", 0, 0);
-			p.setLastaction((double)System.currentTimeMillis());
+			p.setLastaction(System.currentTimeMillis());
 			p.insert();
 			
-			SERVER.broadcast(Texts.of(TextColors.GOLD, player.getName(), " has joined for the first time!"));
-			SERVER.broadcast(Texts.of(TextColors.GOLD, DATABASE.getPlayers().size(), " unique players already joined."));
+	    	if(MESSAGES.EVENTS_FIRSTJOIN_ENABLE()) {
+	    		event.setMessage(TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
+	    		if(MESSAGES.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_SHOW()) {
+		    		event.setMessage(Texts.of(TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(DATABASE.getPlayers().size())))));
+	    		}
+	    	}
 			
 			SPAWN spawn = DATABASE.getSpawn("default");
 			if(spawn != null) {
-				if(!player.transferToWorld(spawn.getWorld(), new Vector3d(spawn.getX(), spawn.getY(), spawn.getZ()))) { }
+				
+				if(event.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {
+					Transform<World> t = event.getToTransform();
+					t.setExtent(event.getGame().getServer().getWorld(spawn.getWorld()).get());
+					t.setPosition(new Vector3d(spawn.getX(), spawn.getY(), spawn.getZ()));
+					event.setToTransform(t);				
+				}
+				
 			}
 			
 		}
@@ -66,7 +105,7 @@ public class EventPlayerJoin {
 			DATABASE.removeUUID(player_uuid.getName());
 			
 			player_uuid.setName(name);
-			player_uuid.setLastaction((double)System.currentTimeMillis());
+			player_uuid.setLastaction(System.currentTimeMillis());
 			player_uuid.update();
 			
 			SERVER.broadcast(Texts.of(TextColors.GOLD, player_uuid.getName(), " is now known as ", player.getName(), "!"));

@@ -5,7 +5,7 @@ import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.TICKET;
 import me.creepsterlgc.core.customized.TIME;
 
-import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;

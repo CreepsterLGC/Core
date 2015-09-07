@@ -7,9 +7,9 @@ import me.creepsterlgc.core.customized.MUTE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.PLAYER;
 
-import org.spongepowered.api.entity.player.Player;
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.entity.player.PlayerChatEvent;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.command.MessageSinkEvent;
 import org.spongepowered.api.service.permission.Subject;
 import org.spongepowered.api.service.permission.option.OptionSubject;
 import org.spongepowered.api.text.Text;
@@ -17,23 +17,29 @@ import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.TextMessageException;
 
+import com.google.common.base.Optional;
+
 
 public class EventPlayerChat {
 
-    @Subscribe
-    public void onPlayerChat(PlayerChatEvent event) {
+    @Listener
+    public void onPlayerChat(MessageSinkEvent event) {
     	
-    	String uuid = event.getEntity().getUniqueId().toString();
+    	Optional<Player> optional = event.getCause().first(Player.class);
+    	if(!optional.isPresent()) return;
+    	
+    	Player player = optional.get();
+    	String uuid = player.getUniqueId().toString();
     	MUTE mute = DATABASE.getMute(uuid);
     	
     	if(mute != null) {
     		
     		if(mute.getDuration() != 0 && mute.getDuration() <= System.currentTimeMillis()) {
-    			DATABASE.removeMute(event.getEntity().getUniqueId().toString());
+    			DATABASE.removeMute(player.getUniqueId().toString());
     			mute.delete();
     		}
     		else {
-	    		event.getEntity().sendMessage(Texts.of(TextColors.RED, mute.getReason()));
+	    		player.sendMessage(Texts.of(TextColors.RED, mute.getReason()));
 	    		event.setCancelled(true);
 	    		return;
     		}
@@ -43,10 +49,10 @@ public class EventPlayerChat {
     	if(CONFIG.AFK_ENABLE_SYSTEM()) {
     	
 	    	PLAYER p = DATABASE.getPlayer(uuid);
-			p.setLastaction((double)System.currentTimeMillis());
+			p.setLastaction(System.currentTimeMillis());
 			
 			if(p.getAFK()) {
-				Controller.broadcast(Texts.of(TextColors.YELLOW, event.getEntity().getName(), TextColors.GRAY, " is no longer afk."));
+				Controller.broadcast(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " is no longer afk."));
 				p.setAFK(false);
 			}
 			
@@ -56,14 +62,12 @@ public class EventPlayerChat {
     	
 		if(!CONFIG.CHAT_USE()) return;
 		
-    	Player player = event.getUser();
-    	
     	Subject subject = player.getContainingCollection().get(player.getIdentifier());
     	
     	String name = player.getName();
     	String prefix = "";
     	String suffix = "";
-    	String m = Texts.toPlain(event.getNewMessage());
+    	String m = Texts.toPlain(event.getMessage());
     	m = m.replaceAll("<" + name + "> ", "");
     	
     	Text message = Texts.of();
@@ -96,7 +100,7 @@ public class EventPlayerChat {
 			e.printStackTrace();
 		}
     	
-    	event.setNewMessage(Texts.of(total, message));
+    	event.setMessage(Texts.of(total, message));
     	
     }
 	

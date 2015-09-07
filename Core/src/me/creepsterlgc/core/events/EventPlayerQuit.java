@@ -1,17 +1,20 @@
 package me.creepsterlgc.core.events;
 
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.entity.player.PlayerQuitEvent;
-import org.spongepowered.api.text.Texts;
-import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.network.ClientConnectionEvent;
+
+import me.creepsterlgc.core.customized.MESSAGES;
+import me.creepsterlgc.core.customized.TEXT;
 
 
 public class EventPlayerQuit {
 
-    @Subscribe
-    public void onPlayerQuit(PlayerQuitEvent event) {
+	@Listener
+    public void onPlayerQuit(ClientConnectionEvent.Disconnect event) {
     	
-    	event.setNewMessage(Texts.of(TextColors.YELLOW, event.getUser().getName(), TextColors.GRAY, " has left."));
+    	if(MESSAGES.EVENTS_LEAVE_ENABLE()) {
+    		event.setMessage(TEXT.color(MESSAGES.EVENTS_LEAVE_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
+    	}
     	
     }
 	

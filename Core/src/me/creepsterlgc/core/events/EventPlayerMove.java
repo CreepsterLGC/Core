@@ -5,25 +5,26 @@ import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PLAYER;
 
-import org.spongepowered.api.entity.player.Player;
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.entity.player.PlayerMoveEvent;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.entity.DisplaceEntityEvent;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 
 
 public class EventPlayerMove {
 
-    @Subscribe
-    public void onPlayerMove(PlayerMoveEvent event) {
+    @Listener
+    public void onPlayerMove(DisplaceEntityEvent event) {
+    	
+    	if(event.getTargetEntity() instanceof Player == false) return;
+    	Player player = (Player) event.getTargetEntity();
     	
     	if(!CONFIG.AFK_ENABLE_SYSTEM()) return;
     	
-    	Player player = event.getEntity();
-    	
     	PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
     	if(p == null) return;
-		p.setLastaction((double) System.currentTimeMillis());
+		p.setLastaction(System.currentTimeMillis());
 		
 		if(p.getAFK()) {
 			Controller.broadcast(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " is no longer afk."));

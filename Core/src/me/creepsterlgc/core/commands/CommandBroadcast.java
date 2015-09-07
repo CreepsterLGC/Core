@@ -18,6 +18,7 @@ import com.google.common.base.Optional;
 
 public class CommandBroadcast implements CommandCallable {
 	
+	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
 		String[] args = arguments.split(" ");
@@ -35,10 +36,15 @@ public class CommandBroadcast implements CommandCallable {
 		
 	}
 	
-	 public Text getUsage(CommandSource sender) { return null; }
-	 public Optional<Text> getHelp(CommandSource sender) { return null; }
-	 public Optional<Text> getShortDescription(CommandSource sender) { return null; }
-	 public List<String> getSuggestions(CommandSource sender, String args) throws CommandException { return null; }
-	 public boolean testPermission(CommandSource sender) { return false; }
+	 @Override
+	public Text getUsage(CommandSource sender) { return null; }
+	 @Override
+	public Optional<Text> getHelp(CommandSource sender) { return null; }
+	 @Override
+	public Optional<Text> getShortDescription(CommandSource sender) { return null; }
+	 @Override
+	public List<String> getSuggestions(CommandSource sender, String args) throws CommandException { return null; }
+	 @Override
+	public boolean testPermission(CommandSource sender) { return false; }
 
 }

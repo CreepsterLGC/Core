@@ -3,23 +3,26 @@ package me.creepsterlgc.core.events;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.SPAWN;
 
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.entity.player.PlayerRespawnEvent;
-import org.spongepowered.api.world.Location;
+import org.spongepowered.api.entity.Transform;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.entity.living.player.RespawnPlayerEvent;
 import org.spongepowered.api.world.World;
+
+import com.flowpowered.math.vector.Vector3d;
 
 public class EventPlayerRespawn {
 
-	@Subscribe
-	public void onPlayerRespawn(PlayerRespawnEvent event) {
+	@Listener
+	public void onPlayerRespawn(RespawnPlayerEvent event) {
 		
 		SPAWN spawn = DATABASE.getSpawn("default");
 		if(spawn != null) {
 			
 			if(event.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {
-				
-				event.setNewRespawnLocation(new Location<World>(event.getGame().getServer().getWorld(spawn.getWorld()).get(), spawn.getX(), spawn.getY(), spawn.getZ()));
-				
+				Transform<World> t = event.getToTransform();
+				t.setExtent(event.getGame().getServer().getWorld(spawn.getWorld()).get());
+				t.setPosition(new Vector3d(spawn.getX(), spawn.getY(), spawn.getZ()));
+				event.setToTransform(t);				
 			}
 			
 		}

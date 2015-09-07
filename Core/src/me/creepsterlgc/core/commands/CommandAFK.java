@@ -9,7 +9,7 @@ import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.PLAYER;
 
-import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
@@ -23,6 +23,7 @@ import com.google.common.base.Optional;
 
 public class CommandAFK implements CommandCallable {
 	
+	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
@@ -57,10 +58,15 @@ public class CommandAFK implements CommandCallable {
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 	
+	@Override
 	public Text getUsage(CommandSource sender) { return usage; }
+	@Override
 	public Optional<Text> getHelp(CommandSource sender) { return Optional.of(help); }
+	@Override
 	public Optional<Text> getShortDescription(CommandSource sender) { return Optional.of(description); }
+	@Override
 	public List<String> getSuggestions(CommandSource sender, String args) throws CommandException { return suggestions; }
+	@Override
 	public boolean testPermission(CommandSource sender) { return permission.equals("") ? true : sender.hasPermission(permission); }
 
 }

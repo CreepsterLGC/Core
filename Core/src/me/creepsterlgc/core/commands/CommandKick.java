@@ -8,7 +8,7 @@ import me.creepsterlgc.core.customized.COMMAND;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 
 import org.spongepowered.api.Game;
-import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
@@ -27,6 +27,7 @@ public class CommandKick implements CommandCallable {
 		this.game = game;
 	}
 	
+	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
 		String[] args = arguments.split(" ");
@@ -54,10 +55,15 @@ public class CommandKick implements CommandCallable {
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 	
+	@Override
 	public Text getUsage(CommandSource sender) { return usage; }
+	@Override
 	public Optional<Text> getHelp(CommandSource sender) { return Optional.of(help); }
+	@Override
 	public Optional<Text> getShortDescription(CommandSource sender) { return Optional.of(description); }
+	@Override
 	public List<String> getSuggestions(CommandSource sender, String args) throws CommandException { return suggestions; }
+	@Override
 	public boolean testPermission(CommandSource sender) { return permission.equals("") ? true : sender.hasPermission(permission); }
 
 }

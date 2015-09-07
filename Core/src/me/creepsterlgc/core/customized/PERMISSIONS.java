@@ -1,6 +1,6 @@
 package me.creepsterlgc.core.customized;
 
-import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.util.command.CommandSource;
 
 public class PERMISSIONS {

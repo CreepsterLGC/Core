@@ -4,7 +4,8 @@ import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.HOME;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.PLAYER;
-import org.spongepowered.api.entity.player.Player;
+
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.command.CommandSource;

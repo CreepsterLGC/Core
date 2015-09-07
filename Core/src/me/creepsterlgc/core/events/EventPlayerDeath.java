@@ -1,26 +1,29 @@
 package me.creepsterlgc.core.events;
 
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.entity.DestructEntityEvent;
+
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PLAYER;
 import me.creepsterlgc.core.customized.SERIALIZE;
 
-import org.spongepowered.api.entity.player.Player;
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.entity.player.PlayerDeathEvent;
-
 
 public class EventPlayerDeath {
 
-    @Subscribe
-    public void onPlayerDeath(PlayerDeathEvent event) {
-    	String world = event.getEntity().getWorld().getName().toLowerCase();
-    	double x = event.getLocation().getX();
-    	double y = event.getLocation().getY();
-    	double z = event.getLocation().getZ();
+    @Listener
+    public void onPlayerDeath(DestructEntityEvent event) {
+    	
+    	if(event.getTargetEntity() instanceof Player == false) return;
+    	Player player = (Player) event.getTargetEntity();
+    	
+    	String world = player.getWorld().getName().toLowerCase();
+    	double x = player.getLocation().getX();
+    	double y = player.getLocation().getY();
+    	double z = player.getLocation().getZ();
     	double yaw = 0;
     	double pitch = 0;
     	String location = SERIALIZE.location(world, x, y, z, yaw, pitch);
-    	Player player = (Player) event.getEntity();
     	PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
     	p.setLastdeath(location);
     	p.update();

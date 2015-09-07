@@ -4,6 +4,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColor;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.util.TextMessageException;
 
 public class TEXT {
 	
@@ -55,6 +56,17 @@ public class TEXT {
 	
 	public Text get() {
 		return text;
+	}
+	
+	public static Text color(String message) {
+		Text result = Texts.of();
+    	try {
+    		result = Texts.legacy('&').from(message);
+		} catch (TextMessageException e) {
+			System.out.println("Core: Error while formatting chat message!");
+			e.printStackTrace();
+		}
+    	return result;
 	}
 
 }

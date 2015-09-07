@@ -12,7 +12,7 @@ import me.creepsterlgc.core.customized.PLAYER;
 import me.creepsterlgc.core.customized.TIME;
 
 import org.spongepowered.api.Game;
-import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
@@ -32,6 +32,7 @@ public class CommandTempban implements CommandCallable {
 		this.game = game;
 	}
 	
+	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
 		String[] args = arguments.split(" ");
@@ -95,10 +96,15 @@ public class CommandTempban implements CommandCallable {
 		
 	}
 	
-	 public Text getUsage(CommandSource sender) { return null; }
-	 public Optional<Text> getHelp(CommandSource sender) { return null; }
-	 public Optional<Text> getShortDescription(CommandSource sender) { return null; }
-	 public List<String> getSuggestions(CommandSource sender, String args) throws CommandException { return null; }
-	 public boolean testPermission(CommandSource sender) { return false; }
+	 @Override
+	public Text getUsage(CommandSource sender) { return null; }
+	 @Override
+	public Optional<Text> getHelp(CommandSource sender) { return null; }
+	 @Override
+	public Optional<Text> getShortDescription(CommandSource sender) { return null; }
+	 @Override
+	public List<String> getSuggestions(CommandSource sender, String args) throws CommandException { return null; }
+	 @Override
+	public boolean testPermission(CommandSource sender) { return false; }
 
 }

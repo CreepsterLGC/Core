@@ -38,7 +38,7 @@ import me.creepsterlgc.core.commands.CommandWeather;
 import me.creepsterlgc.core.customized.COMMANDS;
 import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.MESSAGES;
 import me.creepsterlgc.core.customized.SERVER;
 import me.creepsterlgc.core.events.EventGameClientLogin;
 import me.creepsterlgc.core.events.EventPlayerChat;
@@ -51,12 +51,10 @@ import me.creepsterlgc.core.events.EventPlayerRespawn;
 import me.creepsterlgc.core.events.EventSignChange;
 
 import org.spongepowered.api.Game;
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
-import org.spongepowered.api.event.state.ServerStartingEvent;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.game.state.GameStartingServerEvent;
+import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.text.Texts;
-import org.spongepowered.api.text.format.TextColors;
 import com.google.inject.Inject;
 
 @Plugin(id = "Core", name = "Core Plugin")
@@ -74,29 +72,31 @@ public class Core {
 	public static Core getInstance() { return core; }
 	public Game getGame() { return game; }
 	
-    @Subscribe
-    public void onServerStarting(ServerStartingEvent event) {
+    @Listener
+    public void onEnable(GameStartingServerEvent event) {
     	
     	File folder = new File("mods/Core");
     	if(!folder.exists()) folder.mkdir();
     	
     	CONFIG.setup();
     	COMMANDS.setup();
+    	MESSAGES.setup();
     	DATABASE.setup(game);
     	DATABASE.load(game);
     	
     	Controller.game = game;
     	SERVER.sink = game.getServer().getBroadcastSink();
     	
-    	game.getEventManager().register(this, this);
-    	game.getEventManager().register(this, new EventGameClientLogin());
-    	game.getEventManager().register(this, new EventPlayerChat());
-    	game.getEventManager().register(this, new EventPlayerDeath());
-    	game.getEventManager().register(this, new EventPlayerKick());
-    	game.getEventManager().register(this, new EventPlayerMove());
-    	game.getEventManager().register(this, new EventPlayerRespawn());
-    	game.getEventManager().register(this, new EventPlayerQuit());
-    	game.getEventManager().register(this, new EventSignChange());
+    	game.getEventManager().registerListeners(this, this);
+    	game.getEventManager().registerListeners(this, new EventGameClientLogin());
+    	game.getEventManager().registerListeners(this, new EventPlayerChat());
+    	game.getEventManager().registerListeners(this, new EventPlayerDeath());
+    	game.getEventManager().registerListeners(this, new EventPlayerJoin());
+    	game.getEventManager().registerListeners(this, new EventPlayerKick());
+    	game.getEventManager().registerListeners(this, new EventPlayerMove());
+    	game.getEventManager().registerListeners(this, new EventPlayerRespawn());
+    	game.getEventManager().registerListeners(this, new EventPlayerQuit());
+    	game.getEventManager().registerListeners(this, new EventSignChange());
     	
     	if(COMMANDS.AFK()) game.getCommandDispatcher().register(this, new CommandAFK(), "afk");
     	if(COMMANDS.BAN()) game.getCommandDispatcher().register(this, new CommandBan(game), "ban");
@@ -132,35 +132,24 @@ public class Core {
     	game.getCommandDispatcher().register(this, new CommandPage(), "page");
     	
     	game.getScheduler().createTaskBuilder().interval(200, TimeUnit.MILLISECONDS).execute(new Runnable() {
-    		public void run() {
+    		@Override
+			public void run() {
     			DATABASE.commit();
     		}
     	}).submit(this);
     	
     	game.getScheduler().createTaskBuilder().interval(1, TimeUnit.SECONDS).execute(new Runnable() {
-    		public void run() {
+    		@Override
+			public void run() {
     			SERVER.heartbeat();
     		}
     	}).submit(this);
     	
     }
     
-    @Subscribe
-    public void onPlayerJoin(final PlayerJoinEvent event) {
-    	
-		PLAYER p = DATABASE.getPlayer(event.getEntity().getUniqueId().toString());
-		if(p != null) {
-			p.setLastaction((double)System.currentTimeMillis());
-			DATABASE.addPlayer(p.getUUID(), p);
-		}
-		
-    	event.setNewMessage(Texts.of(TextColors.YELLOW, event.getUser().getName(), TextColors.GRAY, " has joined."));
-    	
-    	game.getScheduler().createTaskBuilder().delay(100, TimeUnit.MILLISECONDS).execute(new Runnable() {
-    		public void run() {
-    			EventPlayerJoin.onPlayerJoin(event);
-    		}
-    	}).submit(this);
+    @Listener
+    public void onDisable(GameStoppingServerEvent event) {
+    	DATABASE.commit();
     }
 	
 }

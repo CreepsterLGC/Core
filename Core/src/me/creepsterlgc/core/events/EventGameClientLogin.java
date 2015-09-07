@@ -4,16 +4,16 @@ import me.creepsterlgc.core.customized.BAN;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.TIME;
 
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.network.GameClientLoginEvent;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 
 
 public class EventGameClientLogin {
 
-    @Subscribe
-    public void onGameClientLogin(GameClientLoginEvent event) {
+    @Listener
+    public void onPlayerLogin(ClientConnectionEvent.Login event) {
     	
     	BAN ban = DATABASE.getBan(event.getProfile().getUniqueId().toString());
     	
@@ -25,7 +25,7 @@ public class EventGameClientLogin {
     		}
     		else {
 	    		String time = TIME.toString(ban.getDuration() - System.currentTimeMillis());
-	    		event.setDisconnectMessage(Texts.of(TextColors.GRAY, "Banned for another: ", TextColors.RED, time, "\n\n", TextColors.RED, "Reason: ", TextColors.GRAY, ban.getReason()));
+	    		event.setMessage(Texts.of(TextColors.GRAY, "Banned for another: ", TextColors.RED, time, "\n\n", TextColors.RED, "Reason: ", TextColors.GRAY, ban.getReason()));
 	    		event.setCancelled(true);
 	    		return;
     		}

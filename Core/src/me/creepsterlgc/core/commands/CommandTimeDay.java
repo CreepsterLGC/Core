@@ -1,9 +1,10 @@
 package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.customized.SERVER;
 
 import org.spongepowered.api.Game;
-import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.command.CommandSource;
@@ -19,7 +20,7 @@ public class CommandTimeDay {
 		
 		game.getCommandDispatcher().process(game.getServer().getConsole(), "minecraft:time set 0");
 		
-		game.getServer().getBroadcastSink().sendMessage(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to day."));
+		SERVER.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to day."));
 		
 	}
 
