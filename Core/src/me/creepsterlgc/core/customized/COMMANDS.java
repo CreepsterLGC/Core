@@ -54,7 +54,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "warp").setValue(true);
 				commands.getNode("enabled", "weather").setValue(true);
 				
-				commands.getNode("version").setValue(1);
+				commands.getNode("version").setValue(3);
 				
 		        manager.save(commands);
 				
