@@ -23,6 +23,7 @@ public class PLAYER {
 	private String reply;
 	private HashMap<String, Double> tpa;
 	private HashMap<String, Double> tpahere;
+	private HashMap<String, String> powertools;
 	private HashMap<Integer, List<Text>> pages;
 	private Text page_title;
 	private Text page_header;
@@ -44,6 +45,7 @@ public class PLAYER {
 		reply = "";
 		tpa = new HashMap<String, Double>();
 		tpahere = new HashMap<String, Double>();
+		powertools = new HashMap<String, String>();
 		pages = new HashMap<Integer, List<Text>>();
 		
 	}
@@ -85,6 +87,7 @@ public class PLAYER {
 	public void setReply(String reply) { this.reply = reply; }
 	public void setTPA(HashMap<String, Double> tpa) { this.tpa = tpa; }
 	public void setTPAHere(HashMap<String, Double> tpahere) { this.tpahere = tpahere; }
+	public void setPowertools(HashMap<String, String> powertools) { this.powertools = powertools; }
 	public void setPages(HashMap<Integer, List<Text>> pages) { this.pages = pages; }
 	public void setPageTitle(Text page_title) { this.page_title = page_title; }
 	public void setPageHeader(Text page_header) { this.page_header = page_header; }
@@ -107,6 +110,7 @@ public class PLAYER {
 	public HashMap<String, Double> getTPA() { return tpa; }
 	public HashMap<String, Double> getTPAHere() { return tpahere; }
 	public HashMap<Integer, List<Text>> getPages() { return pages; }
+	public HashMap<String, String> getPowertools() { return powertools; }
 	public Text getPageTitle() { return page_title; }
 	public Text getPageHeader() { return page_header; }
 	

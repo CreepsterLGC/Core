@@ -52,22 +52,6 @@ public class CONFIG {
 			
 	        config = manager.load();
 			
-			if(config.getNode("version").getInt() <= 4) {
-				
-				config.getNode("list", "ORDER_BY_GROUPS").setValue(true);
-				config.getNode("list", "SHOW_PREFIX").setValue(true);
-				config.getNode("list", "SHOW_SUFFIX").setValue(true);
-				
-				config.getNode("afk", "ENABLE_SYSTEM").setValue(true);
-				
-				config.getNode("version").setValue(6);
-				
-				manager.save(config);
-				
-		        config = manager.load();
-				
-			}
-			
 			if(config.getNode("version").getInt() <= 5) {
 				
 				config.getNode("list", "ORDER_BY_GROUPS").setValue(true);

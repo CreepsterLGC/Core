@@ -36,6 +36,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "msg").setValue(true);
 				commands.getNode("enabled", "mute").setValue(true);
 				commands.getNode("enabled", "ping").setValue(true);
+				commands.getNode("enabled", "powertool").setValue(true);
 				commands.getNode("enabled", "reply").setValue(true);
 				commands.getNode("enabled", "spawn").setValue(true);
 				commands.getNode("enabled", "tempban").setValue(true);
@@ -61,6 +62,32 @@ public class COMMANDS {
 			
 			commands = manager.load();
 			
+			if(commands.getNode("version").getInt() <= 1) {
+				
+				commands.getNode("enabled", "powertool").setValue(true);
+				
+				commands.getNode("version").setValue(2);
+				
+				manager.save(commands);
+				
+				commands = manager.load();
+				
+			}
+			
+			if(commands.getNode("version").getInt() <= 2) {
+				
+				commands.getNode("enabled", "force").setValue(true);
+				
+				commands.getNode("version").setValue(3);
+				
+				manager.save(commands);
+				
+				commands = manager.load();
+				
+			}
+			
+			commands = manager.load();
+			
 		     
 		} catch (IOException e) { e.printStackTrace(); }
 		
@@ -71,6 +98,7 @@ public class COMMANDS {
 	public static boolean BANLIST() { return commands.getNode("enabled", "banlist").getBoolean(); }
 	public static boolean BROADCAST() { return commands.getNode("enabled", "broadcast").getBoolean(); }
 	public static boolean FEED() { return commands.getNode("enabled", "feed").getBoolean(); }
+	public static boolean FORCE() { return commands.getNode("enabled", "force").getBoolean(); }
 	public static boolean HEAL() { return commands.getNode("enabled", "heal").getBoolean(); }
 	public static boolean HOME() { return commands.getNode("enabled", "home").getBoolean(); }
 	public static boolean KICK() { return commands.getNode("enabled", "kick").getBoolean(); }
@@ -80,6 +108,7 @@ public class COMMANDS {
 	public static boolean MSG() { return commands.getNode("enabled", "msg").getBoolean(); }
 	public static boolean MUTE() { return commands.getNode("enabled", "mute").getBoolean(); }
 	public static boolean PING() { return commands.getNode("enabled", "ping").getBoolean(); }
+	public static boolean POWERTOOL() { return commands.getNode("enabled", "powertool").getBoolean(); }
 	public static boolean REPLY() { return commands.getNode("enabled", "reply").getBoolean(); }
 	public static boolean SPAWN() { return commands.getNode("enabled", "spawn").getBoolean(); }
 	public static boolean TEMPBAN() { return commands.getNode("enabled", "tempban").getBoolean(); }

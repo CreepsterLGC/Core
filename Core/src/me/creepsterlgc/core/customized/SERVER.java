@@ -41,7 +41,7 @@ public class SERVER {
 			time -= CONFIG.AFK_TIMER_IN_SECONDS() * 1000;
 			time -= CONFIG.AFK_KICK_AFTER() * 1000;
 			
-			if(p.getAFK() && CONFIG.AFK_KICK_ENABLE() && p.getLastaction() < time) {
+			if(p.getAFK() && CONFIG.AFK_KICK_ENABLE() && p.getLastaction() < time && !PERMISSIONS.has(player, "core.afk.kick.except")) {
 				
 				player.kick(Texts.of(Texts.of(TextColors.RED, "You have been kicked for being AFK!")));
 				
