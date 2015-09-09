@@ -1,5 +1,8 @@
 package me.creepsterlgc.core.customized;
 
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.service.permission.Subject;
+import org.spongepowered.api.service.permission.option.OptionSubject;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColor;
@@ -68,5 +71,23 @@ public class TEXT {
 		}
     	return result;
 	}
+	
+	public static String getPrefix(Player player) {
+    	Subject subject = player.getContainingCollection().get(player.getIdentifier());
+		if (subject instanceof OptionSubject) {
+			OptionSubject optionSubject = (OptionSubject) subject;
+			return optionSubject.getOption("prefix").or("");
+		}
+		return "";
+	}
 
+	public static String getSuffix(Player player) {
+    	Subject subject = player.getContainingCollection().get(player.getIdentifier());
+		if (subject instanceof OptionSubject) {
+			OptionSubject optionSubject = (OptionSubject) subject;
+			return optionSubject.getOption("suffix").or("");
+		}
+		return "";
+	}
+	
 }

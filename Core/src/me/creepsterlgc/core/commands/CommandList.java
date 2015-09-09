@@ -1,12 +1,19 @@
 package me.creepsterlgc.core.commands;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import me.creepsterlgc.core.Controller;
+import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.customized.TEXT;
+
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.service.permission.Subject;
+import org.spongepowered.api.service.permission.option.OptionSubject;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
@@ -31,11 +38,69 @@ public class CommandList implements CommandCallable {
 		
 		if(!PERMISSIONS.has(sender, "core.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		StringBuilder list = new StringBuilder();
-		for(Player p : Controller.getServer().getOnlinePlayers()) list.append(p.getName() + ", ");
-		if(list.toString().contains(", ")) list.deleteCharAt(list.length() - 2);
+		int online = Controller.getServer().getOnlinePlayers().size();
+		int max = Controller.getServer().getMaxPlayers();
 		
-		sender.sendMessage(Texts.of(TextColors.YELLOW, "Currently online: ", TextColors.WHITE, list.toString()));
+		sender.sendMessage(Texts.of(TextColors.GRAY, "There are currently ", TextColors.GOLD, online, TextColors.GRAY, "/", TextColors.GOLD, max, TextColors.GRAY, " players online."));
+		
+		if(!CONFIG.LIST_ORDER_BY_GROUPS()) {
+			
+			StringBuilder list = new StringBuilder();
+			
+			for(Player p : Controller.getServer().getOnlinePlayers()) {
+				if(CONFIG.LIST_SHOW_PREFIX()) list.append(TEXT.getPrefix(p));
+				list.append(p.getName());
+				if(CONFIG.LIST_SHOW_SUFFIX()) list.append(TEXT.getSuffix(p));
+				list.append("&7, ");
+			}
+			
+			if(list.toString().contains(", ")) list.deleteCharAt(list.length() - 2);
+			Text list_final = TEXT.color(list.toString());
+			sender.sendMessage(list_final);
+			return CommandResult.success();
+			
+		}
+		else {
+			
+			HashMap<String, List<Player>> list = new HashMap<String, List<Player>>();
+			
+			for(Player p : Controller.getServer().getOnlinePlayers()) {
+				
+		    	Subject subject = p.getContainingCollection().get(p.getIdentifier());
+		    	
+				if(subject instanceof OptionSubject) {
+					OptionSubject option = (OptionSubject) subject;
+					for(Subject group : option.getParents()) {
+						List<Player> players = new ArrayList<Player>();
+						if(list.containsKey(group.getIdentifier())) players = list.get(group.getIdentifier());
+						if(!players.contains(p)) players.add(p);
+						list.put(group.getIdentifier(), players);
+					}
+				}
+				else {
+					List<Player> players = new ArrayList<Player>();
+					if(list.containsKey("Others")) players = list.get("Others");
+					if(!players.contains(p)) players.add(p);
+					list.put("Others", players);
+				}
+				
+			}
+			
+			for(Entry<String, List<Player>> e : list.entrySet()) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("&e" + e.getKey() + "&7: ");
+				for(Player p : e.getValue()) {
+					if(CONFIG.LIST_SHOW_PREFIX()) sb.append(TEXT.getPrefix(p));
+					sb.append(p.getName());
+					if(CONFIG.LIST_SHOW_SUFFIX()) sb.append(TEXT.getSuffix(p));
+					sb.append("&7, ");
+				}
+				if(sb.toString().contains(", ")) sb.deleteCharAt(sb.length() - 2);
+				Text list_final = TEXT.color(sb.toString());
+				sender.sendMessage(list_final);
+			}
+			
+		}
 		
 		return CommandResult.success();
 		

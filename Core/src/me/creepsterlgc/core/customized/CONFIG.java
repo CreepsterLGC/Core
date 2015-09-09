@@ -40,7 +40,11 @@ public class CONFIG {
 				config.getNode("afk", "KICK_ENABLE").setValue(false);
 				config.getNode("afk", "KICK_AFTER").setValue(300);
 				
-				config.getNode("version").setValue(5);
+				config.getNode("list", "ORDER_BY_GROUPS").setValue(true);
+				config.getNode("list", "SHOW_PREFIX").setValue(true);
+				config.getNode("list", "SHOW_SUFFIX").setValue(true);
+				
+				config.getNode("version").setValue(6);
 				
 		        manager.save(config);
 				
@@ -50,9 +54,29 @@ public class CONFIG {
 			
 			if(config.getNode("version").getInt() <= 4) {
 				
+				config.getNode("list", "ORDER_BY_GROUPS").setValue(true);
+				config.getNode("list", "SHOW_PREFIX").setValue(true);
+				config.getNode("list", "SHOW_SUFFIX").setValue(true);
+				
 				config.getNode("afk", "ENABLE_SYSTEM").setValue(true);
 				
-				config.getNode("version").setValue(5);
+				config.getNode("version").setValue(6);
+				
+				manager.save(config);
+				
+		        config = manager.load();
+				
+			}
+			
+			if(config.getNode("version").getInt() <= 5) {
+				
+				config.getNode("list", "ORDER_BY_GROUPS").setValue(true);
+				config.getNode("list", "SHOW_PREFIX").setValue(true);
+				config.getNode("list", "SHOW_SUFFIX").setValue(true);
+				
+				config.getNode("afk", "ENABLE_SYSTEM").setValue(true);
+				
+				config.getNode("version").setValue(6);
 				
 				manager.save(config);
 				
@@ -82,5 +106,10 @@ public class CONFIG {
 	
 	public static boolean CHAT_USE() { return config.getNode("chat", "use").getBoolean(); }
 	public static String CHAT_FORMAT() { return config.getNode("chat", "format").getString(); }
+	
+	public static boolean LIST_ORDER_BY_GROUPS() { return config.getNode("list", "ORDER_BY_GROUPS").getBoolean(); }
+	public static boolean LIST_SHOW_PREFIX() { return config.getNode("list", "SHOW_PREFIX").getBoolean(); }
+	public static boolean LIST_SHOW_SUFFIX() { return config.getNode("list", "SHOW_SUFFIX").getBoolean(); }
+	
 	
 }
