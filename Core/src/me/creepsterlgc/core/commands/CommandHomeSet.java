@@ -56,7 +56,7 @@ public class CommandHomeSet {
 		
 		p.setHome(name, home);
 		
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Home ", TextColors.YELLOW, name, TextColors.GRAY, " has been created."));
+		sender.sendMessage(Texts.of(TextColors.GRAY, "Home ", TextColors.YELLOW, name, TextColors.GRAY, " has been set."));
 		if(!PERMISSIONS.has(player, "core.warp.create.unlimited")) sender.sendMessage(Texts.of(TextColors.GRAY, "You currently own ", TextColors.GOLD, homes.size(), TextColors.GRAY, " / ", TextColors.GOLD, possible, TextColors.GRAY, " possible homes."));
 		else sender.sendMessage(Texts.of(TextColors.GRAY, "You currently own ", TextColors.GOLD, homes.size(), TextColors.GRAY, " / ", TextColors.GOLD, "oo", TextColors.GRAY, " possible homes."));
 		

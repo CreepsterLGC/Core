@@ -28,12 +28,14 @@ public class CommandHome implements CommandCallable {
 		if(args[0].equalsIgnoreCase("set")) { new CommandHomeSet(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("delete")) { new CommandHomeDelete(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("list")) { new CommandHomeList(sender, args); return CommandResult.success(); }
+		else if(args[0].equalsIgnoreCase("move")) { new CommandHomeMove(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("help")) {
 			sender.sendMessage(Texts.of(TextColors.GOLD, "Home Help"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home set <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home delete <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home list [keyword]"));
+			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home move [name]"));
 		}
 		else if(!arguments.equalsIgnoreCase("") && args.length == 1) {
 			new CommandHomeTeleport(sender, args); return CommandResult.success();
@@ -44,6 +46,7 @@ public class CommandHome implements CommandCallable {
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home set <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home delete <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home list [keyword]"));
+			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home move [name]"));
 		}
 		
 		return CommandResult.success();

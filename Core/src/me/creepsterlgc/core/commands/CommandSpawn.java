@@ -26,6 +26,7 @@ public class CommandSpawn implements CommandCallable {
 		if(args[0].equalsIgnoreCase("create")) { new CommandSpawnCreate(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("remove")) { new CommandSpawnRemove(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("list")) { new CommandSpawnRemove(sender, args); return CommandResult.success(); }
+		else if(args[0].equalsIgnoreCase("move")) { new CommandSpawnMove(sender, args); return CommandResult.success(); }
 		else {
 			new CommandSpawnTeleport(sender, args);
 		}
@@ -34,8 +35,8 @@ public class CommandSpawn implements CommandCallable {
 		
 	}
 
-	private final Text usage = Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/spawn [create|remove|list] [name]");
-	private final Text help = Texts.of(TextColors.YELLOW, "Help: ", TextColors.GRAY, "/spawn [create|remove|list] [name]");
+	private final Text usage = Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/spawn [create|remove|list|move] [name]");
+	private final Text help = Texts.of(TextColors.YELLOW, "Help: ", TextColors.GRAY, "/spawn [create|remove|list|move] [name]");
 	private final Text description = Texts.builder("Core | Spawn Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";

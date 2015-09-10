@@ -31,6 +31,7 @@ public class CommandWarp implements CommandCallable {
 		else if(args[0].equalsIgnoreCase("public")) { new CommandWarpPublic(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("invite")) { new CommandWarpInvite(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("uninvite")) { new CommandWarpUninvite(sender, args); return CommandResult.success(); }
+		else if(args[0].equalsIgnoreCase("move")) { new CommandWarpMove(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("help")) {
 			sender.sendMessage(Texts.of(TextColors.GOLD, "Warp Help"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp <name>"));
@@ -38,10 +39,9 @@ public class CommandWarp implements CommandCallable {
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp remove <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp list [keyword]"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp info <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp private <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp public <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp invite <name> <player>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp uninvite <name> <player>"));
+			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp <private|public> <name>"));
+			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp <invite|uninvite> <name> <player>"));
+			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp move <name>"));
 		}
 		else if(!arguments.equalsIgnoreCase("") && args.length == 1) {
 			new CommandWarpTeleport(sender, args); return CommandResult.success();
@@ -53,10 +53,9 @@ public class CommandWarp implements CommandCallable {
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp remove <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp list [keyword]"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp info <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp private <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp public <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp invite <name> <player>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp uninvite <name> <player>"));
+			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp <private|public> <name>"));
+			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp <invite|uninvite> <name> <player>"));
+			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp move <name>"));
 		}
 		
 		return CommandResult.success();

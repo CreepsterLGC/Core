@@ -49,12 +49,13 @@ public class COMMANDS {
 				commands.getNode("enabled", "tpdeny").setValue(true);
 				commands.getNode("enabled", "tpdeath").setValue(true);
 				commands.getNode("enabled", "tphere").setValue(true);
+				commands.getNode("enabled", "tpswap").setValue(true);
 				commands.getNode("enabled", "unban").setValue(true);
 				commands.getNode("enabled", "unmute").setValue(true);
 				commands.getNode("enabled", "warp").setValue(true);
 				commands.getNode("enabled", "weather").setValue(true);
 				
-				commands.getNode("version").setValue(3);
+				commands.getNode("version").setValue(4);
 				
 		        manager.save(commands);
 				
@@ -64,9 +65,10 @@ public class COMMANDS {
 			
 			if(commands.getNode("version").getInt() <= 1) {
 				
+				commands.getNode("enabled", "tpswap").setValue(true);
 				commands.getNode("enabled", "powertool").setValue(true);
 				
-				commands.getNode("version").setValue(2);
+				commands.getNode("version").setValue(4);
 				
 				manager.save(commands);
 				
@@ -76,9 +78,22 @@ public class COMMANDS {
 			
 			if(commands.getNode("version").getInt() <= 2) {
 				
+				commands.getNode("enabled", "tpswap").setValue(true);
 				commands.getNode("enabled", "force").setValue(true);
 				
-				commands.getNode("version").setValue(3);
+				commands.getNode("version").setValue(4);
+				
+				manager.save(commands);
+				
+				commands = manager.load();
+				
+			}
+			
+			if(commands.getNode("version").getInt() <= 3) {
+				
+				commands.getNode("enabled", "tpswap").setValue(true);
+				
+				commands.getNode("version").setValue(4);
 				
 				manager.save(commands);
 				
@@ -121,6 +136,7 @@ public class COMMANDS {
 	public static boolean TPDEATH() { return commands.getNode("enabled", "tpdeath").getBoolean(); }
 	public static boolean TPDENY() { return commands.getNode("enabled", "tpdeny").getBoolean(); }
 	public static boolean TPHERE() { return commands.getNode("enabled", "tphere").getBoolean(); }
+	public static boolean TPSWAP() { return commands.getNode("enabled", "tpswap").getBoolean(); }
 	public static boolean UNBAN() { return commands.getNode("enabled", "unban").getBoolean(); }
 	public static boolean UNMUTE() { return commands.getNode("enabled", "unmute").getBoolean(); }
 	public static boolean WARP() { return commands.getNode("enabled", "warp").getBoolean(); }

@@ -28,6 +28,7 @@ import me.creepsterlgc.core.commands.CommandTPAccept;
 import me.creepsterlgc.core.commands.CommandTPDeath;
 import me.creepsterlgc.core.commands.CommandTPDeny;
 import me.creepsterlgc.core.commands.CommandTPHere;
+import me.creepsterlgc.core.commands.CommandTPSwap;
 import me.creepsterlgc.core.commands.CommandTempban;
 import me.creepsterlgc.core.commands.CommandKick;
 import me.creepsterlgc.core.commands.CommandSpawn;
@@ -122,6 +123,9 @@ public class Core {
     	if(COMMANDS.POWERTOOL()) game.getCommandDispatcher().register(this, new CommandPowertool(game), "powertool");
     	if(COMMANDS.REPLY()) game.getCommandDispatcher().register(this, new CommandReply(), "r", "reply");
     	if(COMMANDS.SPAWN()) game.getCommandDispatcher().register(this, new CommandSpawn(), "spawn");
+    	if(COMMANDS.TEMPBAN()) game.getCommandDispatcher().register(this, new CommandTempban(game), "tempban");
+    	if(COMMANDS.TICKET()) game.getCommandDispatcher().register(this, new CommandTicket(), "ticket");
+    	if(COMMANDS.TIME()) game.getCommandDispatcher().register(this, new CommandTime(game), "time");
     	if(COMMANDS.TP()) game.getCommandDispatcher().register(this, new CommandTP(game), "tp");
     	if(COMMANDS.TPA()) game.getCommandDispatcher().register(this, new CommandTPA(game), "tpa");
     	if(COMMANDS.TPACCEPT()) game.getCommandDispatcher().register(this, new CommandTPAccept(game), "tpaccept");
@@ -129,9 +133,7 @@ public class Core {
     	if(COMMANDS.TPDEATH()) game.getCommandDispatcher().register(this, new CommandTPDeath(game), "tpdeath", "/back");
     	if(COMMANDS.TPDENY()) game.getCommandDispatcher().register(this, new CommandTPDeny(game), "tpdeny");
     	if(COMMANDS.TPHERE()) game.getCommandDispatcher().register(this, new CommandTPHere(game), "tphere");
-    	if(COMMANDS.TEMPBAN()) game.getCommandDispatcher().register(this, new CommandTempban(game), "tempban");
-    	if(COMMANDS.TICKET()) game.getCommandDispatcher().register(this, new CommandTicket(), "ticket");
-    	if(COMMANDS.TIME()) game.getCommandDispatcher().register(this, new CommandTime(game), "time");
+    	if(COMMANDS.TPSWAP()) game.getCommandDispatcher().register(this, new CommandTPSwap(game), "tpswap");
     	if(COMMANDS.UNBAN()) game.getCommandDispatcher().register(this, new CommandUnban(game), "unban");
     	if(COMMANDS.UNMUTE()) game.getCommandDispatcher().register(this, new CommandUnmute(game), "unmute");
     	if(COMMANDS.WARP()) game.getCommandDispatcher().register(this, new CommandWarp(), "warp");
