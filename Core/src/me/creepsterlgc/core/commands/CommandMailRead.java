@@ -63,7 +63,7 @@ public class CommandMailRead {
 		
 		p.setPages(pages);
 		
-		p.setPageTitle(Texts.of(TextColors.GOLD, "Mails"));
+		p.setPageTitle(Texts.of(TextColors.GOLD, "Inbox"));
 		p.setPageHeader(Texts.of(TextColors.GREEN, "Time", TextColors.GRAY, " | ", TextColors.GREEN, "Sender", TextColors.GRAY, " | ", TextColors.GREEN, "Message"));
 		
 		Controller.getGame().getCommandDispatcher().process(sender.getCommandSource().get(), "page 1");

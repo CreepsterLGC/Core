@@ -32,7 +32,7 @@ public class CommandWarpMove {
 			return;
 		}
 		
-		warp.setWorld(player.getWorld().getName().toLowerCase());
+		warp.setWorld(player.getWorld().getName());
 		warp.setX(player.getLocation().getX());
 		warp.setY(player.getLocation().getY());
 		warp.setZ(player.getLocation().getZ());

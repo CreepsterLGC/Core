@@ -43,7 +43,7 @@ public class CommandHomeSet {
 			return;
 		}
 		
-		String world = player.getWorld().getName().toLowerCase();
+		String world = player.getWorld().getName();
 		
 		double x = player.getLocation().getX();
 		double y = player.getLocation().getY();

@@ -27,7 +27,7 @@ public class CommandSpawnCreate {
 		
 		if(DATABASE.getSpawn(name) != null) { sender.sendMessage(Texts.builder("Spawn already exists!").color(TextColors.RED).build()); return; }
 		
-		String world = player.getWorld().getName().toLowerCase();
+		String world = player.getWorld().getName();
 		
 		double x = player.getLocation().getX();
 		double y = player.getLocation().getY();

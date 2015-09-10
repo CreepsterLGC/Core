@@ -29,7 +29,7 @@ public class CommandSpawnMove {
 		
 		if(spawn == null) { sender.sendMessage(Texts.builder("Spawn does not exist!").color(TextColors.RED).build()); return; }
 		
-		spawn.setWorld(player.getWorld().getName().toLowerCase());
+		spawn.setWorld(player.getWorld().getName());
 		spawn.setX(player.getLocation().getX());
 		spawn.setY(player.getLocation().getY());
 		spawn.setZ(player.getLocation().getZ());

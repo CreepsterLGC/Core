@@ -31,7 +31,7 @@ public class CommandHomeMove {
 		
 		if(home == null) { sender.sendMessage(Texts.builder("Home does not exist!").color(TextColors.RED).build()); return; }
 		
-		home.setWorld(player.getWorld().getName().toLowerCase());
+		home.setWorld(player.getWorld().getName());
 		home.setX(player.getLocation().getX());
 		home.setY(player.getLocation().getY());
 		home.setZ(player.getLocation().getZ());
