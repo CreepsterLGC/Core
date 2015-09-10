@@ -26,12 +26,14 @@ public class COMMANDS {
 				commands.getNode("enabled", "ban").setValue(true);
 				commands.getNode("enabled", "banlist").setValue(true);
 				commands.getNode("enabled", "broadcast").setValue(true);
+				commands.getNode("enabled", "butcher").setValue(true);
 				commands.getNode("enabled", "feed").setValue(true);
 				commands.getNode("enabled", "heal").setValue(true);
 				commands.getNode("enabled", "home").setValue(true);
 				commands.getNode("enabled", "kick").setValue(true);
 				commands.getNode("enabled", "kill").setValue(true);
 				commands.getNode("enabled", "list").setValue(true);
+				commands.getNode("enabled", "mail").setValue(true);
 				commands.getNode("enabled", "memory").setValue(true);
 				commands.getNode("enabled", "msg").setValue(true);
 				commands.getNode("enabled", "mute").setValue(true);
@@ -55,7 +57,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "warp").setValue(true);
 				commands.getNode("enabled", "weather").setValue(true);
 				
-				commands.getNode("version").setValue(4);
+				commands.getNode("version").setValue(5);
 				
 		        manager.save(commands);
 				
@@ -101,6 +103,19 @@ public class COMMANDS {
 				
 			}
 			
+			if(commands.getNode("version").getInt() <= 4) {
+				
+				commands.getNode("enabled", "butcher").setValue(true);
+				commands.getNode("enabled", "mail").setValue(true);
+				
+				commands.getNode("version").setValue(5);
+				
+				manager.save(commands);
+				
+				commands = manager.load();
+				
+			}
+			
 			commands = manager.load();
 			
 		     
@@ -112,6 +127,7 @@ public class COMMANDS {
 	public static boolean BAN() { return commands.getNode("enabled", "ban").getBoolean(); }
 	public static boolean BANLIST() { return commands.getNode("enabled", "banlist").getBoolean(); }
 	public static boolean BROADCAST() { return commands.getNode("enabled", "broadcast").getBoolean(); }
+	public static boolean BUTCHER() { return commands.getNode("enabled", "butcher").getBoolean(); }
 	public static boolean FEED() { return commands.getNode("enabled", "feed").getBoolean(); }
 	public static boolean FORCE() { return commands.getNode("enabled", "force").getBoolean(); }
 	public static boolean HEAL() { return commands.getNode("enabled", "heal").getBoolean(); }
@@ -119,6 +135,7 @@ public class COMMANDS {
 	public static boolean KICK() { return commands.getNode("enabled", "kick").getBoolean(); }
 	public static boolean KILL() { return commands.getNode("enabled", "kill").getBoolean(); }
 	public static boolean LIST() { return commands.getNode("enabled", "list").getBoolean(); }
+	public static boolean MAIL() { return commands.getNode("enabled", "mail").getBoolean(); }
 	public static boolean MEMORY() { return commands.getNode("enabled", "memory").getBoolean(); }
 	public static boolean MSG() { return commands.getNode("enabled", "msg").getBoolean(); }
 	public static boolean MUTE() { return commands.getNode("enabled", "mute").getBoolean(); }
