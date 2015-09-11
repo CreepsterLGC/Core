@@ -30,12 +30,20 @@ public class SERVER {
 	
 	public static void heartbeat() {
 		
+		for(Player player : Controller.getServer().getOnlinePlayers()) {
+			
+			PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+			
+			p.setOnlinetime(p.getOnlinetime() + 1000);
+			p.update();
+			
+		}
+		
 		if(!CONFIG.AFK_ENABLE_SYSTEM()) return;
 		
 		for(Player player : Controller.getServer().getOnlinePlayers()) {
 			
 			PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
-			if(p == null) continue;
 			
 			double time = System.currentTimeMillis();
 			time -= CONFIG.AFK_TIMER_IN_SECONDS() * 1000;

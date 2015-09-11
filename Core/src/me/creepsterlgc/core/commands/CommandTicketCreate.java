@@ -20,8 +20,6 @@ public class CommandTicketCreate {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.create")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
-		
 		if(args.length < 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/ticket create <message>")); return; }
 	
 		Player player = (Player) sender;
@@ -40,7 +38,7 @@ public class CommandTicketCreate {
 			if(PERMISSIONS.has(player, "core.ticket.create." + i)) possible = i;
 		}
 		
-		if(!PERMISSIONS.has(player, "core.ticket.create.unlimited") && possible <= tickets) {
+		if(!PERMISSIONS.has(player, "core.ticket.create-unlimited") && possible <= tickets) {
 			if(possible == 1) sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " open tickets!").color(TextColors.RED).build());
 			else sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " open tickets!").color(TextColors.RED).build());
 			return;
@@ -48,7 +46,7 @@ public class CommandTicketCreate {
 		
 		int id = DATABASE.getTickets().size() + 1;
 		
-		String world = player.getWorld().getName().toLowerCase();
+		String world = player.getWorld().getName();
 		
 		double x = player.getLocation().getX();
 		double y = player.getLocation().getY();
