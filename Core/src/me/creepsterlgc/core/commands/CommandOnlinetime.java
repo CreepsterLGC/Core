@@ -2,9 +2,6 @@ package me.creepsterlgc.core.commands;
 
 import java.util.List;
 
-import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.BAN;
-import me.creepsterlgc.core.customized.COMMAND;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.PLAYER;

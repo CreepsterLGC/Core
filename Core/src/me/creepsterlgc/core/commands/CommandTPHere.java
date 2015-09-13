@@ -14,7 +14,6 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
-
 import com.flowpowered.math.vector.Vector3d;
 import com.google.common.base.Optional;
 
@@ -49,7 +48,7 @@ public class CommandTPHere implements CommandCallable {
 		
 		target.transferToWorld(player.getWorld().getName(), new Vector3d(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
 		
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported ", TextColors.YELLOW, target.getName(), TextColors.GRAY, " to ", TextColors.YELLOW, " you"));
+		sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported ", TextColors.YELLOW, target.getName(), TextColors.GRAY, " to ", TextColors.YELLOW, "you"));
 		
 		return CommandResult.success();
 		

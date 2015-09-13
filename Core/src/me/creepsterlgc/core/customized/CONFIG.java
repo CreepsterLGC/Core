@@ -64,6 +64,7 @@ public class CONFIG {
 				
 				manager.save(config);
 				
+				
 		        config = manager.load();
 				
 			}
