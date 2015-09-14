@@ -6,6 +6,7 @@ import java.util.List;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 
 import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.living.animal.Animal;
 import org.spongepowered.api.entity.living.monster.Monster;
 import org.spongepowered.api.entity.living.player.Player;
@@ -52,7 +53,7 @@ public class CommandButcher implements CommandCallable {
 		
 		int c = 0;
 		for(Entity e : world.getEntities()) {
-			if(e instanceof Animal == false && e instanceof Monster == false) continue;
+			if(e instanceof Animal == false && e instanceof Monster == false && !e.getType().equals(EntityTypes.BAT)) continue;
 			if(radius != 0) {
 				Location<World> l = e.getLocation();
 				double x = player.getLocation().getX();
