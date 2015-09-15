@@ -134,7 +134,7 @@ public class Core {
     	if(COMMANDS.TEMPBAN()) game.getCommandDispatcher().register(this, new CommandTempban(game), "tempban");
     	if(COMMANDS.TICKET()) game.getCommandDispatcher().register(this, new CommandTicket(), "ticket");
     	if(COMMANDS.TIME()) game.getCommandDispatcher().register(this, new CommandTime(game), "time");
-    	if(COMMANDS.TP()) game.getCommandDispatcher().register(this, new CommandTP(game), "tp");
+    	if(COMMANDS.TP()) game.getCommandDispatcher().register(this, new CommandTP(game), "tp", "teleport");
     	if(COMMANDS.TPA()) game.getCommandDispatcher().register(this, new CommandTPA(game), "tpa");
     	if(COMMANDS.TPACCEPT()) game.getCommandDispatcher().register(this, new CommandTPAccept(game), "tpaccept");
     	if(COMMANDS.TPAHERE()) game.getCommandDispatcher().register(this, new CommandTPAHere(game), "tpahere");
