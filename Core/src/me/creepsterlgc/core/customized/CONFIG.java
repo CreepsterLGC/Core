@@ -68,7 +68,6 @@ public class CONFIG {
 		        config = manager.load();
 				
 			}
-			
 		     
 		} catch (IOException e) { e.printStackTrace(); }
 		
