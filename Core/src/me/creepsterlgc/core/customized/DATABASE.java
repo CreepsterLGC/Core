@@ -72,7 +72,7 @@ public class DATABASE {
 			}
 			
 			if(!tables.contains("tickets")) {
-				execute("CREATE TABLE tickets (id DOUBLE, uuid TEXT, message TEXT, time DOUBLE, comments TEXT, world TEXT, x, y DOUBLE, z DOUBLE, yaw DOUBLE, pitch DOUBLE, assigned TEXT, priority TEXT, status TEXT)");
+				execute("CREATE TABLE tickets (id DOUBLE, uuid TEXT, message TEXT, time DOUBLE, comments TEXT, world TEXT, x DOUBLE, y DOUBLE, z DOUBLE, yaw DOUBLE, pitch DOUBLE, assigned TEXT, priority TEXT, status TEXT)");
 			}
 			
 			if(!tables.contains("warps")) {
