@@ -138,7 +138,7 @@ public class Core {
     	if(COMMANDS.TPA()) game.getCommandDispatcher().register(this, new CommandTPA(game), "tpa");
     	if(COMMANDS.TPACCEPT()) game.getCommandDispatcher().register(this, new CommandTPAccept(game), "tpaccept");
     	if(COMMANDS.TPAHERE()) game.getCommandDispatcher().register(this, new CommandTPAHere(game), "tpahere");
-    	if(COMMANDS.TPDEATH()) game.getCommandDispatcher().register(this, new CommandTPDeath(game), "tpdeath", "/back");
+    	if(COMMANDS.TPDEATH()) game.getCommandDispatcher().register(this, new CommandTPDeath(game), "tpdeath", "back");
     	if(COMMANDS.TPDENY()) game.getCommandDispatcher().register(this, new CommandTPDeny(game), "tpdeny");
     	if(COMMANDS.TPHERE()) game.getCommandDispatcher().register(this, new CommandTPHere(game), "tphere");
     	if(COMMANDS.TPSWAP()) game.getCommandDispatcher().register(this, new CommandTPSwap(game), "tpswap");
