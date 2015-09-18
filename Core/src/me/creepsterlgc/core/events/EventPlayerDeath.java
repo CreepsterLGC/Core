@@ -14,8 +14,6 @@ public class EventPlayerDeath {
     @Listener
     public void onPlayerDeath(DestructEntityEvent.Death event) {
     	
-    	System.out.println("fired");
-    	
     	if(event.getTargetEntity() instanceof Player == false) return;
     	Player player = (Player) event.getTargetEntity();
     	
@@ -29,6 +27,7 @@ public class EventPlayerDeath {
     	PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
     	p.setLastdeath(location);
     	p.update();
+    	
     }
 	
 }
