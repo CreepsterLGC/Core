@@ -3,6 +3,7 @@ package me.creepsterlgc.core.events;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.DestructEntityEvent;
+
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PLAYER;
 import me.creepsterlgc.core.customized.SERIALIZE;
@@ -12,6 +13,8 @@ public class EventPlayerDeath {
 
     @Listener
     public void onPlayerDeath(DestructEntityEvent.Death event) {
+    	
+    	System.out.println("fired");
     	
     	if(event.getTargetEntity() instanceof Player == false) return;
     	Player player = (Player) event.getTargetEntity();
