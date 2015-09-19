@@ -23,3 +23,4 @@ The [wiki](https://github.com/CreepsterLGC/Core/wiki) provides useful informatio
 4. [File: Core.conf](https://github.com/CreepsterLGC/Core/wiki/Core.conf)
 5. [File: Commands.conf](https://github.com/CreepsterLGC/Core/wiki/Commands.conf)
 6. [File: Messages.conf](https://github.com/CreepsterLGC/Core/wiki/Messages.conf)
+7. [API](https://github.com/CreepsterLGC/Core/wiki/API)
