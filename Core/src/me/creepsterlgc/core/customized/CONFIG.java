@@ -31,6 +31,7 @@ public class CONFIG {
 				
 				config.getNode("chat", "use").setValue(true);
 				config.getNode("chat", "format").setValue("%prefix%player%suffix&8: &f");
+				config.getNode("chat", "NICK_PREFIX").setValue("&7*");
 				
 				config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").setValue(3600);
 				config.getNode("limits", "MAX_MUTE_TIME_IN_SECONDS").setValue(600);
@@ -44,7 +45,7 @@ public class CONFIG {
 				config.getNode("list", "SHOW_PREFIX").setValue(true);
 				config.getNode("list", "SHOW_SUFFIX").setValue(true);
 				
-				config.getNode("version").setValue(6);
+				config.getNode("version").setValue(7);
 				
 		        manager.save(config);
 				
@@ -61,6 +62,19 @@ public class CONFIG {
 				config.getNode("afk", "ENABLE_SYSTEM").setValue(true);
 				
 				config.getNode("version").setValue(6);
+				
+				manager.save(config);
+				
+				
+		        config = manager.load();
+				
+			}
+			
+			if(config.getNode("version").getInt() <= 6) {
+				
+				config.getNode("chat", "NICK_PREFIX").setValue("&7*");
+				
+				config.getNode("version").setValue(7);
 				
 				manager.save(config);
 				
@@ -94,6 +108,8 @@ public class CONFIG {
 	public static boolean LIST_ORDER_BY_GROUPS() { return config.getNode("list", "ORDER_BY_GROUPS").getBoolean(); }
 	public static boolean LIST_SHOW_PREFIX() { return config.getNode("list", "SHOW_PREFIX").getBoolean(); }
 	public static boolean LIST_SHOW_SUFFIX() { return config.getNode("list", "SHOW_SUFFIX").getBoolean(); }
+	
+	public static String CHAT_NICK_PREFIX() { return config.getNode("chat", "NICK_PREFIX").getString(); }
 	
 	
 }

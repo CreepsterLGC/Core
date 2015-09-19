@@ -9,13 +9,19 @@ public class PLAYER {
 	
 	private String uuid;
 	private String name;
-	private String godmode;
-	private double flymode;
-	private String mails;
-	private String location;
-	private String lastdeath;
+	private String nick;
+	private String channel;
+	private double money;
+	private double god;
+	private double fly;
+	private double tptoggle;
+	private double invisible;
 	private double onlinetime;
-	private double lastonline;
+	private String mails;
+	private String lastlocation;
+	private String lastdeath;
+	private double firstseen;
+	private double lastseen;
 	
 	private double lastaction;
 	private boolean afk;
@@ -28,16 +34,23 @@ public class PLAYER {
 	private Text page_title;
 	private Text page_header;
 	
-	public PLAYER(String uuid, String name, String godmode, double flymode, String mails, String location, String lastdeath, double onlinetime, double lastonline) {
+	public PLAYER(String uuid, String name, String nick, String channel, double money, double god, double fly, double tptoggle, double invisible, double onlinetime, String mails, String lastlocation, String lastdeath, double firstseen, double lastseen) {
+		
 		this.uuid = uuid;
 		this.name = name;
-		this.godmode = godmode;
-		this.flymode = flymode;
-		this.mails = mails;
-		this.location = location;
-		this.lastdeath = lastdeath;
+		this.nick = nick;
+		this.channel = channel;
+		this.money = money;
+		this.god = god;
+		this.fly = fly;
+		this.tptoggle = tptoggle;
+		this.invisible = invisible;
 		this.onlinetime = onlinetime;
-		this.lastonline = lastonline;
+		this.mails = mails;
+		this.lastlocation = lastlocation;
+		this.lastdeath = lastdeath;
+		this.firstseen = firstseen;
+		this.lastseen = lastseen;
 		
 		lastaction = 0;
 		afk = false;
@@ -51,13 +64,13 @@ public class PLAYER {
 	}
 	
 	public void insert() {
-		DATABASE.queue("INSERT INTO players VALUES ('" + uuid + "', '" + name + "', '" + godmode + "', " + flymode + ", '" + mails + "', '" + location + "', '" + lastdeath + "', " + onlinetime + ", " + lastonline + ")");
+		DATABASE.queue("INSERT INTO players VALUES ('" + uuid + "', '" + name + "', '" + nick + "', '" + channel + "', " + money + ", " + god + ", " + fly + ", " + tptoggle + ", " + invisible + ", " + onlinetime + ", '" + mails + "', '" + lastlocation + "', '" + lastdeath + "', " + firstseen + ", " + lastseen + ")");
 		DATABASE.addPlayer(uuid, this);
 		DATABASE.addUUID(name, uuid);
 	}
 	
 	public void update() {
-		DATABASE.queue("UPDATE players SET name = '" + name + "', godmode = '" + godmode + "', flymode = " + flymode + ", mails = '" + mails + "', location = '" + location + "', lastdeath = '" + lastdeath + "', onlinetime = " + onlinetime + ", lastonline = " + lastonline + " WHERE uuid = '" + uuid + "'");
+		DATABASE.queue("UPDATE players SET name = '" + name + "', nick = '" + nick + "', channel = '" + channel + "', money = " + money + ", god = " + god + ", fly = " + fly + ", tptoggle = " + tptoggle + ", invisible = " + invisible + ", onlinetime = " + onlinetime + ", mails = '" + mails + "', lastlocation = '" + lastlocation + "', lastdeath = '" + lastdeath + "', firstseen = " + firstseen + ", lastseen = " + lastseen + " WHERE uuid = '" + uuid + "'");
 		DATABASE.removePlayer(uuid);
 		DATABASE.removeUUID(name);
 		DATABASE.addPlayer(uuid, this);
@@ -72,14 +85,20 @@ public class PLAYER {
 
 	public void setUUID(String uuid) { this.uuid = uuid; }
 	public void setName(String name) { this.name = name; }
-	public void setGodmode(String godmode) { this.godmode = godmode; }
-	public void setFlymode(double flymode) { this.flymode = flymode; }
-	public void setMails(String mails) { this.mails = mails; }
-	public void setLocation(String location) { this.location = location; }
-	public void setLastdeath(String lastdeath) { this.lastdeath = lastdeath; }
+	public void setNick(String nick) { this.nick = nick; }
+	public void setChannel(String channel) { this.channel = channel; }
+	public void setMoney(double money) { this.money = money; }
+	public void setGod(double god) { this.god = god; }
+	public void setFly(double fly) { this.fly = fly; }
+	public void setTPToggle(double tptoggle) { this.tptoggle = tptoggle; }
+	public void setInvisible(double invisible) { this.invisible = invisible; }
 	public void setOnlinetime(double onlinetime) { this.onlinetime = onlinetime; }
-	public void setLastonline(double lastonline) { this.lastonline = lastonline; }
-	
+	public void setMails(String mails) { this.mails = mails; }
+	public void setLastlocation(String lastlocation) { this.lastlocation = lastlocation; }
+	public void setLastdeath(String lastdeath) { this.lastdeath = lastdeath; }
+	public void setFirstseen(double firstseen) { this.firstseen = firstseen; }
+	public void setLastseen(double lastseen) { this.lastseen = lastseen; }
+
 	public void setLastaction(double lastaction) { this.lastaction = lastaction; }
 	public void setAFK(boolean afk) { this.afk = afk; }
 	public void setHome(String name, HOME home) { if(homes == null) homes = new HashMap<String, HOME>(); homes.put(name, home); }
@@ -94,13 +113,21 @@ public class PLAYER {
 	
 	public String getUUID() { return uuid; }
 	public String getName() { return name; }
-	public String getGodmode() { return godmode; }
-	public double getFlymode() { return flymode; }
-	public String getMails() { return mails; }
-	public String getLocation() { return location; }
-	public String getLastdeath() { return lastdeath; }
+	public String getNick() { return nick; }
+	public String getChannel() { return channel; }
+	public double getMoney() {
+		return Math.round(money * 100) / 100;
+	}
+	public double getGod() { return god; }
+	public double getFly() { return fly; }
+	public double getTPToggle() { return tptoggle; }
+	public double getInvisible() { return invisible; }
 	public double getOnlinetime() { return onlinetime; }
-	public double getLastonline() { return lastonline; }
+	public String getMails() { return mails; }
+	public String getLastlocation() { return lastlocation; }
+	public String getLastdeath() { return lastdeath; }
+	public double getFirstseen() { return firstseen; }
+	public double getLastseen() { return lastseen; }
 	
 	public double getLastaction() { return lastaction; }
 	public boolean getAFK() { return afk; }
@@ -113,5 +140,14 @@ public class PLAYER {
 	public HashMap<String, String> getPowertools() { return powertools; }
 	public Text getPageTitle() { return page_title; }
 	public Text getPageHeader() { return page_header; }
+	
+	public void addMoney(double amount) {
+		amount *= 100; amount = Math.round(amount); amount /= 100;
+		this.money += amount;
+	}
+	public void removeMoney(double amount) {
+		amount *= 100; amount = Math.round(amount); amount /= 100;
+		this.money -= amount;
+	}
 	
 }

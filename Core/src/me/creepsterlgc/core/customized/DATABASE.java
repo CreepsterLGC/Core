@@ -64,7 +64,7 @@ public class DATABASE {
 			}
 			
 			if(!tables.contains("players")) {
-				execute("CREATE TABLE players (uuid TEXT, name TEXT, godmode TEXT, flymode DOUBLE, mails TEXT, location TEXT, lastdeath TEXT, onlinetime DOUBLE, lastonline DOUBLE)");
+				execute("CREATE TABLE players (uuid TEXT, name TEXT, nick TEXT, channel TEXT, money DOUBLE, god DOUBLE, fly DOUBLE, tptoggle DOUBLE, invisible DOUBLE, onlinetime DOUBLE, mails TEXT, lastlocation TEXT, lastdeath TEXT, firstseen DOUBLE, lastseen DOUBLE)");
 			}
 			
 			if(!tables.contains("spawns")) {
@@ -119,7 +119,7 @@ public class DATABASE {
 			Statement s = c.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM players");
 			while(rs.next()) {
-				PLAYER player = new PLAYER(rs.getString("uuid"), rs.getString("name"), rs.getString("godmode"), rs.getDouble("flymode"), rs.getString("mails"), rs.getString("location"), rs.getString("lastdeath"), rs.getDouble("onlinetime"), rs.getDouble("lastonline"));
+				PLAYER player = new PLAYER(rs.getString("uuid"), rs.getString("name"), rs.getString("nick"), rs.getString("channel"), rs.getDouble("money"), rs.getDouble("god"), rs.getDouble("fly"), rs.getDouble("tptoggle"), rs.getDouble("invisible"), rs.getDouble("onlinetime"), rs.getString("mails"), rs.getString("lastlocation"), rs.getString("lastdeath"), rs.getDouble("firstseen"), rs.getDouble("lastseen"));
 				DATABASE.addPlayer(player.getUUID(), player);
 				DATABASE.addUUID(player.getName(), player.getUUID());
 			}

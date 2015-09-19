@@ -10,6 +10,8 @@ import me.creepsterlgc.core.commands.CommandBanlist;
 import me.creepsterlgc.core.commands.CommandBroadcast;
 import me.creepsterlgc.core.commands.CommandButcher;
 import me.creepsterlgc.core.commands.CommandCore;
+import me.creepsterlgc.core.commands.CommandFakejoin;
+import me.creepsterlgc.core.commands.CommandFakeleave;
 import me.creepsterlgc.core.commands.CommandFeed;
 import me.creepsterlgc.core.commands.CommandForce;
 import me.creepsterlgc.core.commands.CommandHeal;
@@ -19,11 +21,14 @@ import me.creepsterlgc.core.commands.CommandList;
 import me.creepsterlgc.core.commands.CommandMail;
 import me.creepsterlgc.core.commands.CommandMemory;
 import me.creepsterlgc.core.commands.CommandMessage;
+import me.creepsterlgc.core.commands.CommandMoney;
 import me.creepsterlgc.core.commands.CommandMute;
+import me.creepsterlgc.core.commands.CommandNick;
 import me.creepsterlgc.core.commands.CommandOnlinetime;
 import me.creepsterlgc.core.commands.CommandPage;
 import me.creepsterlgc.core.commands.CommandPing;
 import me.creepsterlgc.core.commands.CommandPowertool;
+import me.creepsterlgc.core.commands.CommandRealname;
 import me.creepsterlgc.core.commands.CommandReply;
 import me.creepsterlgc.core.commands.CommandTP;
 import me.creepsterlgc.core.commands.CommandTPA;
@@ -42,6 +47,7 @@ import me.creepsterlgc.core.commands.CommandUnban;
 import me.creepsterlgc.core.commands.CommandUnmute;
 import me.creepsterlgc.core.commands.CommandWarp;
 import me.creepsterlgc.core.commands.CommandWeather;
+import me.creepsterlgc.core.CoreAPI;
 import me.creepsterlgc.core.customized.COMMANDS;
 import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.DATABASE;
@@ -64,6 +70,8 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.service.ProviderExistsException;
+
 import com.google.inject.Inject;
 
 @Plugin(id = "Core", name = "Core Plugin")
@@ -96,6 +104,14 @@ public class Core {
     	Controller.game = game;
     	SERVER.sink = game.getServer().getBroadcastSink();
     	
+        if (!game.getServiceManager().provide(CoreAPI.class).isPresent()) {
+            try {
+                game.getServiceManager().setProvider(this, CoreAPI.class, new CoreAPI());
+            } catch (ProviderExistsException e) {
+                logger.warning("Error while registering CoreAPI!");
+            }
+        }
+    	
     	game.getEventManager().registerListeners(this, this);
     	game.getEventManager().registerListeners(this, new EventGameClientLogin());
     	game.getEventManager().registerListeners(this, new EventPlayerAttackEntity());
@@ -115,6 +131,8 @@ public class Core {
     	if(COMMANDS.BROADCAST()) game.getCommandDispatcher().register(this, new CommandBroadcast(), "broadcast");
     	if(COMMANDS.BUTCHER()) game.getCommandDispatcher().register(this, new CommandButcher(), "butcher");
     	if(COMMANDS.CORE()) game.getCommandDispatcher().register(this, new CommandCore(), "core");
+    	if(COMMANDS.FAKEJOIN()) game.getCommandDispatcher().register(this, new CommandFakejoin(), "fakejoin");
+    	if(COMMANDS.FAKELEAVE()) game.getCommandDispatcher().register(this, new CommandFakeleave(), "fakeleave");
     	if(COMMANDS.FEED()) game.getCommandDispatcher().register(this, new CommandFeed(game), "feed");
     	if(COMMANDS.FORCE()) game.getCommandDispatcher().register(this, new CommandForce(game), "force", "sudo");
     	if(COMMANDS.HEAL()) game.getCommandDispatcher().register(this, new CommandHeal(game), "heal");
@@ -125,10 +143,13 @@ public class Core {
     	if(COMMANDS.MAIL()) game.getCommandDispatcher().register(this, new CommandMail(), "mail");
     	if(COMMANDS.MEMORY()) game.getCommandDispatcher().register(this, new CommandMemory(), "memory");
     	if(COMMANDS.MSG()) game.getCommandDispatcher().register(this, new CommandMessage(), "m", "msg", "message", "w", "whisper", "tell");
+    	if(COMMANDS.MONEY()) game.getCommandDispatcher().register(this, new CommandMoney(), "money");
     	if(COMMANDS.MUTE()) game.getCommandDispatcher().register(this, new CommandMute(game), "mute");
+    	if(COMMANDS.NICK()) game.getCommandDispatcher().register(this, new CommandNick(), "nick");
     	if(COMMANDS.ONLINETIME()) game.getCommandDispatcher().register(this, new CommandOnlinetime(game), "onlinetime");
     	if(COMMANDS.PING()) game.getCommandDispatcher().register(this, new CommandPing(), "ping");
     	if(COMMANDS.POWERTOOL()) game.getCommandDispatcher().register(this, new CommandPowertool(game), "powertool");
+    	if(COMMANDS.REALNAME()) game.getCommandDispatcher().register(this, new CommandRealname(), "realname");
     	if(COMMANDS.REPLY()) game.getCommandDispatcher().register(this, new CommandReply(), "r", "reply");
     	if(COMMANDS.SPAWN()) game.getCommandDispatcher().register(this, new CommandSpawn(), "spawn");
     	if(COMMANDS.TEMPBAN()) game.getCommandDispatcher().register(this, new CommandTempban(game), "tempban");

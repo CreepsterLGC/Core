@@ -6,6 +6,7 @@ import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.MUTE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.TEXT;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -30,6 +31,8 @@ public class EventPlayerChat {
     	
     	Player player = optional.get();
     	String uuid = player.getUniqueId().toString();
+    	PLAYER p = DATABASE.getPlayer(uuid);
+    	
     	MUTE mute = DATABASE.getMute(uuid);
     	
     	if(mute != null) {
@@ -48,7 +51,6 @@ public class EventPlayerChat {
     	
     	if(CONFIG.AFK_ENABLE_SYSTEM()) {
     	
-	    	PLAYER p = DATABASE.getPlayer(uuid);
 			p.setLastaction(System.currentTimeMillis());
 			
 			if(p.getAFK()) {
@@ -65,10 +67,14 @@ public class EventPlayerChat {
     	Subject subject = player.getContainingCollection().get(player.getIdentifier());
     	
     	String name = player.getName();
-    	String prefix = "";
-    	String suffix = "";
+    	
     	String m = Texts.toPlain(event.getMessage());
     	m = m.replaceAll("<" + name + "> ", "");
+    	
+    	if(!p.getNick().equalsIgnoreCase("")) name = CONFIG.CHAT_NICK_PREFIX() + p.getNick();
+    	
+    	String prefix = "";
+    	String suffix = "";
     	
     	Text message = Texts.of();
     	
@@ -79,12 +85,7 @@ public class EventPlayerChat {
 		}
     	
     	if(PERMISSIONS.has(player, "core.chat.color")) {
-	    	try {
-	    		message = Texts.legacy('&').from(m);
-			} catch (TextMessageException e) {
-				System.out.println("Core: Error while formatting chat message!");
-				e.printStackTrace();
-			}
+    		message = TEXT.color(m);
     	}
     	else {
     		message = Texts.of(m);

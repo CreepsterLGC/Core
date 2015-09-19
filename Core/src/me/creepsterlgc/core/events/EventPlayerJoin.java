@@ -43,7 +43,7 @@ public class EventPlayerJoin {
 		
 		if(player_uuid == null && player_name == null) {
 			
-			PLAYER p = new PLAYER(uuid, name, "", 0, "", "", "", 0, 0);
+			PLAYER p = new PLAYER(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), 0);
 			p.setLastaction(System.currentTimeMillis());
 			p.insert();
 			
@@ -75,7 +75,7 @@ public class EventPlayerJoin {
 			player_name.setName(player_name.getUUID());
 			player_name.update();
 			
-			PLAYER p = new PLAYER(uuid, name, "", 0, "", "", "", 0, 0);
+			PLAYER p = new PLAYER(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), 0);
 			p.setLastaction(System.currentTimeMillis());
 			p.insert();
 			
