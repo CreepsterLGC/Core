@@ -40,7 +40,7 @@ public class CommandHeal implements CommandCallable {
 		if(arguments.equalsIgnoreCase("")) {
 			
 			if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
-			
+
 			Player p = (Player) sender;
 			double max = p.get(Keys.MAX_HEALTH).get(); p.offer(Keys.HEALTH, max);
 			

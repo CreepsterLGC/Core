@@ -31,6 +31,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "fakejoin").setValue(true);
 				commands.getNode("enabled", "fakeleave").setValue(true);
 				commands.getNode("enabled", "feed").setValue(true);
+				commands.getNode("enabled", "gamemode").setValue(true);
 				commands.getNode("enabled", "heal").setValue(true);
 				commands.getNode("enabled", "home").setValue(true);
 				commands.getNode("enabled", "kick").setValue(true);
@@ -47,6 +48,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "powertool").setValue(true);
 				commands.getNode("enabled", "realname").setValue(true);
 				commands.getNode("enabled", "reply").setValue(true);
+				commands.getNode("enabled", "searchitem").setValue(true);
 				commands.getNode("enabled", "spawn").setValue(true);
 				commands.getNode("enabled", "tempban").setValue(true);
 				commands.getNode("enabled", "ticket").setValue(true);
@@ -59,12 +61,14 @@ public class COMMANDS {
 				commands.getNode("enabled", "tpdeath").setValue(true);
 				commands.getNode("enabled", "tphere").setValue(true);
 				commands.getNode("enabled", "tpswap").setValue(true);
+				commands.getNode("enabled", "tpworld").setValue(true);
 				commands.getNode("enabled", "unban").setValue(true);
 				commands.getNode("enabled", "unmute").setValue(true);
 				commands.getNode("enabled", "warp").setValue(true);
 				commands.getNode("enabled", "weather").setValue(true);
+				commands.getNode("enabled", "world").setValue(true);
 				
-				commands.getNode("version").setValue(7);
+				commands.getNode("version").setValue(8);
 				
 		        manager.save(commands);
 				
@@ -152,6 +156,21 @@ public class COMMANDS {
 				
 			}
 			
+			if(commands.getNode("version").getInt() <= 7) {
+				
+				commands.getNode("enabled", "gamemode").setValue(true);
+				commands.getNode("enabled", "searchitem").setValue(true);
+				commands.getNode("enabled", "tpworld").setValue(true);
+				commands.getNode("enabled", "world").setValue(true);
+				
+				commands.getNode("version").setValue(8);
+				
+				manager.save(commands);
+			
+				commands = manager.load();
+				
+			}
+			
 			commands = manager.load();
 			
 		     
@@ -169,6 +188,7 @@ public class COMMANDS {
 	public static boolean FAKELEAVE() { return commands.getNode("enabled", "fakeleave").getBoolean(); }
 	public static boolean FEED() { return commands.getNode("enabled", "feed").getBoolean(); }
 	public static boolean FORCE() { return commands.getNode("enabled", "force").getBoolean(); }
+	public static boolean GAMEMODE() { return commands.getNode("enabled", "gamemode").getBoolean(); }
 	public static boolean HEAL() { return commands.getNode("enabled", "heal").getBoolean(); }
 	public static boolean HOME() { return commands.getNode("enabled", "home").getBoolean(); }
 	public static boolean KICK() { return commands.getNode("enabled", "kick").getBoolean(); }
@@ -185,6 +205,7 @@ public class COMMANDS {
 	public static boolean POWERTOOL() { return commands.getNode("enabled", "powertool").getBoolean(); }
 	public static boolean REALNAME() { return commands.getNode("enabled", "realname").getBoolean(); }
 	public static boolean REPLY() { return commands.getNode("enabled", "reply").getBoolean(); }
+	public static boolean SEARCHITEM() { return commands.getNode("enabled", "searchitem").getBoolean(); }
 	public static boolean SPAWN() { return commands.getNode("enabled", "spawn").getBoolean(); }
 	public static boolean TEMPBAN() { return commands.getNode("enabled", "tempban").getBoolean(); }
 	public static boolean TICKET() { return commands.getNode("enabled", "ticket").getBoolean(); }
@@ -197,9 +218,11 @@ public class COMMANDS {
 	public static boolean TPDENY() { return commands.getNode("enabled", "tpdeny").getBoolean(); }
 	public static boolean TPHERE() { return commands.getNode("enabled", "tphere").getBoolean(); }
 	public static boolean TPSWAP() { return commands.getNode("enabled", "tpswap").getBoolean(); }
+	public static boolean TPWORLD() { return commands.getNode("enabled", "tpworld").getBoolean(); }
 	public static boolean UNBAN() { return commands.getNode("enabled", "unban").getBoolean(); }
 	public static boolean UNMUTE() { return commands.getNode("enabled", "unmute").getBoolean(); }
 	public static boolean WARP() { return commands.getNode("enabled", "warp").getBoolean(); }
 	public static boolean WEATHER() { return commands.getNode("enabled", "weather").getBoolean(); }
+	public static boolean WORLD() { return commands.getNode("enabled", "world").getBoolean(); }
 	
 }
