@@ -249,7 +249,7 @@ public class CoreAPI {
 	/*
 	 * RETURNS: Nothing
 	 * 
-	 * message = The message to be broadcasted
+	 * message = The message to broadcast
 	 * 
 	 */
 	
