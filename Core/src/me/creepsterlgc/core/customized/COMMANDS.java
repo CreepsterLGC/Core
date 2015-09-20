@@ -40,6 +40,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "mail").setValue(true);
 				commands.getNode("enabled", "memory").setValue(true);
 				commands.getNode("enabled", "money").setValue(true);
+				commands.getNode("enabled", "motd").setValue(true);
 				commands.getNode("enabled", "msg").setValue(true);
 				commands.getNode("enabled", "mute").setValue(true);
 				commands.getNode("enabled", "nick").setValue(true);
@@ -48,7 +49,9 @@ public class COMMANDS {
 				commands.getNode("enabled", "powertool").setValue(true);
 				commands.getNode("enabled", "realname").setValue(true);
 				commands.getNode("enabled", "reply").setValue(true);
+				commands.getNode("enabled", "rules").setValue(true);
 				commands.getNode("enabled", "searchitem").setValue(true);
+				commands.getNode("enabled", "seen").setValue(true);
 				commands.getNode("enabled", "spawn").setValue(true);
 				commands.getNode("enabled", "tempban").setValue(true);
 				commands.getNode("enabled", "ticket").setValue(true);
@@ -67,9 +70,10 @@ public class COMMANDS {
 				commands.getNode("enabled", "unmute").setValue(true);
 				commands.getNode("enabled", "warp").setValue(true);
 				commands.getNode("enabled", "weather").setValue(true);
+				commands.getNode("enabled", "whois").setValue(true);
 				commands.getNode("enabled", "world").setValue(true);
 				
-				commands.getNode("version").setValue(9);
+				commands.getNode("version").setValue(10);
 				
 		        manager.save(commands);
 				
@@ -184,6 +188,21 @@ public class COMMANDS {
 				
 			}
 			
+			if(commands.getNode("version").getInt() <= 9) {
+				
+				commands.getNode("enabled", "motd").setValue(true);
+				commands.getNode("enabled", "rules").setValue(true);
+				commands.getNode("enabled", "seen").setValue(true);
+				commands.getNode("enabled", "whois").setValue(true);
+				
+				commands.getNode("version").setValue(10);
+				
+				manager.save(commands);
+			
+				commands = manager.load();
+				
+			}
+			
 			commands = manager.load();
 			
 		     
@@ -211,6 +230,7 @@ public class COMMANDS {
 	public static boolean MEMORY() { return commands.getNode("enabled", "memory").getBoolean(); }
 	public static boolean MSG() { return commands.getNode("enabled", "msg").getBoolean(); }
 	public static boolean MONEY() { return commands.getNode("enabled", "money").getBoolean(); }
+	public static boolean MOTD() { return commands.getNode("enabled", "motd").getBoolean(); }
 	public static boolean MUTE() { return commands.getNode("enabled", "mute").getBoolean(); }
 	public static boolean NICK() { return commands.getNode("enabled", "nick").getBoolean(); }
 	public static boolean ONLINETIME() { return commands.getNode("enabled", "onlinetime").getBoolean(); }
@@ -218,7 +238,9 @@ public class COMMANDS {
 	public static boolean POWERTOOL() { return commands.getNode("enabled", "powertool").getBoolean(); }
 	public static boolean REALNAME() { return commands.getNode("enabled", "realname").getBoolean(); }
 	public static boolean REPLY() { return commands.getNode("enabled", "reply").getBoolean(); }
+	public static boolean RULES() { return commands.getNode("enabled", "rules").getBoolean(); }
 	public static boolean SEARCHITEM() { return commands.getNode("enabled", "searchitem").getBoolean(); }
+	public static boolean SEEN() { return commands.getNode("enabled", "seen").getBoolean(); }
 	public static boolean SPAWN() { return commands.getNode("enabled", "spawn").getBoolean(); }
 	public static boolean TEMPBAN() { return commands.getNode("enabled", "tempban").getBoolean(); }
 	public static boolean TICKET() { return commands.getNode("enabled", "ticket").getBoolean(); }
@@ -237,6 +259,7 @@ public class COMMANDS {
 	public static boolean UNMUTE() { return commands.getNode("enabled", "unmute").getBoolean(); }
 	public static boolean WARP() { return commands.getNode("enabled", "warp").getBoolean(); }
 	public static boolean WEATHER() { return commands.getNode("enabled", "weather").getBoolean(); }
+	public static boolean WHOIS() { return commands.getNode("enabled", "whois").getBoolean(); }
 	public static boolean WORLD() { return commands.getNode("enabled", "world").getBoolean(); }
 	
 }

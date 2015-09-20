@@ -2,6 +2,7 @@ package me.creepsterlgc.core.events;
 
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.MESSAGES;
+import me.creepsterlgc.core.customized.MOTD;
 import me.creepsterlgc.core.customized.PLAYER;
 import me.creepsterlgc.core.customized.SERVER;
 import me.creepsterlgc.core.customized.SPAWN;
@@ -43,7 +44,7 @@ public class EventPlayerJoin {
 		
 		if(player_uuid == null && player_name == null) {
 			
-			PLAYER p = new PLAYER(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), 0);
+			PLAYER p = new PLAYER(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), System.currentTimeMillis());
 			p.setLastaction(System.currentTimeMillis());
 			p.insert();
 			
@@ -75,7 +76,7 @@ public class EventPlayerJoin {
 			player_name.setName(player_name.getUUID());
 			player_name.update();
 			
-			PLAYER p = new PLAYER(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), 0);
+			PLAYER p = new PLAYER(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), System.currentTimeMillis());
 			p.setLastaction(System.currentTimeMillis());
 			p.insert();
 			
@@ -113,6 +114,13 @@ public class EventPlayerJoin {
 		}
 		else {
 			
+		}
+		
+		if(MOTD.SHOW_ON_JOIN()) {
+			for(String s : MOTD.MESSAGE()) {
+				s = s.replaceAll("%player", player.getName());
+				player.sendMessage(TEXT.color(s));
+			}
 		}
 		
     }

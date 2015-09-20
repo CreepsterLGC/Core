@@ -41,6 +41,7 @@ public class CommandTPAccept implements CommandCallable {
 		if(!PERMISSIONS.has(sender, "core.tpaccept")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpaccept <player>")); return CommandResult.success(); }
+		
 		if(args.length < 1 || args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpaccept <player>")); return CommandResult.success(); }
 		
 		Player player = (Player) sender;

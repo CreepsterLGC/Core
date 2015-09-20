@@ -36,6 +36,7 @@ public class CommandTPHere implements CommandCallable {
 		if(!PERMISSIONS.has(sender, "core.tphere")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tphere <player>")); return CommandResult.success(); }
+		
 		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tphere <player>")); return CommandResult.success(); }
 		
 		Player player = (Player)sender;

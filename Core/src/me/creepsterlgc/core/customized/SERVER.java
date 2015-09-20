@@ -14,6 +14,10 @@ public class SERVER {
 	
 	public static Player getPlayer(String player) {
 		
+		for(Player p : Controller.getServer().getOnlinePlayers()) {
+			if(p.getName().equalsIgnoreCase(player)) return p;
+		}
+		
 		Player found = null;
 		for(Player p : Controller.getServer().getOnlinePlayers()) {
 			if(!p.getName().toLowerCase().contains(player.toLowerCase())) continue;

@@ -23,6 +23,7 @@ import me.creepsterlgc.core.commands.CommandMail;
 import me.creepsterlgc.core.commands.CommandMemory;
 import me.creepsterlgc.core.commands.CommandMessage;
 import me.creepsterlgc.core.commands.CommandMoney;
+import me.creepsterlgc.core.commands.CommandMotd;
 import me.creepsterlgc.core.commands.CommandMute;
 import me.creepsterlgc.core.commands.CommandNick;
 import me.creepsterlgc.core.commands.CommandOnlinetime;
@@ -31,7 +32,9 @@ import me.creepsterlgc.core.commands.CommandPing;
 import me.creepsterlgc.core.commands.CommandPowertool;
 import me.creepsterlgc.core.commands.CommandRealname;
 import me.creepsterlgc.core.commands.CommandReply;
+import me.creepsterlgc.core.commands.CommandRules;
 import me.creepsterlgc.core.commands.CommandSearchitem;
+import me.creepsterlgc.core.commands.CommandSeen;
 import me.creepsterlgc.core.commands.CommandTP;
 import me.creepsterlgc.core.commands.CommandTPA;
 import me.creepsterlgc.core.commands.CommandTPAHere;
@@ -51,12 +54,15 @@ import me.creepsterlgc.core.commands.CommandUnban;
 import me.creepsterlgc.core.commands.CommandUnmute;
 import me.creepsterlgc.core.commands.CommandWarp;
 import me.creepsterlgc.core.commands.CommandWeather;
+import me.creepsterlgc.core.commands.CommandWhois;
 import me.creepsterlgc.core.commands.CommandWorld;
 import me.creepsterlgc.core.CoreAPI;
 import me.creepsterlgc.core.customized.COMMANDS;
 import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.MESSAGES;
+import me.creepsterlgc.core.customized.MOTD;
+import me.creepsterlgc.core.customized.RULES;
 import me.creepsterlgc.core.customized.SERVER;
 import me.creepsterlgc.core.events.EventGameClientLogin;
 import me.creepsterlgc.core.events.EventPlayerAttackEntity;
@@ -103,6 +109,8 @@ public class Core {
     	CONFIG.setup();
     	COMMANDS.setup();
     	MESSAGES.setup();
+    	MOTD.setup();
+    	RULES.setup();
     	DATABASE.setup(game);
     	DATABASE.load(game);
     	
@@ -150,6 +158,7 @@ public class Core {
     	if(COMMANDS.MEMORY()) game.getCommandDispatcher().register(this, new CommandMemory(), "memory");
     	if(COMMANDS.MSG()) game.getCommandDispatcher().register(this, new CommandMessage(), "m", "msg", "message", "w", "whisper", "tell");
     	if(COMMANDS.MONEY()) game.getCommandDispatcher().register(this, new CommandMoney(), "money");
+    	if(COMMANDS.MOTD()) game.getCommandDispatcher().register(this, new CommandMotd(), "motd");
     	if(COMMANDS.MUTE()) game.getCommandDispatcher().register(this, new CommandMute(game), "mute");
     	if(COMMANDS.NICK()) game.getCommandDispatcher().register(this, new CommandNick(), "nick");
     	if(COMMANDS.ONLINETIME()) game.getCommandDispatcher().register(this, new CommandOnlinetime(game), "onlinetime");
@@ -157,7 +166,9 @@ public class Core {
     	if(COMMANDS.POWERTOOL()) game.getCommandDispatcher().register(this, new CommandPowertool(game), "powertool");
     	if(COMMANDS.REALNAME()) game.getCommandDispatcher().register(this, new CommandRealname(), "realname");
     	if(COMMANDS.REPLY()) game.getCommandDispatcher().register(this, new CommandReply(), "r", "reply");
+    	if(COMMANDS.RULES()) game.getCommandDispatcher().register(this, new CommandRules(), "rules");
     	if(COMMANDS.SEARCHITEM()) game.getCommandDispatcher().register(this, new CommandSearchitem(), "searchitem", "si", "search");
+    	if(COMMANDS.SEEN()) game.getCommandDispatcher().register(this, new CommandSeen(game), "seen");
     	if(COMMANDS.SPAWN()) game.getCommandDispatcher().register(this, new CommandSpawn(), "spawn");
     	if(COMMANDS.TEMPBAN()) game.getCommandDispatcher().register(this, new CommandTempban(game), "tempban");
     	if(COMMANDS.TICKET()) game.getCommandDispatcher().register(this, new CommandTicket(), "ticket");
@@ -176,6 +187,7 @@ public class Core {
     	if(COMMANDS.UNMUTE()) game.getCommandDispatcher().register(this, new CommandUnmute(game), "unmute");
     	if(COMMANDS.WARP()) game.getCommandDispatcher().register(this, new CommandWarp(), "warp");
     	if(COMMANDS.WEATHER()) game.getCommandDispatcher().register(this, new CommandWeather(game), "weather");
+    	if(COMMANDS.WHOIS()) game.getCommandDispatcher().register(this, new CommandWhois(game), "whois", "check");
     	if(COMMANDS.WORLD()) game.getCommandDispatcher().register(this, new CommandWorld(game), "world");
     	
     	game.getCommandDispatcher().register(this, new CommandPage(), "page");

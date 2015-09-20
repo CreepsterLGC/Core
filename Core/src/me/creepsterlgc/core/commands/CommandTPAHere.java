@@ -40,6 +40,7 @@ public class CommandTPAHere implements CommandCallable {
 		if(!PERMISSIONS.has(sender, "core.tpahere")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpahere <player>")); return CommandResult.success(); }
+		
 		if(args.length < 1 || args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpahere <player>")); return CommandResult.success(); }
 		
 		Player s = (Player) sender;
