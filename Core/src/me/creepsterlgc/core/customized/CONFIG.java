@@ -82,6 +82,19 @@ public class CONFIG {
 		        config = manager.load();
 				
 			}
+			
+			if(config.getNode("version").getInt() <= 7) {
+				
+				config.getNode("chat", "NICK_PREFIX").setValue("&7*");
+				
+				config.getNode("version").setValue(8);
+				
+				manager.save(config);
+				
+				
+		        config = manager.load();
+				
+			}
 		     
 		} catch (IOException e) { e.printStackTrace(); }
 		

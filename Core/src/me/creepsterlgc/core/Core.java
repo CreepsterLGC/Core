@@ -39,6 +39,7 @@ import me.creepsterlgc.core.commands.CommandTPAccept;
 import me.creepsterlgc.core.commands.CommandTPDeath;
 import me.creepsterlgc.core.commands.CommandTPDeny;
 import me.creepsterlgc.core.commands.CommandTPHere;
+import me.creepsterlgc.core.commands.CommandTPPos;
 import me.creepsterlgc.core.commands.CommandTPSwap;
 import me.creepsterlgc.core.commands.CommandTPWorld;
 import me.creepsterlgc.core.commands.CommandTempban;
@@ -168,6 +169,7 @@ public class Core {
     	if(COMMANDS.TPDEATH()) game.getCommandDispatcher().register(this, new CommandTPDeath(game), "tpdeath", "back");
     	if(COMMANDS.TPDENY()) game.getCommandDispatcher().register(this, new CommandTPDeny(game), "tpdeny");
     	if(COMMANDS.TPHERE()) game.getCommandDispatcher().register(this, new CommandTPHere(game), "tphere");
+    	if(COMMANDS.TPPOS()) game.getCommandDispatcher().register(this, new CommandTPPos(game), "tppos");
     	if(COMMANDS.TPSWAP()) game.getCommandDispatcher().register(this, new CommandTPSwap(game), "tpswap");
     	if(COMMANDS.TPWORLD()) game.getCommandDispatcher().register(this, new CommandTPWorld(game), "tpworld");
     	if(COMMANDS.UNBAN()) game.getCommandDispatcher().register(this, new CommandUnban(game), "unban");

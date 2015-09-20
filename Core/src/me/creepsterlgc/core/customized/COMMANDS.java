@@ -60,6 +60,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "tpdeny").setValue(true);
 				commands.getNode("enabled", "tpdeath").setValue(true);
 				commands.getNode("enabled", "tphere").setValue(true);
+				commands.getNode("enabled", "tppos").setValue(true);
 				commands.getNode("enabled", "tpswap").setValue(true);
 				commands.getNode("enabled", "tpworld").setValue(true);
 				commands.getNode("enabled", "unban").setValue(true);
@@ -68,7 +69,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "weather").setValue(true);
 				commands.getNode("enabled", "world").setValue(true);
 				
-				commands.getNode("version").setValue(8);
+				commands.getNode("version").setValue(9);
 				
 		        manager.save(commands);
 				
@@ -171,6 +172,18 @@ public class COMMANDS {
 				
 			}
 			
+			if(commands.getNode("version").getInt() <= 8) {
+				
+				commands.getNode("enabled", "tppos").setValue(true);
+				
+				commands.getNode("version").setValue(9);
+				
+				manager.save(commands);
+			
+				commands = manager.load();
+				
+			}
+			
 			commands = manager.load();
 			
 		     
@@ -217,6 +230,7 @@ public class COMMANDS {
 	public static boolean TPDEATH() { return commands.getNode("enabled", "tpdeath").getBoolean(); }
 	public static boolean TPDENY() { return commands.getNode("enabled", "tpdeny").getBoolean(); }
 	public static boolean TPHERE() { return commands.getNode("enabled", "tphere").getBoolean(); }
+	public static boolean TPPOS() { return commands.getNode("enabled", "tppos").getBoolean(); }
 	public static boolean TPSWAP() { return commands.getNode("enabled", "tpswap").getBoolean(); }
 	public static boolean TPWORLD() { return commands.getNode("enabled", "tpworld").getBoolean(); }
 	public static boolean UNBAN() { return commands.getNode("enabled", "unban").getBoolean(); }

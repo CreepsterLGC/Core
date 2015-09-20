@@ -51,6 +51,8 @@ public class CommandTP implements CommandCallable {
 		}
 		else if(args.length == 2) {
 			
+			if(!PERMISSIONS.has(sender, "core.tp-others")) { sender.sendMessage(Texts.builder("You do not have permissions to teleport others!").color(TextColors.RED).build()); return CommandResult.success(); }
+			
 			player = SERVER.getPlayer(args[0]);
 			target = SERVER.getPlayer(args[1]);
 			
