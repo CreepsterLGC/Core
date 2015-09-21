@@ -1,6 +1,11 @@
 package me.creepsterlgc.core.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.creepsterlgc.core.Controller;
+import me.creepsterlgc.core.customized.CHANNEL;
+import me.creepsterlgc.core.customized.CHAT;
 import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.MUTE;
@@ -17,6 +22,8 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.TextMessageException;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
 import com.google.common.base.Optional;
 
@@ -63,45 +70,101 @@ public class EventPlayerChat {
     	}
     	
 		if(!CONFIG.CHAT_USE()) return;
-		
-    	Subject subject = player.getContainingCollection().get(player.getIdentifier());
     	
     	String name = player.getName();
-    	
-    	String m = Texts.toPlain(event.getMessage());
-    	m = m.replaceAll("<" + name + "> ", "");
-    	
+    	String message = Texts.toPlain(event.getMessage()); message = message.replaceAll("<" + name + "> ", "");
     	if(!p.getNick().equalsIgnoreCase("")) name = CONFIG.CHAT_NICK_PREFIX() + p.getNick();
+    	if(!PERMISSIONS.has(player, "core.chat.color")) { message = TEXT.uncolor(message); }
     	
-    	String prefix = "";
-    	String suffix = "";
+    	String prefix = TEXT.getPrefix(player);
+    	String suffix = TEXT.getSuffix(player);
+		
+    	if(!CHAT.CHANNELS()) {
     	
-    	Text message = Texts.of();
-    	
-		if (subject instanceof OptionSubject) {
-			OptionSubject optionSubject = (OptionSubject) subject;
-			prefix = optionSubject.getOption("prefix").or("");
-			suffix = optionSubject.getOption("suffix").or("");
-		}
-    	
-    	if(PERMISSIONS.has(player, "core.chat.color")) {
-    		message = TEXT.color(m);
+	    	String format = CHAT.DEFAULTFORMAT();
+	    	
+	    	format = format
+	    			.replaceAll("%prefix", prefix)
+	    			.replaceAll("%suffix", suffix)
+	    			.replaceAll("%player", name)
+	    			.replaceAll("%message", message);
+	    	
+	    	Text total = TEXT.color(format);
+	    	
+	    	event.setMessage(Texts.of(total));
+	    	
     	}
     	else {
-    		message = Texts.of(m);
+    		
+    		String channel = p.getChannel();
+    		CHANNEL c = DATABASE.getChannel(channel);
+    		if(c == null) c = DATABASE.getChannel(CHAT.DEFAULTCHANNEL());
+    		
+    		if(!PERMISSIONS.has(player, "core.channel.speak." + c.getID())) {
+    			player.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to speak in this channel!"));
+    			event.setCancelled(true);
+    			return;
+    		}
+    		
+    		String cprefix = c.getPrefix();
+    		String csuffix = c.getSuffix();
+    		
+	    	String format = c.getFormat();
+	    	
+	    	format = format
+	    			.replaceAll("%prefix", prefix)
+	    			.replaceAll("%suffix", suffix)
+	    			.replaceAll("%player", name)
+	    			.replaceAll("%message", message)
+	    			.replaceAll("%cprefix", cprefix)
+					.replaceAll("%csuffix", csuffix)
+	    			.replaceAll("%world", player.getWorld().getName());
+	    	
+	    	Text total = TEXT.color(format);
+	    	
+	    	String range = c.getRange();
+	    	
+	    	if(range.equalsIgnoreCase("global")) {
+	    		for(Player t : Controller.getPlayers()) {
+	    			if(!t.hasPermission("core.channel.receive." + channel)) continue;
+	    			t.sendMessage(total);
+	    		}
+	    	}
+	    	else if(range.equalsIgnoreCase("world")) {
+	    		for(Player t : Controller.getPlayers()) {
+	    			if(!t.getWorld().getName().equalsIgnoreCase(player.getWorld().getName())) continue;
+	    			if(!t.hasPermission("core.channel.receive." + channel)) continue;
+	    			t.sendMessage(total);
+	    		}
+	    	}
+	    	else {
+	    		int radius;
+	    		try { radius = Integer.parseInt(c.getRange()); }
+	    		catch(NumberFormatException e) {
+	    			player.sendMessage(Texts.of(TextColors.RED, "Invalid range in channels config!"));
+	    	    	event.setCancelled(true);
+	    			return;
+	    		}
+	    		for(Player t : Controller.getPlayers()) {
+	    			if(!t.getWorld().getName().equalsIgnoreCase(player.getWorld().getName())) continue;
+	    			
+					Location<World> l = t.getLocation();
+					double x = player.getLocation().getX();
+					double z = player.getLocation().getZ();
+					boolean hit_x = false;
+					boolean hit_z = false;
+					if(l.getX() <= x + radius && l.getX() >= x - radius) hit_x = true;
+					if(l.getZ() <= z + radius && l.getZ() >= z - radius) hit_z = true;
+					if(!hit_x || !hit_z) continue;
+					
+	    			if(!t.hasPermission("core.channel.receive." + channel)) continue;
+	    			t.sendMessage(total);
+	    		}
+	    	}
+	    	
+	    	event.setCancelled(true);
+
     	}
-    	
-    	String format = CONFIG.CHAT_FORMAT();
-    	format = format.replaceAll("%prefix", prefix).replaceAll("%suffix", suffix).replaceAll("%player", name);
-    	Text total = Texts.of();
-    	try {
-			total = Texts.legacy('&').from(format);
-		} catch (TextMessageException e) {
-			System.out.println("Core: Error while formatting chat message!");
-			e.printStackTrace();
-		}
-    	
-    	event.setMessage(Texts.of(total, message));
     	
     }
 	

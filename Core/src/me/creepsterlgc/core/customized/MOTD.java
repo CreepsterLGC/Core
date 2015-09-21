@@ -29,7 +29,7 @@ public class MOTD {
 				List<String> message = new ArrayList<String>();
 				message.add("&6Welcome, %player!");
 				message.add("&7Make sure to read the &e/rules");
-				message.add("&e&oEnjoy your stay!");
+				message.add("&aEnjoy your stay!");
 				
 				motd.getNode("message").setValue(message);
 				motd.getNode("SHOW_ON_JOIN").setValue(true);

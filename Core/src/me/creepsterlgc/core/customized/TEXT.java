@@ -5,61 +5,9 @@ import org.spongepowered.api.service.permission.Subject;
 import org.spongepowered.api.service.permission.option.OptionSubject;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
-import org.spongepowered.api.text.format.TextColor;
-import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.TextMessageException;
 
 public class TEXT {
-	
-	private Text text;
-	
-	public TEXT(Text text) {
-		this.text = text;
-	}
-	
-	public static TEXT create(String message, int layout) {
-		
-		TextColor color = null;
-		if(layout == 0) color = TextColors.YELLOW;
-		if(layout == 1) color = TextColors.GOLD;
-		if(layout == 2) color = TextColors.DARK_AQUA;
-		if(layout == 3) color = TextColors.DARK_GRAY;
-		if(layout == 4) color = TextColors.GRAY;
-		if(layout == 5) color = TextColors.AQUA;
-		if(layout == 6) color = TextColors.BLUE;
-		if(layout == 7) color = TextColors.DARK_GREEN;
-		if(layout == 8) color = TextColors.GREEN;
-		if(layout == 9) color = TextColors.WHITE;
-		if(layout == 10) color = TextColors.RED;
-		
-		return new TEXT(Texts.builder(message).color(color).build());
-		
-	}
-	
-	public TEXT add(String message, int layout) {
-		
-		TextColor color = null;
-		if(layout == 0) color = TextColors.YELLOW;
-		if(layout == 1) color = TextColors.GOLD;
-		if(layout == 2) color = TextColors.DARK_AQUA;
-		if(layout == 3) color = TextColors.DARK_GRAY;
-		if(layout == 4) color = TextColors.GRAY;
-		if(layout == 5) color = TextColors.AQUA;
-		if(layout == 6) color = TextColors.BLUE;
-		if(layout == 7) color = TextColors.DARK_GREEN;
-		if(layout == 8) color = TextColors.GREEN;
-		if(layout == 9) color = TextColors.WHITE;
-		if(layout == 10) color = TextColors.RED;
-		
-		text = Texts.builder().append(text).append(Texts.builder(message).color(color).build()).build();
-		
-		return this;
-		
-	}
-	
-	public Text get() {
-		return text;
-	}
 	
 	public static Text color(String message) {
 		Text result = Texts.of();
@@ -70,6 +18,31 @@ public class TEXT {
 			e.printStackTrace();
 		}
     	return result;
+	}
+	
+	public static String uncolor(String message) {
+		return message
+		.replaceAll("&a", "")
+		.replaceAll("&b", "")
+		.replaceAll("&c", "")
+		.replaceAll("&d", "")
+		.replaceAll("&e", "")
+		.replaceAll("&f", "")
+		.replaceAll("&0", "")
+		.replaceAll("&1", "")
+		.replaceAll("&2", "")
+		.replaceAll("&3", "")
+		.replaceAll("&4", "")
+		.replaceAll("&5", "")
+		.replaceAll("&6", "")
+		.replaceAll("&7", "")
+		.replaceAll("&8", "")
+		.replaceAll("&9", "")
+		.replaceAll("&l", "")
+		.replaceAll("&o", "")
+		.replaceAll("&m", "")
+		.replaceAll("&n", "")
+		.replaceAll("&k", "");
 	}
 	
 	public static String getPrefix(Player player) {

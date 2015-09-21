@@ -19,6 +19,6 @@ public class Controller {
 	
 	public static void broadcast(Text text) { SERVER.broadcast(text); }
 	
-	public static Collection<Player> getPlayers() { return Core.getInstance().getGame().getServer().getOnlinePlayers(); }
+	public static Collection<Player> getPlayers() { return game.getServer().getOnlinePlayers(); }
 	
 }

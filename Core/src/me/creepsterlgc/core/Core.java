@@ -9,6 +9,7 @@ import me.creepsterlgc.core.commands.CommandBan;
 import me.creepsterlgc.core.commands.CommandBanlist;
 import me.creepsterlgc.core.commands.CommandBroadcast;
 import me.creepsterlgc.core.commands.CommandButcher;
+import me.creepsterlgc.core.commands.CommandChannel;
 import me.creepsterlgc.core.commands.CommandCore;
 import me.creepsterlgc.core.commands.CommandFakejoin;
 import me.creepsterlgc.core.commands.CommandFakeleave;
@@ -57,6 +58,7 @@ import me.creepsterlgc.core.commands.CommandWeather;
 import me.creepsterlgc.core.commands.CommandWhois;
 import me.creepsterlgc.core.commands.CommandWorld;
 import me.creepsterlgc.core.CoreAPI;
+import me.creepsterlgc.core.customized.CHAT;
 import me.creepsterlgc.core.customized.COMMANDS;
 import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.DATABASE;
@@ -106,16 +108,17 @@ public class Core {
     	File folder = new File("mods/Core");
     	if(!folder.exists()) folder.mkdir();
     	
+    	Controller.game = game;
+    	SERVER.sink = game.getServer().getBroadcastSink();
+    	
     	CONFIG.setup();
+    	CHAT.setup();
     	COMMANDS.setup();
     	MESSAGES.setup();
     	MOTD.setup();
     	RULES.setup();
     	DATABASE.setup(game);
     	DATABASE.load(game);
-    	
-    	Controller.game = game;
-    	SERVER.sink = game.getServer().getBroadcastSink();
     	
         if (!game.getServiceManager().provide(CoreAPI.class).isPresent()) {
             try {
@@ -143,6 +146,7 @@ public class Core {
     	if(COMMANDS.BANLIST()) game.getCommandDispatcher().register(this, new CommandBanlist(), "banlist");
     	if(COMMANDS.BROADCAST()) game.getCommandDispatcher().register(this, new CommandBroadcast(), "broadcast");
     	if(COMMANDS.BUTCHER()) game.getCommandDispatcher().register(this, new CommandButcher(), "butcher");
+    	if(COMMANDS.CHANNEL()) game.getCommandDispatcher().register(this, new CommandChannel(), "channel", "ch", "c");
     	if(COMMANDS.CORE()) game.getCommandDispatcher().register(this, new CommandCore(), "core");
     	if(COMMANDS.FAKEJOIN()) game.getCommandDispatcher().register(this, new CommandFakejoin(), "fakejoin");
     	if(COMMANDS.FAKELEAVE()) game.getCommandDispatcher().register(this, new CommandFakeleave(), "fakeleave");

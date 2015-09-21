@@ -29,10 +29,6 @@ public class CONFIG {
 				config.getNode("mysql", "password").setValue("password");
 				config.getNode("mysql", "database").setValue("minecraft");
 				
-				config.getNode("chat", "use").setValue(true);
-				config.getNode("chat", "format").setValue("%prefix%player%suffix&8: &f");
-				config.getNode("chat", "NICK_PREFIX").setValue("&7*");
-				
 				config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").setValue(3600);
 				config.getNode("limits", "MAX_MUTE_TIME_IN_SECONDS").setValue(600);
 				
@@ -83,11 +79,11 @@ public class CONFIG {
 				
 			}
 			
-			if(config.getNode("version").getInt() <= 7) {
+			if(config.getNode("version").getInt() <= 8) {
 				
 				config.getNode("chat", "NICK_PREFIX").setValue("&7*");
 				
-				config.getNode("version").setValue(8);
+				config.getNode("version").setValue(9);
 				
 				manager.save(config);
 				

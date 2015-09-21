@@ -270,4 +270,10 @@ public class DATABASE {
 	public static WARP getWarp(String name) { return warps.containsKey(name) ? warps.get(name) : null; }
 	public static HashMap<String, WARP> getWarps() { return warps; }
 
+	private static HashMap<String, CHANNEL> channels = new HashMap<String, CHANNEL>();
+	public static void addChannel(String name, CHANNEL channel) { if(!channels.containsKey(name)) channels.put(name, channel); }
+	public static void removeChannel(String name) { if(channels.containsKey(name)) channels.remove(name); }
+	public static CHANNEL getChannel(String name) { return channels.containsKey(name) ? channels.get(name) : null; }
+	public static HashMap<String, CHANNEL> getChannels() { return channels; }
+	
 }

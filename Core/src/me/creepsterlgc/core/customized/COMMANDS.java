@@ -27,6 +27,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "banlist").setValue(true);
 				commands.getNode("enabled", "broadcast").setValue(true);
 				commands.getNode("enabled", "butcher").setValue(true);
+				commands.getNode("enabled", "channel").setValue(true);
 				commands.getNode("enabled", "core").setValue(true);
 				commands.getNode("enabled", "fakejoin").setValue(true);
 				commands.getNode("enabled", "fakeleave").setValue(true);
@@ -73,7 +74,7 @@ public class COMMANDS {
 				commands.getNode("enabled", "whois").setValue(true);
 				commands.getNode("enabled", "world").setValue(true);
 				
-				commands.getNode("version").setValue(10);
+				commands.getNode("version").setValue(11);
 				
 		        manager.save(commands);
 				
@@ -203,6 +204,18 @@ public class COMMANDS {
 				
 			}
 			
+			if(commands.getNode("version").getInt() <= 10) {
+				
+				commands.getNode("enabled", "channel").setValue(true);
+				
+				commands.getNode("version").setValue(11);
+				
+				manager.save(commands);
+			
+				commands = manager.load();
+				
+			}
+			
 			commands = manager.load();
 			
 		     
@@ -215,6 +228,7 @@ public class COMMANDS {
 	public static boolean BANLIST() { return commands.getNode("enabled", "banlist").getBoolean(); }
 	public static boolean BROADCAST() { return commands.getNode("enabled", "broadcast").getBoolean(); }
 	public static boolean BUTCHER() { return commands.getNode("enabled", "butcher").getBoolean(); }
+	public static boolean CHANNEL() { return commands.getNode("enabled", "channel").getBoolean(); }
 	public static boolean CORE() { return commands.getNode("enabled", "core").getBoolean(); }
 	public static boolean FAKEJOIN() { return commands.getNode("enabled", "fakejoin").getBoolean(); }
 	public static boolean FAKELEAVE() { return commands.getNode("enabled", "fakeleave").getBoolean(); }
