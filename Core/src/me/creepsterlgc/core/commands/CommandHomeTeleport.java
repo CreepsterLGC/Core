@@ -1,5 +1,6 @@
 package me.creepsterlgc.core.commands;
 
+import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.HOME;
 import me.creepsterlgc.core.customized.PERMISSIONS;
@@ -9,6 +10,9 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
+
 import com.flowpowered.math.vector.Vector3d;
 
 
@@ -30,7 +34,8 @@ public class CommandHomeTeleport {
 		
 		if(home == null) { sender.sendMessage(Texts.builder("Home does not exist!").color(TextColors.RED).build()); return; }
 		
-		if(!player.transferToWorld(home.getWorld(), new Vector3d(home.getX(), home.getY(), home.getZ()))) { sender.sendMessage(Texts.builder("Target world does not exist anymore!").color(TextColors.RED).build()); return; }
+		Location<World> loc = new Location<World>(Controller.getServer().getWorld(home.getWorld()).get(), home.getX(), home.getY(), home.getZ());
+		player.setLocation(loc);
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to home: ", TextColors.YELLOW, name));
 		

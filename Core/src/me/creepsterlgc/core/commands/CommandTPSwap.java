@@ -16,6 +16,7 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import com.google.common.base.Optional;
@@ -67,11 +68,11 @@ public class CommandTPSwap implements CommandCallable {
 			return CommandResult.success();
 		}
 		
-		Transform<World> loc_player = player.getTransform();
-		Transform<World> loc_target = target.getTransform();
+		Location<World> loc_player = player.getLocation();
+		Location<World> loc_target = target.getLocation();
 		
-		player.transferToWorld(loc_target.getExtent().getName(), loc_target.getPosition());
-		target.transferToWorld(loc_player.getExtent().getName(), loc_player.getPosition());
+		player.setLocation(loc_target);
+		target.setLocation(loc_player);
 		
 		if(args.length == 1) {
 		

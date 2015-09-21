@@ -68,7 +68,7 @@ public class CommandTP implements CommandCallable {
 			return CommandResult.success();
 		}
 		
-		player.transferToWorld(target.getWorld().getName(), new Vector3d(target.getLocation().getX(), target.getLocation().getY(), target.getLocation().getZ()));
+		player.setLocation(target.getLocation());
 		
 		if(args.length == 1) {
 		

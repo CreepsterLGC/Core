@@ -86,7 +86,7 @@ public class CommandTPAccept implements CommandCallable {
 		
 		if(tpa.containsKey(uuid)) {
 			
-			target.transferToWorld(player.getWorld().getName(), new Vector3d(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
+			target.setLocation(player.getLocation());
 			
 			tpa.remove(uuid);
 			p.setTPA(tpa);
@@ -94,7 +94,7 @@ public class CommandTPAccept implements CommandCallable {
 		
 		if(tpahere.containsKey(uuid)) {
 			
-			player.transferToWorld(target.getWorld().getName(), new Vector3d(target.getLocation().getX(), target.getLocation().getY(), target.getLocation().getZ()));
+			player.setLocation(target.getLocation());
 			
 			tpahere.remove(uuid);
 			p.setTPA(tpahere);

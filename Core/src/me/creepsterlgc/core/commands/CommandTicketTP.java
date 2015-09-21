@@ -1,5 +1,6 @@
 package me.creepsterlgc.core.commands;
 
+import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.TICKET;
@@ -8,6 +9,8 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
 import com.flowpowered.math.vector.Vector3d;
 
@@ -56,7 +59,8 @@ public class CommandTicketTP {
 		double y = ticket.getY();
 		double z = ticket.getZ();
 		
-		if(!player.transferToWorld(world, new Vector3d(x, y, z))) { sender.sendMessage(Texts.builder("Target world does not exist anymore!").color(TextColors.RED).build()); return; }
+		Location<World> loc = new Location<World>(Controller.getServer().getWorld(ticket.getWorld()).get(), ticket.getX(), ticket.getY(), ticket.getZ());
+		player.setLocation(loc);
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to ticket ", TextColors.GREEN, "#", id));
 		

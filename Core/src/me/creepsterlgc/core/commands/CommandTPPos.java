@@ -15,6 +15,9 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
+
 import com.google.common.base.Optional;
 
 
@@ -65,7 +68,9 @@ public class CommandTPPos implements CommandCallable {
 				return CommandResult.success();
 			}
 			
-			game.getCommandDispatcher().process(game.getServer().getConsole(), "minecraft:tp " + player.getName() + " " + String.valueOf(x) + " " + String.valueOf(y) + " " + String.valueOf(z));
+			Location<World> loc = new Location<World>(player.getWorld(), x, y, z);
+			player.setLocation(loc);
+			
 			player.sendMessage(Texts.of(TextColors.GRAY, "Teleported to ", TextColors.YELLOW, "x:", x, " y:", y, " z:", z));
 			
 		}
@@ -104,8 +109,10 @@ public class CommandTPPos implements CommandCallable {
 				return CommandResult.success();
 			}
 			
-			game.getCommandDispatcher().process(game.getServer().getConsole(), "minecraft:tp " + player.getName() + " " + String.valueOf(x) + " " + String.valueOf(y) + " " + String.valueOf(z));
-			player.sendMessage(Texts.of(TextColors.GRAY, "Teleported ", TextColors.YELLOW, player.getName(), TextColors.GRAY, " to ", TextColors.YELLOW, "x:", x, " y:", y, " z:", z));
+			Location<World> loc = new Location<World>(player.getWorld(), x, y, z);
+			player.setLocation(loc);
+			
+			sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported ", TextColors.YELLOW, player.getName(), TextColors.GRAY, " to ", TextColors.YELLOW, "x:", x, " y:", y, " z:", z));
 			
 		}
 		

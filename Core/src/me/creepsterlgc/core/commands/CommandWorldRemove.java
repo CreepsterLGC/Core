@@ -43,7 +43,7 @@ public class CommandWorldRemove {
 		
 		for(Player p : game.getServer().getOnlinePlayers()) {
 			if(!p.getWorld().getName().equalsIgnoreCase(name)) continue;
-			p.transferToWorld(player.getWorld().getName(), new Vector3d(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
+			p.setLocation(player.getLocation());
 			p.sendMessage(Texts.of(TextColors.GRAY, "You have been teleported to ", TextColors.YELLOW, sender.getName()));
 		}
 		

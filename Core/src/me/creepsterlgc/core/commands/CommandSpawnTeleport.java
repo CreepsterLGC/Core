@@ -1,5 +1,6 @@
 package me.creepsterlgc.core.commands;
 
+import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.SPAWN;
@@ -8,6 +9,9 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
+
 import com.flowpowered.math.vector.Vector3d;
 
 
@@ -28,7 +32,8 @@ public class CommandSpawnTeleport {
 		
 		if(spawn == null) { sender.sendMessage(Texts.builder("Spawn does not exist!").color(TextColors.RED).build()); return; }
 		
-		if(!player.transferToWorld(spawn.getWorld(), new Vector3d(spawn.getX(), spawn.getY(), spawn.getZ()))) { sender.sendMessage(Texts.builder("Target world does not exist anymore!").color(TextColors.RED).build()); return; }
+		Location<World> loc = new Location<World>(Controller.getServer().getWorld(spawn.getWorld()).get(), spawn.getX(), spawn.getY(), spawn.getZ());
+		player.setLocation(loc);
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to spawn: ", TextColors.YELLOW, name));
 		

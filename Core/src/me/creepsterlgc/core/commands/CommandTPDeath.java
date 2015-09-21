@@ -3,6 +3,7 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.PLAYER;
@@ -15,6 +16,8 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
 import com.flowpowered.math.vector.Vector3d;
 import com.google.common.base.Optional;
@@ -60,7 +63,9 @@ public class CommandTPDeath implements CommandCallable {
 			double y = Double.parseDouble(p.getLastdeath().split(":")[2]);
 			double z = Double.parseDouble(p.getLastdeath().split(":")[3]);
 			
-			if(!player.transferToWorld(world, new Vector3d(x, y, z))) { sender.sendMessage(Texts.builder("Target world does not exist anymore!").color(TextColors.RED).build()); return CommandResult.success(); }
+			Location<World> loc = new Location<World>(Controller.getServer().getWorld(world).get(), x, y, z);
+			
+			player.setLocation(loc);
 			
 			sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to ", TextColors.YELLOW, "your", TextColors.GRAY, " last death location."));
 			

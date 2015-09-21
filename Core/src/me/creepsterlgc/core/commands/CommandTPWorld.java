@@ -13,6 +13,7 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import com.flowpowered.math.vector.Vector3d;
@@ -55,7 +56,7 @@ public class CommandTPWorld implements CommandCallable {
 		
 		World world = game.getServer().getWorld(name).get();
 
-		player.transferToWorld(name, new Vector3d(world.getSpawnLocation().getX(), world.getSpawnLocation().getY(), world.getSpawnLocation().getZ())); 
+		player.setLocation(world.getSpawnLocation());
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to world ", TextColors.YELLOW, name));
 		

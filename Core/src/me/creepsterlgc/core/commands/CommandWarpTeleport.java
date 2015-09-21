@@ -1,5 +1,6 @@
 package me.creepsterlgc.core.commands;
 
+import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.WARP;
@@ -8,6 +9,9 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
+
 import com.flowpowered.math.vector.Vector3d;
 
 
@@ -48,7 +52,8 @@ public class CommandWarpTeleport {
 			
 		}
 		
-		if(!player.transferToWorld(warp.getWorld(), new Vector3d(warp.getX(), warp.getY(), warp.getZ()))) { sender.sendMessage(Texts.builder("Target world does not exist anymore!").color(TextColors.RED).build()); return; }
+		Location<World> loc = new Location<World>(Controller.getServer().getWorld(warp.getWorld()).get(), warp.getX(), warp.getY(), warp.getZ());
+		player.setLocation(loc);
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to warp: ", TextColors.YELLOW, name));
 		
