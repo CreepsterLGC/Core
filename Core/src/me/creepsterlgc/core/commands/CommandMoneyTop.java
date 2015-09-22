@@ -43,7 +43,7 @@ public class CommandMoneyTop {
 		for(Entry<String, Double> e : list.entrySet()) {
 			c += 1;
 			PLAYER p = DATABASE.getPlayer(e.getKey());
-			sender.sendMessage(Texts.of(TextColors.GRAY, c, ". ", TextColors.YELLOW, p.getName(), TextColors.GRAY, " - ", TextColors.GREEN, "$", e.getValue()));
+			sender.sendMessage(Texts.of(TextColors.GRAY, c, ". ", TextColors.WHITE, p.getName(), TextColors.GRAY, " - ", TextColors.GREEN, "$", e.getValue()));
 		}
 		
 	}

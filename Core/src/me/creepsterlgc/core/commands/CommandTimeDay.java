@@ -19,7 +19,7 @@ public class CommandTimeDay {
 		if(!PERMISSIONS.has(sender, "core.time.day")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		game.getCommandDispatcher().process(game.getServer().getConsole(), "minecraft:time set 0");
-		
+
 		SERVER.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to day."));
 		
 	}

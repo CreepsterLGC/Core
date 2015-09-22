@@ -10,8 +10,6 @@ import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.world.World;
 import org.spongepowered.api.world.storage.WorldProperties;
 
-import com.flowpowered.math.vector.Vector3d;
-
 
 public class CommandWorldRemove {
 

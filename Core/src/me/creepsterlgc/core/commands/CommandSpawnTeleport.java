@@ -12,8 +12,6 @@ import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import com.flowpowered.math.vector.Vector3d;
-
 
 public class CommandSpawnTeleport {
 

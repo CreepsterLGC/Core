@@ -12,8 +12,6 @@ import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import com.flowpowered.math.vector.Vector3d;
-
 
 public class CommandTicketTP {
 
@@ -53,11 +51,6 @@ public class CommandTicketTP {
 				return;
 			}
 		}
-		
-		String world = ticket.getWorld();
-		double x = ticket.getX();
-		double y = ticket.getY();
-		double z = ticket.getZ();
 		
 		Location<World> loc = new Location<World>(Controller.getServer().getWorld(ticket.getWorld()).get(), ticket.getX(), ticket.getY(), ticket.getZ());
 		player.setLocation(loc);

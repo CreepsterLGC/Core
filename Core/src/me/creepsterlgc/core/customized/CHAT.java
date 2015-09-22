@@ -40,12 +40,12 @@ public class CHAT {
 				chat.getNode("channels", "world", "trigger").setValue("w");
 				chat.getNode("channels", "world", "prefix").setValue("");
 				chat.getNode("channels", "world", "suffix").setValue("");
-				chat.getNode("channels", "world", "format").setValue("&8[&e%world&8] %prefix&7%player%suffix&8: &7%message");
+				chat.getNode("channels", "world", "format").setValue("&7[&e%world&7] %prefix&7%player%suffix&8: &7%message");
 				chat.getNode("channels", "world", "range").setValue("world");
 				
 				chat.getNode("channels", "global", "name").setValue("&6Global");
 				chat.getNode("channels", "global", "trigger").setValue("g");
-				chat.getNode("channels", "global", "prefix").setValue("&8[&6G&8] ");
+				chat.getNode("channels", "global", "prefix").setValue("&7[&6G&7] ");
 				chat.getNode("channels", "global", "suffix").setValue("");
 				chat.getNode("channels", "global", "format").setValue("%cprefix%prefix&7%player%suffix%csuffix&8: &7%message");
 				chat.getNode("channels", "global", "range").setValue("global");

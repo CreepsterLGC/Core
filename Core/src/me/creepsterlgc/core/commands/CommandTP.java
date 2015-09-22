@@ -16,7 +16,6 @@ import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
 
-import com.flowpowered.math.vector.Vector3d;
 import com.google.common.base.Optional;
 
 
