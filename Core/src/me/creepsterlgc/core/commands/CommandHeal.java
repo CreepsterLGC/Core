@@ -71,9 +71,9 @@ public class CommandHeal implements CommandCallable {
 		
 	}
 
-	private final Text usage = Texts.builder("Usage: /tp <player> [target]").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /tp <player> [target]").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | TP Command").color(TextColors.YELLOW).build();
+	private final Text usage = Texts.builder("Usage: /heal [player]").color(TextColors.YELLOW).build();
+	private final Text help = Texts.builder("Help: /heal [player]").color(TextColors.YELLOW).build();
+	private final Text description = Texts.builder("Core | Heal Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 	

@@ -71,9 +71,9 @@ public class CommandFeed implements CommandCallable {
 		
 	}
 
-	private final Text usage = Texts.builder("Usage: /tp <player> [target]").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /tp <player> [target]").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | TP Command").color(TextColors.YELLOW).build();
+	private final Text usage = Texts.builder("Usage: /feed [player]").color(TextColors.YELLOW).build();
+	private final Text help = Texts.builder("Help: /feed [player]").color(TextColors.YELLOW).build();
+	private final Text description = Texts.builder("Core | Feed Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 	
