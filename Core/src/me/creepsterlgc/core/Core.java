@@ -105,7 +105,7 @@ public class Core {
     @Listener
     public void onEnable(GameStartingServerEvent event) {
     	
-    	File folder = new File("mods/Core");
+    	File folder = new File("config/core");
     	if(!folder.exists()) folder.mkdir();
     	
     	Controller.game = game;

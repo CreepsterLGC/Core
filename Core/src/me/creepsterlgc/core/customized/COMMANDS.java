@@ -10,7 +10,7 @@ import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 public class COMMANDS {
 	
-	public static File file = new File("mods/Core/Commands.conf");
+	public static File file = new File("config/core/commands.conf");
 	public static ConfigurationLoader<?> manager = HoconConfigurationLoader.builder().setFile(file).build();
 	public static ConfigurationNode commands = manager.createEmptyNode(ConfigurationOptions.defaults());
 

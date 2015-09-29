@@ -10,7 +10,7 @@ import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 public class MESSAGES {
 	
-	public static File file = new File("mods/Core/Messages.conf");
+	public static File file = new File("config/core/messages.conf");
 	public static ConfigurationLoader<?> manager = HoconConfigurationLoader.builder().setFile(file).build();
 	public static ConfigurationNode messages = manager.createEmptyNode(ConfigurationOptions.defaults());
 

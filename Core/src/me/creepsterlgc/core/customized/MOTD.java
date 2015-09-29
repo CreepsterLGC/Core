@@ -14,7 +14,7 @@ import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 public class MOTD {
 	
-	public static File file = new File("mods/Core/Motd.conf");
+	public static File file = new File("config/core/motd.conf");
 	public static ConfigurationLoader<?> manager = HoconConfigurationLoader.builder().setFile(file).build();
 	public static ConfigurationNode motd = manager.createEmptyNode(ConfigurationOptions.defaults());
 

@@ -1,5 +1,6 @@
 package me.creepsterlgc.core.customized;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -28,7 +29,10 @@ public class DATABASE {
 			
 			if(!CONFIG.MYSQL_USE()) {
 				
-				datasource = sql.getDataSource("jdbc:sqlite:mods/Core/Core.db");
+		    	File folder = new File("config/core/data");
+		    	if(!folder.exists()) folder.mkdir();
+		    	
+				datasource = sql.getDataSource("jdbc:sqlite:config/core/data/core.db");
 				
 			}
 			else {
