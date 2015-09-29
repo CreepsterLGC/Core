@@ -1,8 +1,5 @@
 package me.creepsterlgc.core.events;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.CHANNEL;
 import me.creepsterlgc.core.customized.CHAT;
@@ -16,12 +13,9 @@ import me.creepsterlgc.core.customized.TEXT;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.command.MessageSinkEvent;
-import org.spongepowered.api.service.permission.Subject;
-import org.spongepowered.api.service.permission.option.OptionSubject;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.TextMessageException;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -31,11 +25,11 @@ import com.google.common.base.Optional;
 public class EventPlayerChat {
 
     @Listener
-    public void onPlayerChat(MessageSinkEvent event) {
-    	
+    public void onPlayerChat(MessageSinkEvent.Chat event) {
+
     	Optional<Player> optional = event.getCause().first(Player.class);
     	if(!optional.isPresent()) return;
-    	
+
     	Player player = optional.get();
     	String uuid = player.getUniqueId().toString();
     	PLAYER p = DATABASE.getPlayer(uuid);
@@ -69,7 +63,7 @@ public class EventPlayerChat {
 		
     	}
     	
-		if(!CONFIG.CHAT_USE()) return;
+		if(!CHAT.USE()) return;
     	
     	String name = player.getName();
     	String message = Texts.toPlain(event.getMessage()); message = message.replaceAll("<" + name + "> ", "");
