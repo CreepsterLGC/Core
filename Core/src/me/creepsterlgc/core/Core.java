@@ -66,7 +66,7 @@ import me.creepsterlgc.core.customized.MESSAGES;
 import me.creepsterlgc.core.customized.MOTD;
 import me.creepsterlgc.core.customized.RULES;
 import me.creepsterlgc.core.customized.SERVER;
-import me.creepsterlgc.core.events.EventGameClientLogin;
+import me.creepsterlgc.core.events.EventPlayerLogin;
 import me.creepsterlgc.core.events.EventPlayerAttackEntity;
 import me.creepsterlgc.core.events.EventPlayerChat;
 import me.creepsterlgc.core.events.EventPlayerDeath;
@@ -129,7 +129,7 @@ public class Core {
         }
     	
     	game.getEventManager().registerListeners(this, this);
-    	game.getEventManager().registerListeners(this, new EventGameClientLogin());
+    	game.getEventManager().registerListeners(this, new EventPlayerLogin());
     	game.getEventManager().registerListeners(this, new EventPlayerAttackEntity());
     	game.getEventManager().registerListeners(this, new EventPlayerChat());
     	game.getEventManager().registerListeners(this, new EventPlayerDeath());

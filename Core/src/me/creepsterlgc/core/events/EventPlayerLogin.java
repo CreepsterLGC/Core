@@ -10,7 +10,7 @@ import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 
 
-public class EventGameClientLogin {
+public class EventPlayerLogin {
 
     @Listener
     public void onPlayerLogin(ClientConnectionEvent.Login event) {
