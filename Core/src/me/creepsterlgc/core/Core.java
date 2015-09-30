@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import me.creepsterlgc.core.api.CoreAPI;
+import me.creepsterlgc.core.api.CoreAPIBanManager;
+import me.creepsterlgc.core.api.CoreAPIMuteManager;
+import me.creepsterlgc.core.api.CoreAPIWarpManager;
 import me.creepsterlgc.core.commands.CommandAFK;
 import me.creepsterlgc.core.commands.CommandBan;
 import me.creepsterlgc.core.commands.CommandBanlist;
@@ -57,7 +61,6 @@ import me.creepsterlgc.core.commands.CommandWarp;
 import me.creepsterlgc.core.commands.CommandWeather;
 import me.creepsterlgc.core.commands.CommandWhois;
 import me.creepsterlgc.core.commands.CommandWorld;
-import me.creepsterlgc.core.CoreAPI;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.SERVER;
 import me.creepsterlgc.core.events.EventPlayerLogin;
@@ -119,6 +122,8 @@ public class Core {
     	RULES.setup();
     	DATABASE.setup(game);
     	DATABASE.load(game);
+    	
+    	CoreAPI api;
     	
         if (!game.getServiceManager().provide(CoreAPI.class).isPresent()) {
             try {
