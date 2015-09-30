@@ -1,9 +1,9 @@
-package me.creepsterlgc.core.customized;
+package me.creepsterlgc.core.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DESERIALIZE {
+public class DeserializeUtils {
 	
 	public static List<String> list(String list) {
 		

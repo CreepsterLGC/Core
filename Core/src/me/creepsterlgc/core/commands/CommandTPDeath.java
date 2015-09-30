@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -38,7 +39,7 @@ public class CommandTPDeath implements CommandCallable {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(!PERMISSIONS.has(sender, "core.tpdeath")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.tpdeath")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpdeath [player]")); return CommandResult.success(); }
 		
@@ -46,7 +47,7 @@ public class CommandTPDeath implements CommandCallable {
 		
 		if(arguments.equalsIgnoreCase("")) {
 			
-			PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+			CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 			
 			if(p == null) {
 				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
@@ -72,13 +73,13 @@ public class CommandTPDeath implements CommandCallable {
 		}
 		else if(args.length == 1) {
 			
-			if(!PERMISSIONS.has(sender, "core.tpdeath-others")) {
+			if(!PermissionsUtils.has(sender, "core.tpdeath-others")) {
 				sender.sendMessage(Texts.builder("You do not have permissions to teleport to other deaths!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 			
 			String name = args[0].toLowerCase();
-			PLAYER p = DATABASE.getPlayer(DATABASE.getUUID(name));
+			CorePlayer p = CoreDatabase.getPlayer(CoreDatabase.getUUID(name));
 			
 			if(p == null) {
 				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());

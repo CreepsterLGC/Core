@@ -1,6 +1,6 @@
 package me.creepsterlgc.core.commands;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
@@ -11,7 +11,7 @@ public class CommandCoreVersion {
 
 	public CommandCoreVersion(CommandSource sender, String[] args) {
 		
-		if(!PERMISSIONS.has(sender, "core.core.version")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.core.version")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		sender.sendMessage(Texts.of(TextColors.WHITE, "Using Core ", TextColors.GOLD, "v2.4.0b"));
 		

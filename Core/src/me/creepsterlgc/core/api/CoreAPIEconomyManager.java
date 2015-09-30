@@ -1,14 +1,14 @@
 package me.creepsterlgc.core.api;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
 
 public class CoreAPIEconomyManager {
 
 	public static CoreAPIEconomyManager instance;
 	
 	public boolean addMoney(String uuid, double amount) {
-		PLAYER player = DATABASE.getPlayer(uuid); if(player == null) return false;
+		CorePlayer player = CoreDatabase.getPlayer(uuid); if(player == null) return false;
 		player.addMoney(amount); player.update(); return true;
 	}
 	
@@ -24,7 +24,7 @@ public class CoreAPIEconomyManager {
 	 */
 	
 	public boolean removeMoney(String uuid, double amount) {
-		PLAYER player = DATABASE.getPlayer(uuid); if(player == null) return false;
+		CorePlayer player = CoreDatabase.getPlayer(uuid); if(player == null) return false;
 		player.removeMoney(amount); player.update(); return true;
 	}
 	
@@ -40,7 +40,7 @@ public class CoreAPIEconomyManager {
 	 */
 	
 	public boolean setMoney(String uuid, double amount) {
-		PLAYER player = DATABASE.getPlayer(uuid); if(player == null) return false;
+		CorePlayer player = CoreDatabase.getPlayer(uuid); if(player == null) return false;
 		player.setMoney(amount); player.update(); return true;
 	}
 	
@@ -56,7 +56,7 @@ public class CoreAPIEconomyManager {
 	 */
 	
 	public double getMoney(String uuid) {
-		PLAYER player = DATABASE.getPlayer(uuid);
+		CorePlayer player = CoreDatabase.getPlayer(uuid);
 		if(player == null) return 0; return player.getMoney();
 	}
 	

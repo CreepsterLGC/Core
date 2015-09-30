@@ -8,7 +8,7 @@ import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
-public class MESSAGES {
+public class FileMessages {
 	
 	public static File file = new File("config/core/messages.conf");
 	public static ConfigurationLoader<?> manager = HoconConfigurationLoader.builder().setFile(file).build();

@@ -1,10 +1,11 @@
 package me.creepsterlgc.core.commands;
 
-import me.creepsterlgc.core.customized.CHANNEL;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.TEXT;
+import me.creepsterlgc.core.customized.CoreChannel;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TextUtils;
+
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
@@ -20,20 +21,20 @@ public class CommandChannelLeave {
 		if(args.length < 2 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/channel leave <channel>")); return; }
 	
 		String channel = args[1].toLowerCase();
-		CHANNEL c = DATABASE.getChannel(channel);
+		CoreChannel c = CoreDatabase.getChannel(channel);
 		
 		if(c == null) {
 			sender.sendMessage(Texts.of(TextColors.RED, "Channel not found!"));
 			return;
 		}
 		
-		if(!PERMISSIONS.has(sender, "core.channel.leave." + channel)) {
+		if(!PermissionsUtils.has(sender, "core.channel.leave." + channel)) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to leave this channel!"));
 			return;
 		}
 		
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
 		if(!p.getChannel().equalsIgnoreCase(channel)) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You are not talking in this channel!"));
@@ -43,7 +44,7 @@ public class CommandChannelLeave {
 		p.setChannel("");
 		p.update();
 		
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Left channel: ", TextColors.WHITE, TEXT.color(c.getName())));
+		sender.sendMessage(Texts.of(TextColors.GRAY, "Left channel: ", TextColors.WHITE, TextUtils.color(c.getName())));
 		
 	}
 

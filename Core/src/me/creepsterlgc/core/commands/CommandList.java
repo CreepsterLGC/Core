@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.TEXT;
-import me.creepsterlgc.core.files.CONFIG;
+import me.creepsterlgc.core.files.FileConfig;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -36,26 +36,26 @@ public class CommandList implements CommandCallable {
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
-		if(!PERMISSIONS.has(sender, "core.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		int online = Controller.getServer().getOnlinePlayers().size();
 		int max = Controller.getServer().getMaxPlayers();
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "There are currently ", TextColors.GOLD, online, TextColors.GRAY, "/", TextColors.GOLD, max, TextColors.GRAY, " players online."));
 		
-		if(!CONFIG.LIST_ORDER_BY_GROUPS()) {
+		if(!FileConfig.LIST_ORDER_BY_GROUPS()) {
 			
 			StringBuilder list = new StringBuilder();
 			
 			for(Player p : Controller.getServer().getOnlinePlayers()) {
-				if(CONFIG.LIST_SHOW_PREFIX()) list.append(TEXT.getPrefix(p));
+				if(FileConfig.LIST_SHOW_PREFIX()) list.append(TextUtils.getPrefix(p));
 				list.append(p.getName());
-				if(CONFIG.LIST_SHOW_SUFFIX()) list.append(TEXT.getSuffix(p));
+				if(FileConfig.LIST_SHOW_SUFFIX()) list.append(TextUtils.getSuffix(p));
 				list.append("&7, ");
 			}
 			
 			if(list.toString().contains(", ")) list.deleteCharAt(list.length() - 2);
-			Text list_final = TEXT.color(list.toString());
+			Text list_final = TextUtils.color(list.toString());
 			sender.sendMessage(list_final);
 			return CommandResult.success();
 			
@@ -90,13 +90,13 @@ public class CommandList implements CommandCallable {
 				StringBuilder sb = new StringBuilder();
 				sb.append("&e" + e.getKey() + "&7: ");
 				for(Player p : e.getValue()) {
-					if(CONFIG.LIST_SHOW_PREFIX()) sb.append(TEXT.getPrefix(p));
+					if(FileConfig.LIST_SHOW_PREFIX()) sb.append(TextUtils.getPrefix(p));
 					sb.append(p.getName());
-					if(CONFIG.LIST_SHOW_SUFFIX()) sb.append(TEXT.getSuffix(p));
+					if(FileConfig.LIST_SHOW_SUFFIX()) sb.append(TextUtils.getSuffix(p));
 					sb.append("&7, ");
 				}
 				if(sb.toString().contains(", ")) sb.deleteCharAt(sb.length() - 2);
-				Text list_final = TEXT.color(sb.toString());
+				Text list_final = TextUtils.color(sb.toString());
 				sender.sendMessage(list_final);
 			}
 			

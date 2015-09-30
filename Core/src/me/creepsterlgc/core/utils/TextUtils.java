@@ -1,4 +1,4 @@
-package me.creepsterlgc.core.customized;
+package me.creepsterlgc.core.utils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.service.permission.Subject;
@@ -7,7 +7,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.util.TextMessageException;
 
-public class TEXT {
+public class TextUtils {
 	
 	public static Text color(String message) {
 		Text result = Texts.of();

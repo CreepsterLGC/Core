@@ -1,12 +1,12 @@
 package me.creepsterlgc.core.customized;
 
-public class MUTE {
+public class CoreMute {
 
 	private String uuid;
 	private double duration;
 	private String reason;
 	
-	public MUTE(String uuid, double duration, String reason) {
+	public CoreMute(String uuid, double duration, String reason) {
 		this.uuid = uuid;
 		this.duration = duration;
 		this.reason = reason;
@@ -21,19 +21,19 @@ public class MUTE {
 	public String getReason() { return reason; }
 	
 	public void insert() {
-		DATABASE.queue("INSERT INTO mutes VALUES ('" + uuid + "', " + duration + ", '" + reason + "')");
-		DATABASE.addMute(uuid, this);
+		CoreDatabase.queue("INSERT INTO mutes VALUES ('" + uuid + "', " + duration + ", '" + reason + "')");
+		CoreDatabase.addMute(uuid, this);
 	}
 	
 	public void update() {
-		DATABASE.queue("UPDATE mutes SET duration = " + duration + ", reason = '" + reason + "' WHERE uuid = '" + uuid + "'");
-		DATABASE.removeMute(uuid);
-		DATABASE.addMute(uuid, this);
+		CoreDatabase.queue("UPDATE mutes SET duration = " + duration + ", reason = '" + reason + "' WHERE uuid = '" + uuid + "'");
+		CoreDatabase.removeMute(uuid);
+		CoreDatabase.addMute(uuid, this);
 	}
 	
 	public void delete() {
-		DATABASE.queue("DELETE FROM mutes WHERE uuid = '" + uuid + "'");
-		DATABASE.removeMute(uuid);
+		CoreDatabase.queue("DELETE FROM mutes WHERE uuid = '" + uuid + "'");
+		CoreDatabase.removeMute(uuid);
 	}
 	
 }

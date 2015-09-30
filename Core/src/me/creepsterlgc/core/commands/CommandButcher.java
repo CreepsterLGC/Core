@@ -3,7 +3,7 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityTypes;
@@ -32,7 +32,7 @@ public class CommandButcher implements CommandCallable {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(!PERMISSIONS.has(sender, "core.butcher")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.butcher")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(args.length < 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/butcher [radius]")); return CommandResult.success(); }		
 		

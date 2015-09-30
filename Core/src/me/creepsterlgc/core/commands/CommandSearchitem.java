@@ -6,7 +6,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
@@ -26,7 +27,7 @@ public class CommandSearchitem implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.searchitem")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.searchitem")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/searchitem <name>")); return CommandResult.success(); }
 		

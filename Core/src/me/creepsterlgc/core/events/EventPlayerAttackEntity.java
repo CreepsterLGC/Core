@@ -3,9 +3,9 @@ package me.creepsterlgc.core.events;
 import java.util.HashMap;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -20,9 +20,9 @@ public class EventPlayerAttackEntity {
     	
     	if(event.getTargetEntity() instanceof Player == false) return;
     	Player player = (Player) event.getTargetEntity();
-    	PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+    	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
     	
-    	if(player.getItemInHand().isPresent() && PERMISSIONS.has(player, "core.powertool")) {
+    	if(player.getItemInHand().isPresent() && PermissionsUtils.has(player, "core.powertool")) {
     		
     		ItemStack i = player.getItemInHand().get();
     		String id = i.getItem().getId().replaceAll("minecraft:", "");

@@ -1,7 +1,8 @@
 package me.creepsterlgc.core.customized;
 
-public class SPAWN {
+public class CoreHome {
 	
+	private String uuid;
 	private String name;
 	private String world;
 	private double x;
@@ -9,9 +10,9 @@ public class SPAWN {
 	private double z;
 	private double yaw;
 	private double pitch;
-	private String message;
 	
-	public SPAWN(String name, String world, double x, double y, double z, double yaw, double pitch, String message) {
+	public CoreHome(String uuid, String name, String world, double x, double y, double z, double yaw, double pitch) {
+		this.uuid = uuid;
 		this.name = name;
 		this.world = world;
 		this.x = x;
@@ -19,26 +20,21 @@ public class SPAWN {
 		this.z = z;
 		this.yaw = yaw;
 		this.pitch = pitch;
-		this.message = message;
 	}
 	
 	public void insert() {
-		DATABASE.queue("INSERT INTO spawns VALUES ('" + name + "', '" + world + "', " + x + ", " + y + ", " + z + ", " + yaw + ", " + pitch + ", '" + message + "')");
-		DATABASE.addSpawn(name, this);
+		CoreDatabase.queue("INSERT INTO homes VALUES ('" + uuid + "', '" + name + "', '" + world + "', " + x + ", " + y + ", " + z + ", " + yaw + ", " + pitch + ")");
 	}
 	
-	
 	public void update() {
-		DATABASE.queue("UPDATE spawns SET world = '" + world + "', x = " + x + ", y = " + y + ", z = " + z + ", yaw = " + yaw + ", pitch = " + pitch + ", message = '" + message + "' WHERE name = '" + name + "'");
-		DATABASE.removeSpawn(name);
-		DATABASE.addSpawn(name, this);
+		CoreDatabase.queue("UPDATE homes SET world = '" + world + "', x = " + x + ", y = " + y + ", z = " + z + ", yaw = " + yaw + ", pitch = " + pitch + " WHERE uuid = '" + uuid + "' AND name = '" + name + "'");
 	}
 	
 	public void delete() {
-		DATABASE.queue("DELETE FROM spawns WHERE name = '" + name + "'");
-		DATABASE.removeSpawn(name);
+		CoreDatabase.queue("DELETE FROM homes WHERE uuid = '" + uuid + "' AND name = '" + name + "'");
 	}
 	
+	public void setUUID(String uuid) { this.uuid = uuid; }
 	public void setName(String name) { this.name = name; }
 	public void setWorld(String world) { this.world = world; }
 	public void setX(double x) { this.x = x; }
@@ -46,8 +42,8 @@ public class SPAWN {
 	public void setZ(double z) { this.z = z; }
 	public void setYaw(double yaw) { this.yaw = yaw; }
 	public void setPitch(double pitch) { this.pitch = pitch; }
-	public void setMessage(String message) { this.message = message; }
 	
+	public String getUUID() { return uuid; }
 	public String getName() { return name; }
 	public String getWorld() { return world; }
 	public double getX() { return x; }
@@ -55,6 +51,5 @@ public class SPAWN {
 	public double getZ() { return z; }
 	public double getYaw() { return yaw; }
 	public double getPitch() { return pitch; }
-	public String getMessage() { return message; }
 
 }

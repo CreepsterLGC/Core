@@ -1,6 +1,6 @@
-package me.creepsterlgc.core.customized;
+package me.creepsterlgc.core.utils;
 
-public class COMMAND {
+public class CommandUtils {
 	
 	public static String combineArgs(int start, String[] args) {
 		if(args.length < start) return "";

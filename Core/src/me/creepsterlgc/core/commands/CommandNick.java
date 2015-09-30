@@ -3,10 +3,10 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.TEXT;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -29,14 +29,14 @@ public class CommandNick implements CommandCallable {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(!PERMISSIONS.has(sender, "core.nick")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.nick")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/nick [player] <name|clear>")); return CommandResult.success(); }
 		
 		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/nick [player] <name|clear>")); return CommandResult.success(); }
 		
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
 		if(args.length == 1) {
 			
@@ -51,7 +51,7 @@ public class CommandNick implements CommandCallable {
 				
 			}
 			
-			if(args[0].contains("&") && !PERMISSIONS.has(sender, "core.nick-color")) {
+			if(args[0].contains("&") && !PermissionsUtils.has(sender, "core.nick-color")) {
 				sender.sendMessage(Texts.of(TextColors.RED, "You are not permitted to use color codes!"));
 				return CommandResult.success();
 			}
@@ -59,18 +59,18 @@ public class CommandNick implements CommandCallable {
 			p.setNick(args[0]);
 			p.update();
 			
-			sender.sendMessage(Texts.of(TextColors.GRAY, "Your nickname has been set to: ", TEXT.color(args[0])));
+			sender.sendMessage(Texts.of(TextColors.GRAY, "Your nickname has been set to: ", TextUtils.color(args[0])));
 			
 			return CommandResult.success();
 			
 		}
 		
-		if(!PERMISSIONS.has(sender, "core.nick-others")) {
+		if(!PermissionsUtils.has(sender, "core.nick-others")) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You can only change your own nick!"));
 			return CommandResult.success();
 		}
 		
-		PLAYER t = DATABASE.getPlayer(DATABASE.getUUID(args[0].toLowerCase()));
+		CorePlayer t = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[0].toLowerCase()));
 		if(t == null) {
 			sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));
 			return CommandResult.success();
@@ -87,7 +87,7 @@ public class CommandNick implements CommandCallable {
 			
 		}
 		
-		if(args[1].contains("&") && !PERMISSIONS.has(sender, "core.nick-color")) {
+		if(args[1].contains("&") && !PermissionsUtils.has(sender, "core.nick-color")) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You are not permitted to use color codes!"));
 			return CommandResult.success();
 		}
@@ -95,7 +95,7 @@ public class CommandNick implements CommandCallable {
 		t.setNick(args[1]);
 		t.update();
 		
-		sender.sendMessage(Texts.of(TextColors.GRAY, t.getName(), "'s nickname has been set to: ", TEXT.color(args[1])));
+		sender.sendMessage(Texts.of(TextColors.GRAY, t.getName(), "'s nickname has been set to: ", TextUtils.color(args[1])));
 		
 		return CommandResult.success();
 		

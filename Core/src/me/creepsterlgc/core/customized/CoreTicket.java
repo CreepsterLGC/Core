@@ -2,7 +2,9 @@ package me.creepsterlgc.core.customized;
 
 import java.util.List;
 
-public class TICKET {
+import me.creepsterlgc.core.utils.SerializeUtils;
+
+public class CoreTicket {
 
 	private int id;
 	private String uuid;
@@ -19,7 +21,7 @@ public class TICKET {
 	private String priority;
 	private String status;
 	
-	public TICKET(int id, String uuid, String message, double time, List<String> comments, String world, double x, double y, double z, double yaw, double pitch, String assigned, String priority, String status) {
+	public CoreTicket(int id, String uuid, String message, double time, List<String> comments, String world, double x, double y, double z, double yaw, double pitch, String assigned, String priority, String status) {
 		this.id = id;
 		this.uuid = uuid;
 		this.message = message;
@@ -67,19 +69,19 @@ public class TICKET {
 	public String getStatus() { return status; }
 	
 	public void insert() {
-		DATABASE.queue("INSERT INTO tickets VALUES (" + id + ", '" + uuid + "', '" + message + "', " + time + ", '" + SERIALIZE.messages(comments) + "', '" + world + "', " + x + ", " + y + ", " + z + ", " + yaw + ", " + pitch + ", '" + assigned + "', '" + priority + "', '" + status + "')");
-		DATABASE.addTicket(id, this);
+		CoreDatabase.queue("INSERT INTO tickets VALUES (" + id + ", '" + uuid + "', '" + message + "', " + time + ", '" + SerializeUtils.messages(comments) + "', '" + world + "', " + x + ", " + y + ", " + z + ", " + yaw + ", " + pitch + ", '" + assigned + "', '" + priority + "', '" + status + "')");
+		CoreDatabase.addTicket(id, this);
 	}
 	
 	public void update() {
-		DATABASE.queue("UPDATE tickets SET uuid =  '" + uuid + "', message = '" + message + "', time = " + time + ", comments = '" + SERIALIZE.messages(comments) + "', world = '" + world + "', x = " + x + ", y = " + y + ", z = " + z + ", yaw = " + yaw + ", pitch = " + pitch + ", assigned = '" + assigned + "', priority = '" + priority + "', status = '" + status + "' WHERE id = " + id + "");
-		DATABASE.removeBan(uuid);
-		DATABASE.addTicket(id, this);
+		CoreDatabase.queue("UPDATE tickets SET uuid =  '" + uuid + "', message = '" + message + "', time = " + time + ", comments = '" + SerializeUtils.messages(comments) + "', world = '" + world + "', x = " + x + ", y = " + y + ", z = " + z + ", yaw = " + yaw + ", pitch = " + pitch + ", assigned = '" + assigned + "', priority = '" + priority + "', status = '" + status + "' WHERE id = " + id + "");
+		CoreDatabase.removeBan(uuid);
+		CoreDatabase.addTicket(id, this);
 	}
 	
 	public void delete() {
-		DATABASE.queue("DELETE FROM tickets WHERE id = " + id + "");
-		DATABASE.removeTicket(id);
+		CoreDatabase.queue("DELETE FROM tickets WHERE id = " + id + "");
+		CoreDatabase.removeTicket(id);
 	}
 	
 }

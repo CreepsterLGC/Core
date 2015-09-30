@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.BAN;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreBan;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.command.CommandSource;
@@ -16,23 +17,23 @@ public class CommandBanlistList {
 
 	public CommandBanlistList(CommandSource sender, String[] args) {
 		
-		if(!PERMISSIONS.has(sender, "core.banlist.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.banlist.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/banlist list [keyword]")); return; }
 		
-		if(DATABASE.getWarps().isEmpty()) { sender.sendMessage(Texts.builder("The banlist is empty.").color(TextColors.YELLOW).build()); return; }
+		if(CoreDatabase.getWarps().isEmpty()) { sender.sendMessage(Texts.builder("The banlist is empty.").color(TextColors.YELLOW).build()); return; }
 		
 		String name = ""; if(args.length > 1) name = args[1].toLowerCase();
 		
-		List<BAN> bans = new ArrayList<BAN>();
+		List<CoreBan> bans = new ArrayList<CoreBan>();
 		
 		if(!name.equalsIgnoreCase("")) {
-			for(Entry<String, BAN> e : DATABASE.getBans().entrySet()) {
-				if(DATABASE.getPlayer(e.getValue().getUUID()).getName().contains(name)) bans.add(e.getValue());
+			for(Entry<String, CoreBan> e : CoreDatabase.getBans().entrySet()) {
+				if(CoreDatabase.getPlayer(e.getValue().getUUID()).getName().contains(name)) bans.add(e.getValue());
 			}
 		}
 		else {
-			for(Entry<String, BAN> e : DATABASE.getBans().entrySet()) {
+			for(Entry<String, CoreBan> e : CoreDatabase.getBans().entrySet()) {
 				bans.add(e.getValue());
 			}
 		}
@@ -43,7 +44,7 @@ public class CommandBanlistList {
 		}
 		
 		StringBuilder list = new StringBuilder();
-		for(BAN ban : bans) list.append(DATABASE.getPlayer(ban.getUUID()).getName() + ", "); list.deleteCharAt(list.length() - 2);
+		for(CoreBan ban : bans) list.append(CoreDatabase.getPlayer(ban.getUUID()).getName() + ", "); list.deleteCharAt(list.length() - 2);
 		
 		if(bans.size() == 1) {
 			if(name.equalsIgnoreCase("")) sender.sendMessage(Texts.builder(String.valueOf(bans.size()) + " Ban found:").color(TextColors.GOLD).build());

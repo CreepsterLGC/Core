@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.service.pagination.PaginationBuilder;
@@ -31,7 +31,7 @@ public class CommandPage implements CommandCallable {
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
 		int page;
 		try { page = Integer.parseInt(arguments); }

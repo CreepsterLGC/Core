@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.COMMAND;
-import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.utils.CommandUtils;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -32,13 +32,13 @@ public class CommandKick implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.kick")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.kick")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(usage); return CommandResult.success(); }
 		
 		if(!game.getServer().getPlayer(args[0]).isPresent()) { sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		String reason = "You have been kicked!"; if(args.length > 1) reason = COMMAND.combineArgs(1, args);
+		String reason = "You have been kicked!"; if(args.length > 1) reason = CommandUtils.combineArgs(1, args);
 		
 		Player player = game.getServer().getPlayer(args[0]).get();
 		player.kick(Texts.of(TextColors.RED, reason));

@@ -2,8 +2,8 @@ package me.creepsterlgc.core.commands;
 
 import java.util.List;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.SERVER;
+import me.creepsterlgc.core.customized.CoreServer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
@@ -25,7 +25,7 @@ public class CommandGamemode implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.gamemode")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.gamemode")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/gm <mode> [player]")); return CommandResult.success(); }		
 		
@@ -62,12 +62,12 @@ public class CommandGamemode implements CommandCallable {
 		
 		if(args.length == 2) {
 			
-			if(!PERMISSIONS.has(sender, "core.gamemode-others")) {
+			if(!PermissionsUtils.has(sender, "core.gamemode-others")) {
 				sender.sendMessage(Texts.of(TextColors.RED, "You can only change your own gamemode!"));
 				return CommandResult.success();
 			}
 			
-			Player player = SERVER.getPlayer(args[1].toLowerCase());
+			Player player = CoreServer.getPlayer(args[1].toLowerCase());
 			if(player == null) {
 				sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));
 				return CommandResult.success();

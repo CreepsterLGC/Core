@@ -1,8 +1,8 @@
 package me.creepsterlgc.core.commands;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.TICKET;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreTicket;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -16,7 +16,7 @@ public class CommandTicketAssign {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.assign")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.ticket.assign")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length != 3) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/ticket assign <id> <player>")); return; }
 	
@@ -29,25 +29,25 @@ public class CommandTicketAssign {
 			return;
 		}
 		
-		TICKET ticket = DATABASE.getTicket(id);
+		CoreTicket ticket = CoreDatabase.getTicket(id);
 		
 		if(ticket == null) {
 			sender.sendMessage(Texts.builder("Ticket with that ID does not exist!").color(TextColors.RED).build());
 			return;
 		}
 		
-		String uuid = DATABASE.getUUID(args[2].toLowerCase());
+		String uuid = CoreDatabase.getUUID(args[2].toLowerCase());
 		
 		if(uuid == null) {
 			sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
 			return;
 		}
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.assign-others")) {
+		if(!PermissionsUtils.has(sender, "core.ticket.assign-others")) {
 			if(ticket.getUUID().equalsIgnoreCase(player.getUniqueId().toString())) {
 				
 			}
-			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PERMISSIONS.has(sender, "core.ticket.assign-assigned")) {
+			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PermissionsUtils.has(sender, "core.ticket.assign-assigned")) {
 				
 			}
 			else {
@@ -59,7 +59,7 @@ public class CommandTicketAssign {
 		ticket.setAssigned(uuid);
 		ticket.update();
 		
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Ticket ", TextColors.GREEN, "#", id, TextColors.GRAY, " has been assigned to ", TextColors.YELLOW, DATABASE.getPlayer(uuid).getName()));
+		sender.sendMessage(Texts.of(TextColors.GRAY, "Ticket ", TextColors.GREEN, "#", id, TextColors.GRAY, " has been assigned to ", TextColors.YELLOW, CoreDatabase.getPlayer(uuid).getName()));
 		
 	}
 

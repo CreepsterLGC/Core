@@ -2,10 +2,10 @@ package me.creepsterlgc.core.commands;
 
 import java.util.List;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.TIME;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TimeUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -33,7 +33,7 @@ public class CommandOnlinetime implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.onlinetime")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.onlinetime")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/onlinetime [player]")); return CommandResult.success(); }
 		
@@ -42,17 +42,17 @@ public class CommandOnlinetime implements CommandCallable {
 			if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 			
 			Player player = (Player)sender;
-			PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
-			sender.sendMessage(Texts.of(TextColors.GRAY, "Your onlinetime: ", TextColors.YELLOW, TIME.toString(p.getOnlinetime())));
+			CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
+			sender.sendMessage(Texts.of(TextColors.GRAY, "Your onlinetime: ", TextColors.YELLOW, TimeUtils.toString(p.getOnlinetime())));
 		
 			return CommandResult.success();
 			
 		}
 		
-		PLAYER player = DATABASE.getPlayer(DATABASE.getUUID(args[0].toLowerCase()));
+		CorePlayer player = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[0].toLowerCase()));
 		if(player == null) { sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		sender.sendMessage(Texts.of(TextColors.GRAY, player.getName(), "'s onlinetime: ", TextColors.YELLOW, TIME.toString(player.getOnlinetime())));
+		sender.sendMessage(Texts.of(TextColors.GRAY, player.getName(), "'s onlinetime: ", TextColors.YELLOW, TimeUtils.toString(player.getOnlinetime())));
 	
 		return CommandResult.success();
 		

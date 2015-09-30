@@ -3,9 +3,9 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.TEXT;
-import me.creepsterlgc.core.files.RULES;
+import me.creepsterlgc.core.files.FileRules;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
@@ -23,10 +23,10 @@ public class CommandRules implements CommandCallable {
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
-		if(!PERMISSIONS.has(sender, "core.rules")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.rules")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		for(String s : RULES.MESSAGE()) {
-			sender.sendMessage(TEXT.color(s));
+		for(String s : FileRules.MESSAGE()) {
+			sender.sendMessage(TextUtils.color(s));
 		}
 		
 		return CommandResult.success();

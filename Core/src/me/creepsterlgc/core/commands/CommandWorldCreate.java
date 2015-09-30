@@ -1,7 +1,7 @@
 package me.creepsterlgc.core.commands;
 
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.gamemode.GameMode;
@@ -19,7 +19,7 @@ public class CommandWorldCreate {
 
 	public CommandWorldCreate(CommandSource sender, String[] args, Game game) {
 		
-		if(!PERMISSIONS.has(sender, "core.world.create")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.world.create")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length != 4) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/world create <name> <environment> <gamemode>")); return; }
 		

@@ -4,9 +4,9 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.DestructEntityEvent;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.SERIALIZE;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.SerializeUtils;
 
 
 public class EventPlayerDeath {
@@ -23,8 +23,8 @@ public class EventPlayerDeath {
     	double z = player.getLocation().getZ();
     	double yaw = 0;
     	double pitch = 0;
-    	String location = SERIALIZE.location(world, x, y, z, yaw, pitch);
-    	PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+    	String location = SerializeUtils.location(world, x, y, z, yaw, pitch);
+    	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
     	p.setLastdeath(location);
     	p.update();
     	

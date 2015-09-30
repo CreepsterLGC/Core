@@ -3,7 +3,7 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
@@ -21,7 +21,7 @@ public class CommandMemory implements CommandCallable {
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
-		if(!PERMISSIONS.has(sender, "core.memory")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.memory")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		Runtime runtime = Runtime.getRuntime();
 		

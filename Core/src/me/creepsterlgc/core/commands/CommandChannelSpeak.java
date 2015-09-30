@@ -1,13 +1,13 @@
 package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CHANNEL;
-import me.creepsterlgc.core.customized.COMMAND;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.TEXT;
-import me.creepsterlgc.core.files.CONFIG;
+import me.creepsterlgc.core.customized.CoreChannel;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.files.FileConfig;
+import me.creepsterlgc.core.utils.CommandUtils;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -27,30 +27,30 @@ public class CommandChannelSpeak {
 		if(args.length < 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/channel <channel> <mesage>")); return; }
 	
 		String channel = args[0].toLowerCase();
-		CHANNEL c = DATABASE.getChannel(channel);
+		CoreChannel c = CoreDatabase.getChannel(channel);
 		
 		if(c == null) {
 			sender.sendMessage(Texts.of(TextColors.RED, "Channel not found!"));
 			return;
 		}
 		
-		if(!PERMISSIONS.has(sender, "core.channel.leave." + channel)) {
+		if(!PermissionsUtils.has(sender, "core.channel.leave." + channel)) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to leave this channel!"));
 			return;
 		}
 		
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
     	String name = player.getName();
-		String message = COMMAND.combineArgs(1, args);
-    	if(!p.getNick().equalsIgnoreCase("")) name = CONFIG.CHAT_NICK_PREFIX() + p.getNick();
-    	if(!PERMISSIONS.has(player, "core.chat.color")) { message = TEXT.uncolor(message); }
+		String message = CommandUtils.combineArgs(1, args);
+    	if(!p.getNick().equalsIgnoreCase("")) name = FileConfig.CHAT_NICK_PREFIX() + p.getNick();
+    	if(!PermissionsUtils.has(player, "core.chat.color")) { message = TextUtils.uncolor(message); }
     	
-    	String prefix = TEXT.getPrefix(player);
-    	String suffix = TEXT.getSuffix(player);
+    	String prefix = TextUtils.getPrefix(player);
+    	String suffix = TextUtils.getSuffix(player);
     		
-    	if(!PERMISSIONS.has(player, "core.channel.speak." + c.getID())) {
+    	if(!PermissionsUtils.has(player, "core.channel.speak." + c.getID())) {
     		player.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to speak in this channel!"));
     		return;
     	}
@@ -69,7 +69,7 @@ public class CommandChannelSpeak {
 				.replaceAll("%csuffix", csuffix)
 	    		.replaceAll("%world", player.getWorld().getName());
 	    	
-	    Text total = TEXT.color(format);
+	    Text total = TextUtils.color(format);
 	    	
 	    String range = c.getRange();
 	    	

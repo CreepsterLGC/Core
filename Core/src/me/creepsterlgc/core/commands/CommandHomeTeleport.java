@@ -1,10 +1,10 @@
 package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.HOME;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreHome;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -20,15 +20,15 @@ public class CommandHomeTeleport {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.home.teleport")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.home.teleport")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/home [name]")); return; }
 		
 		Player player = (Player)sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
 		String name = "default"; if(!args[0].equalsIgnoreCase("")) name = args[0].toLowerCase();
-		HOME home = p.getHome(name);
+		CoreHome home = p.getHome(name);
 		
 		if(home == null) { sender.sendMessage(Texts.builder("Home does not exist!").color(TextColors.RED).build()); return; }
 		

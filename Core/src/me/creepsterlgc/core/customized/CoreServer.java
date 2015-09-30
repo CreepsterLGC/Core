@@ -1,7 +1,8 @@
 package me.creepsterlgc.core.customized;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.files.CONFIG;
+import me.creepsterlgc.core.files.FileConfig;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -9,7 +10,7 @@ import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.sink.MessageSink;
 
-public class SERVER {
+public class CoreServer {
 	
 	public static MessageSink sink;
 	
@@ -37,31 +38,31 @@ public class SERVER {
 		
 		for(Player player : Controller.getServer().getOnlinePlayers()) {
 			
-			PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+			CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 			
 			p.setOnlinetime(p.getOnlinetime() + 1000);
 			p.update();
 			
 		}
 		
-		if(!CONFIG.AFK_ENABLE_SYSTEM()) return;
+		if(!FileConfig.AFK_ENABLE_SYSTEM()) return;
 		
 		for(Player player : Controller.getServer().getOnlinePlayers()) {
 			
-			PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+			CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 			
 			double time = System.currentTimeMillis();
-			time -= CONFIG.AFK_TIMER_IN_SECONDS() * 1000;
-			time -= CONFIG.AFK_KICK_AFTER() * 1000;
+			time -= FileConfig.AFK_TIMER_IN_SECONDS() * 1000;
+			time -= FileConfig.AFK_KICK_AFTER() * 1000;
 			
-			if(p.getAFK() && CONFIG.AFK_KICK_ENABLE() && p.getLastaction() < time && !PERMISSIONS.has(player, "core.afk.kick.except")) {
+			if(p.getAFK() && FileConfig.AFK_KICK_ENABLE() && p.getLastaction() < time && !PermissionsUtils.has(player, "core.afk.kick.except")) {
 				
 				player.kick(Texts.of(Texts.of(TextColors.RED, "You have been kicked for being AFK!")));
 				
 			}
 			
 			if(p.getAFK()) continue;
-			if(p.getLastaction() > System.currentTimeMillis() - CONFIG.AFK_TIMER_IN_SECONDS() * 1000) continue;
+			if(p.getLastaction() > System.currentTimeMillis() - FileConfig.AFK_TIMER_IN_SECONDS() * 1000) continue;
 			
 			p.setAFK(true);
 			Controller.broadcast(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " is now afk."));

@@ -1,9 +1,9 @@
 package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -14,11 +14,11 @@ public class CommandMoneySet {
 
 	public CommandMoneySet(CommandSource sender, String[] args) {
 		
-		if(!PERMISSIONS.has(sender, "core.money.set")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.money.set")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length != 3) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/money set <player> <amount>")); return; }
 		
-		PLAYER player = DATABASE.getPlayer(DATABASE.getUUID(args[1].toLowerCase()));
+		CorePlayer player = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[1].toLowerCase()));
 		if(player == null) {
 			sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));
 			return;

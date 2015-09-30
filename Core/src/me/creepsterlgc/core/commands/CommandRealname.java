@@ -3,10 +3,10 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.TEXT;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -26,7 +26,7 @@ public class CommandRealname implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.realname")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.realname")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/realname <player>")); return CommandResult.success(); }
 		
@@ -37,7 +37,7 @@ public class CommandRealname implements CommandCallable {
 		boolean found = false;
 		
 		for(Player player : Controller.getServer().getOnlinePlayers())	{
-			PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+			CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 			if(p.getNick().equalsIgnoreCase("")) continue;
 			
 			String f = p.getNick();
@@ -66,7 +66,7 @@ public class CommandRealname implements CommandCallable {
 			.toLowerCase();
 			
 			if(s.equalsIgnoreCase(f)) {
-				sender.sendMessage(Texts.of(TextColors.YELLOW, TEXT.color(p.getNick()), TextColors.GRAY, " is ", player.getName()));
+				sender.sendMessage(Texts.of(TextColors.YELLOW, TextUtils.color(p.getNick()), TextColors.GRAY, " is ", player.getName()));
 				found = true;
 			}
 			

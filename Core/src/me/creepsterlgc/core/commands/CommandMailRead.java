@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.DESERIALIZE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.TIME;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.DeserializeUtils;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TimeUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -23,21 +23,21 @@ public class CommandMailRead {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.mail.read")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.mail.read")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length != 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/mail read")); return; }
 	
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
-		List<String> mails = DESERIALIZE.messages(p.getMails());
+		List<String> mails = DeserializeUtils.messages(p.getMails());
 		HashMap<Integer, Text> list = new HashMap<Integer, Text>();
 		HashMap<Integer, List<Text>> pages = new HashMap<Integer, List<Text>>();
 		
 		int counter = 1;
 		
 		for(String mail : mails) {
-			String time = TIME.toString(System.currentTimeMillis() - Double.parseDouble(mail.split(":", 3)[0]));
+			String time = TimeUtils.toString(System.currentTimeMillis() - Double.parseDouble(mail.split(":", 3)[0]));
 			String name = mail.split(":", 3)[1];
 			String message = mail.split(":", 3)[2];
 			list.put(counter, Texts.of(TextColors.GRAY, time, " ago | ", TextColors.WHITE, name, TextColors.GRAY, ": ", TextColors.WHITE, message));

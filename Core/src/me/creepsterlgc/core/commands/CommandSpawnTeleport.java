@@ -1,9 +1,9 @@
 package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.SPAWN;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreSpawn;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -19,14 +19,14 @@ public class CommandSpawnTeleport {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.spawn.teleport")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.spawn.teleport")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/spawn [name]")); return; }
 		
 		Player player = (Player)sender;
 		
 		String name = "default"; if(!args[0].equalsIgnoreCase("")) name = args[0].toLowerCase();
-		SPAWN spawn = DATABASE.getSpawn(name);
+		CoreSpawn spawn = CoreDatabase.getSpawn(name);
 		
 		if(spawn == null) { sender.sendMessage(Texts.builder("Spawn does not exist!").color(TextColors.RED).build()); return; }
 		

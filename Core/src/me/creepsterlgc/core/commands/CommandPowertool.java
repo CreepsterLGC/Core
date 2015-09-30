@@ -3,9 +3,10 @@ package me.creepsterlgc.core.commands;
 import java.util.HashMap;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.inventory.ItemStack;
@@ -33,10 +34,10 @@ public class CommandPowertool implements CommandCallable {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(!PERMISSIONS.has(sender, "core.powertool")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.powertool")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
 		if(!player.getItemInHand().isPresent()) {
 			sender.sendMessage(Texts.of(TextColors.RED, "You need to have an item in your hand!"));
@@ -56,7 +57,7 @@ public class CommandPowertool implements CommandCallable {
 			
 			powertools.remove(id);
 			p.setPowertools(powertools);
-			DATABASE.addPlayer(p.getUUID(), p);
+			CoreDatabase.addPlayer(p.getUUID(), p);
 			
 			sender.sendMessage(Texts.of(TextColors.YELLOW, id, TextColors.GRAY, " is not a powertool anymore."));
 			
@@ -72,7 +73,7 @@ public class CommandPowertool implements CommandCallable {
 		
 		powertools.put(id, command);
 		p.setPowertools(powertools);
-		DATABASE.addPlayer(p.getUUID(), p);
+		CoreDatabase.addPlayer(p.getUUID(), p);
 		
 		return CommandResult.success();
 		

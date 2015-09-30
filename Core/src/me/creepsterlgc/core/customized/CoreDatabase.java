@@ -11,12 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import javax.sql.DataSource;
 
-import me.creepsterlgc.core.files.CONFIG;
+import me.creepsterlgc.core.files.FileConfig;
+import me.creepsterlgc.core.utils.DeserializeUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.service.sql.SqlService;
 
-public class DATABASE {
+public class CoreDatabase {
 	
 	public static SqlService sql;
 	public static DataSource datasource;
@@ -29,7 +30,7 @@ public class DATABASE {
 			
 			sql = game.getServiceManager().provide(SqlService.class).get();
 			
-			if(!CONFIG.MYSQL_USE()) {
+			if(!FileConfig.MYSQL_USE()) {
 				
 		    	File folder = new File("config/core/data");
 		    	if(!folder.exists()) folder.mkdir();
@@ -39,11 +40,11 @@ public class DATABASE {
 			}
 			else {
 				
-				String host = CONFIG.MYSQL_HOST();
-				String port = String.valueOf(CONFIG.MYSQL_PORT());
-				String username = CONFIG.MYSQL_USERNAME();
-				String password = CONFIG.MYSQL_PASSWORD();
-				String database = CONFIG.MYSQL_DATABASE();
+				String host = FileConfig.MYSQL_HOST();
+				String port = String.valueOf(FileConfig.MYSQL_PORT());
+				String username = FileConfig.MYSQL_USERNAME();
+				String password = FileConfig.MYSQL_PASSWORD();
+				String database = FileConfig.MYSQL_DATABASE();
 				
 				datasource = sql.getDataSource("jdbc:mysql://" + host + ":" + port + "/" + database + "?user=" + username + "&password=" + password);
 				
@@ -97,8 +98,8 @@ public class DATABASE {
 			Statement s = c.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM bans");
 			while(rs.next()) {
-				BAN ban = new BAN(rs.getString("uuid"), rs.getString("sender"), rs.getString("reason"), rs.getDouble("time"), rs.getDouble("duration"));
-				DATABASE.addBan(ban.getUUID(), ban);
+				CoreBan ban = new CoreBan(rs.getString("uuid"), rs.getString("sender"), rs.getString("reason"), rs.getDouble("time"), rs.getDouble("duration"));
+				CoreDatabase.addBan(ban.getUUID(), ban);
 			}
 			s.close();
 			c.close();
@@ -111,8 +112,8 @@ public class DATABASE {
 			Statement s = c.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM mutes");
 			while(rs.next()) {
-				MUTE mute = new MUTE(rs.getString("uuid"), rs.getDouble("duration"), rs.getString("reason"));
-				DATABASE.addMute(mute.getUUID(), mute);
+				CoreMute mute = new CoreMute(rs.getString("uuid"), rs.getDouble("duration"), rs.getString("reason"));
+				CoreDatabase.addMute(mute.getUUID(), mute);
 			}
 			s.close();
 			c.close();
@@ -125,9 +126,9 @@ public class DATABASE {
 			Statement s = c.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM players");
 			while(rs.next()) {
-				PLAYER player = new PLAYER(rs.getString("uuid"), rs.getString("name"), rs.getString("nick"), rs.getString("channel"), rs.getDouble("money"), rs.getDouble("god"), rs.getDouble("fly"), rs.getDouble("tptoggle"), rs.getDouble("invisible"), rs.getDouble("onlinetime"), rs.getString("mails"), rs.getString("lastlocation"), rs.getString("lastdeath"), rs.getDouble("firstseen"), rs.getDouble("lastseen"));
-				DATABASE.addPlayer(player.getUUID(), player);
-				DATABASE.addUUID(player.getName(), player.getUUID());
+				CorePlayer player = new CorePlayer(rs.getString("uuid"), rs.getString("name"), rs.getString("nick"), rs.getString("channel"), rs.getDouble("money"), rs.getDouble("god"), rs.getDouble("fly"), rs.getDouble("tptoggle"), rs.getDouble("invisible"), rs.getDouble("onlinetime"), rs.getString("mails"), rs.getString("lastlocation"), rs.getString("lastdeath"), rs.getDouble("firstseen"), rs.getDouble("lastseen"));
+				CoreDatabase.addPlayer(player.getUUID(), player);
+				CoreDatabase.addUUID(player.getName(), player.getUUID());
 			}
 			s.close();
 			c.close();
@@ -140,11 +141,11 @@ public class DATABASE {
 			Statement s = c.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM homes");
 			while(rs.next()) {
-				HOME home = new HOME(rs.getString("uuid"), rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"));
-				PLAYER player = DATABASE.getPlayer(home.getUUID());
+				CoreHome home = new CoreHome(rs.getString("uuid"), rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"));
+				CorePlayer player = CoreDatabase.getPlayer(home.getUUID());
 				player.setHome(home.getName(), home);
-				DATABASE.removePlayer(home.getUUID());
-				DATABASE.addPlayer(home.getUUID(), player);
+				CoreDatabase.removePlayer(home.getUUID());
+				CoreDatabase.addPlayer(home.getUUID(), player);
 			}
 			s.close();
 			c.close();
@@ -157,8 +158,8 @@ public class DATABASE {
 			Statement s = c.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM spawns");
 			while(rs.next()) {
-				SPAWN spawn = new SPAWN(rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"), rs.getString("message"));
-				DATABASE.addSpawn(spawn.getName(), spawn);
+				CoreSpawn spawn = new CoreSpawn(rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"), rs.getString("message"));
+				CoreDatabase.addSpawn(spawn.getName(), spawn);
 			}
 			s.close();
 			c.close();
@@ -171,8 +172,8 @@ public class DATABASE {
 			Statement s = c.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM tickets");
 			while(rs.next()) {
-				TICKET ticket = new TICKET((int)rs.getDouble("id"), rs.getString("uuid"), rs.getString("message"), rs.getDouble("time"), DESERIALIZE.messages(rs.getString("comments")), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"), rs.getString("assigned"), rs.getString("priority"), rs.getString("status"));
-				DATABASE.addTicket(ticket.getID(), ticket);
+				CoreTicket ticket = new CoreTicket((int)rs.getDouble("id"), rs.getString("uuid"), rs.getString("message"), rs.getDouble("time"), DeserializeUtils.messages(rs.getString("comments")), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"), rs.getString("assigned"), rs.getString("priority"), rs.getString("status"));
+				CoreDatabase.addTicket(ticket.getID(), ticket);
 			}
 			s.close();
 			c.close();
@@ -185,8 +186,8 @@ public class DATABASE {
 			Statement s = c.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM warps");
 			while(rs.next()) {
-				WARP warp = new WARP(rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"), rs.getString("owner"), DESERIALIZE.list(rs.getString("invited")), rs.getString("private"), rs.getString("message"));
-				DATABASE.addWarp(warp.getName(), warp);
+				CoreWarp warp = new CoreWarp(rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getDouble("yaw"), rs.getDouble("pitch"), rs.getString("owner"), DeserializeUtils.list(rs.getString("invited")), rs.getString("private"), rs.getString("message"));
+				CoreDatabase.addWarp(warp.getName(), warp);
 			}
 			s.close();
 			c.close();
@@ -232,54 +233,54 @@ public class DATABASE {
 		
 	}
 	
-	public static void queue(String queue) { DATABASE.queue.add(queue); }
+	public static void queue(String queue) { CoreDatabase.queue.add(queue); }
 	
-	private static HashMap<String, BAN> bans = new HashMap<String, BAN>();
-	public static void addBan(String uuid, BAN ban) { if(!bans.containsKey(uuid)) bans.put(uuid, ban); }
+	private static HashMap<String, CoreBan> bans = new HashMap<String, CoreBan>();
+	public static void addBan(String uuid, CoreBan ban) { if(!bans.containsKey(uuid)) bans.put(uuid, ban); }
 	public static void removeBan(String uuid) { if(bans.containsKey(uuid)) bans.remove(uuid); }
-	public static BAN getBan(String uuid) { return bans.containsKey(uuid) ? bans.get(uuid) : null; }
-	public static HashMap<String, BAN> getBans() { return bans; }
+	public static CoreBan getBan(String uuid) { return bans.containsKey(uuid) ? bans.get(uuid) : null; }
+	public static HashMap<String, CoreBan> getBans() { return bans; }
 	
-	private static HashMap<String, MUTE> mutes = new HashMap<String, MUTE>();
-	public static void addMute(String uuid, MUTE mute) { if(!mutes.containsKey(uuid)) mutes.put(uuid, mute); }
+	private static HashMap<String, CoreMute> mutes = new HashMap<String, CoreMute>();
+	public static void addMute(String uuid, CoreMute mute) { if(!mutes.containsKey(uuid)) mutes.put(uuid, mute); }
 	public static void removeMute(String uuid) { if(mutes.containsKey(uuid)) mutes.remove(uuid); }
-	public static MUTE getMute(String uuid) { return mutes.containsKey(uuid) ? mutes.get(uuid) : null; }
-	public static HashMap<String, MUTE> getMutes() { return mutes; }
+	public static CoreMute getMute(String uuid) { return mutes.containsKey(uuid) ? mutes.get(uuid) : null; }
+	public static HashMap<String, CoreMute> getMutes() { return mutes; }
 	
-	private static HashMap<String, PLAYER> players = new HashMap<String, PLAYER>();
-	public static void addPlayer(String uuid, PLAYER player) { if(!players.containsKey(players)) players.put(uuid, player); }
+	private static HashMap<String, CorePlayer> players = new HashMap<String, CorePlayer>();
+	public static void addPlayer(String uuid, CorePlayer player) { if(!players.containsKey(players)) players.put(uuid, player); }
 	public static void removePlayer(String uuid) { if(players.containsKey(uuid)) players.remove(uuid); }
-	public static PLAYER getPlayer(String uuid) { return players.containsKey(uuid) ? players.get(uuid) : null; }
-	public static HashMap<String, PLAYER> getPlayers() { return players; }
+	public static CorePlayer getPlayer(String uuid) { return players.containsKey(uuid) ? players.get(uuid) : null; }
+	public static HashMap<String, CorePlayer> getPlayers() { return players; }
 	
 	private static HashMap<String, String> uuids = new HashMap<String, String>();
 	public static void addUUID(String name, String uuid) { uuids.put(name, uuid); }
 	public static void removeUUID(String name) { if(uuids.containsKey(name)) uuids.remove(name); }
 	public static String getUUID(String name) { return uuids.containsKey(name) ? uuids.get(name) : null; }
 	
-	private static HashMap<String, SPAWN> spawns = new HashMap<String, SPAWN>();
-	public static void addSpawn(String name, SPAWN spawn) { if(!spawns.containsKey(name)) spawns.put(name, spawn); }
+	private static HashMap<String, CoreSpawn> spawns = new HashMap<String, CoreSpawn>();
+	public static void addSpawn(String name, CoreSpawn spawn) { if(!spawns.containsKey(name)) spawns.put(name, spawn); }
 	public static void removeSpawn(String name) { if(spawns.containsKey(name)) spawns.remove(name); }
-	public static SPAWN getSpawn(String name) { return spawns.containsKey(name) ? spawns.get(name) : null; }
-	public static HashMap<String, SPAWN> getSpawns() { return spawns; }
+	public static CoreSpawn getSpawn(String name) { return spawns.containsKey(name) ? spawns.get(name) : null; }
+	public static HashMap<String, CoreSpawn> getSpawns() { return spawns; }
 	
-	private static HashMap<Integer, TICKET> tickets = new HashMap<Integer, TICKET>();
-	public static void addTicket(int id, TICKET ticket) { if(!tickets.containsKey(id)) tickets.put(id, ticket); }
+	private static HashMap<Integer, CoreTicket> tickets = new HashMap<Integer, CoreTicket>();
+	public static void addTicket(int id, CoreTicket ticket) { if(!tickets.containsKey(id)) tickets.put(id, ticket); }
 	public static void removeTicket(int id) { if(tickets.containsKey(id)) tickets.remove(id); }
-	public static TICKET getTicket(int id) { return tickets.containsKey(id) ? tickets.get(id) : null; }
-	public static HashMap<Integer, TICKET> getTickets() { return tickets; }
+	public static CoreTicket getTicket(int id) { return tickets.containsKey(id) ? tickets.get(id) : null; }
+	public static HashMap<Integer, CoreTicket> getTickets() { return tickets; }
 	public static void clearTickets() { tickets.clear(); }
 	
-	private static HashMap<String, WARP> warps = new HashMap<String, WARP>();
-	public static void addWarp(String name, WARP warp) { if(!warps.containsKey(name)) warps.put(name, warp); }
+	private static HashMap<String, CoreWarp> warps = new HashMap<String, CoreWarp>();
+	public static void addWarp(String name, CoreWarp warp) { if(!warps.containsKey(name)) warps.put(name, warp); }
 	public static void removeWarp(String name) { if(warps.containsKey(name)) warps.remove(name); }
-	public static WARP getWarp(String name) { return warps.containsKey(name) ? warps.get(name) : null; }
-	public static HashMap<String, WARP> getWarps() { return warps; }
+	public static CoreWarp getWarp(String name) { return warps.containsKey(name) ? warps.get(name) : null; }
+	public static HashMap<String, CoreWarp> getWarps() { return warps; }
 
-	private static HashMap<String, CHANNEL> channels = new HashMap<String, CHANNEL>();
-	public static void addChannel(String name, CHANNEL channel) { if(!channels.containsKey(name)) channels.put(name, channel); }
+	private static HashMap<String, CoreChannel> channels = new HashMap<String, CoreChannel>();
+	public static void addChannel(String name, CoreChannel channel) { if(!channels.containsKey(name)) channels.put(name, channel); }
 	public static void removeChannel(String name) { if(channels.containsKey(name)) channels.remove(name); }
-	public static CHANNEL getChannel(String name) { return channels.containsKey(name) ? channels.get(name) : null; }
-	public static HashMap<String, CHANNEL> getChannels() { return channels; }
+	public static CoreChannel getChannel(String name) { return channels.containsKey(name) ? channels.get(name) : null; }
+	public static HashMap<String, CoreChannel> getChannels() { return channels; }
 	
 }

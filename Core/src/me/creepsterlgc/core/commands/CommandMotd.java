@@ -3,9 +3,9 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.TEXT;
-import me.creepsterlgc.core.files.MOTD;
+import me.creepsterlgc.core.files.FileMotd;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
@@ -23,11 +23,11 @@ public class CommandMotd implements CommandCallable {
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
-		if(!PERMISSIONS.has(sender, "core.motd")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.motd")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		for(String s : MOTD.MESSAGE()) {
+		for(String s : FileMotd.MESSAGE()) {
 			s = s.replaceAll("%player", sender.getName());
-			sender.sendMessage(TEXT.color(s));
+			sender.sendMessage(TextUtils.color(s));
 		}
 		
 		return CommandResult.success();

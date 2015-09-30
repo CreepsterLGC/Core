@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.text.Text;
@@ -18,7 +18,7 @@ public class CommandWorldList {
 
 	public CommandWorldList(CommandSource sender, String[] args, Game game) {
 		
-		if(!PERMISSIONS.has(sender, "core.world.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.world.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length != 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/world list")); return; }
 		

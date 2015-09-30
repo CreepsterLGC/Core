@@ -3,10 +3,10 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.MUTE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreMute;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.text.Text;
@@ -33,15 +33,15 @@ public class CommandUnmute implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.unmute")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.unmute")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(usage); return CommandResult.success(); }
 		if(args.length != 1) { sender.sendMessage(usage); return CommandResult.success(); }
 		
-		PLAYER player = DATABASE.getPlayer(DATABASE.getUUID(args[0].toLowerCase()));
+		CorePlayer player = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[0].toLowerCase()));
 		if(player == null) { sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		MUTE mute = DATABASE.getMute(player.getUUID());
+		CoreMute mute = CoreDatabase.getMute(player.getUUID());
 		
 		if(mute == null) {
 			sender.sendMessage(Texts.builder("Player is not muted!").color(TextColors.RED).build());
@@ -49,7 +49,7 @@ public class CommandUnmute implements CommandCallable {
 		}
 		
 		mute.delete();
-		DATABASE.removeMute(player.getUUID());
+		CoreDatabase.removeMute(player.getUUID());
 		
 		sender.sendMessage(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " has been unmuted."));
 		

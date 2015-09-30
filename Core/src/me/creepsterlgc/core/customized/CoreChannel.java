@@ -1,6 +1,6 @@
 package me.creepsterlgc.core.customized;
 
-public class CHANNEL {
+public class CoreChannel {
 
 	private String id;
 	private String trigger;
@@ -10,7 +10,7 @@ public class CHANNEL {
 	private String format;
 	private String range;
 	
-	public CHANNEL(String id, String trigger, String name, String prefix, String suffix, String format, String range) {
+	public CoreChannel(String id, String trigger, String name, String prefix, String suffix, String format, String range) {
 		this.id = id;
 		this.trigger = trigger;
 		this.name = name;

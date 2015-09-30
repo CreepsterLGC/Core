@@ -3,8 +3,8 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.SERVER;
+import me.creepsterlgc.core.customized.CoreServer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -34,7 +34,7 @@ public class CommandTPPos implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.tppos")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.tppos")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tppos [player] <x> <y> <z>")); return CommandResult.success(); }
 		
@@ -76,12 +76,12 @@ public class CommandTPPos implements CommandCallable {
 		}
 		else if(args.length == 4) {
 			
-			if(!PERMISSIONS.has(sender, "core.tppos-others")) {
+			if(!PermissionsUtils.has(sender, "core.tppos-others")) {
 				sender.sendMessage(Texts.builder("You do not have permissions to teleport others!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 			
-			Player player = SERVER.getPlayer(args[0].toLowerCase());
+			Player player = CoreServer.getPlayer(args[0].toLowerCase());
 			if(player == null) {
 				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
 				return CommandResult.success();

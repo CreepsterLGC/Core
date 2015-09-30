@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.HOME;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreHome;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -21,26 +21,26 @@ public class CommandHomeList {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.home.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.home.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/home list [keyword]")); return; }
 		
-		if(DATABASE.getWarps().isEmpty()) { sender.sendMessage(Texts.builder("There are currently no homes set.").color(TextColors.YELLOW).build()); return; }
+		if(CoreDatabase.getWarps().isEmpty()) { sender.sendMessage(Texts.builder("There are currently no homes set.").color(TextColors.YELLOW).build()); return; }
 		
 		String name = ""; if(args.length > 1) name = args[1].toLowerCase();
 		
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
-		List<HOME> homes = new ArrayList<HOME>();
+		List<CoreHome> homes = new ArrayList<CoreHome>();
 		
 		if(!name.equalsIgnoreCase("")) {
-			for(Entry<String, HOME> e : p.getHomes().entrySet()) {
+			for(Entry<String, CoreHome> e : p.getHomes().entrySet()) {
 				if(e.getValue().getName().contains(name)) homes.add(e.getValue());
 			}
 		}
 		else {
-			for(Entry<String, HOME> e : p.getHomes().entrySet()) {
+			for(Entry<String, CoreHome> e : p.getHomes().entrySet()) {
 				homes.add(e.getValue());
 			}
 		}
@@ -51,7 +51,7 @@ public class CommandHomeList {
 		}
 		
 		StringBuilder list = new StringBuilder();
-		for(HOME home : homes) list.append(home.getName() + ", "); list.deleteCharAt(list.length() - 2);
+		for(CoreHome home : homes) list.append(home.getName() + ", "); list.deleteCharAt(list.length() - 2);
 		
 		if(homes.size() == 1) {
 			if(name.equalsIgnoreCase("")) sender.sendMessage(Texts.builder(String.valueOf(homes.size()) + " Home found:").color(TextColors.GOLD).build());

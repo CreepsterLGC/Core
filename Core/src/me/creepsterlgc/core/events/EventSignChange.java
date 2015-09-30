@@ -3,7 +3,7 @@ package me.creepsterlgc.core.events;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.block.tileentity.Sign;
 import org.spongepowered.api.data.key.Keys;
@@ -30,7 +30,7 @@ public class EventSignChange {
     	
     	Sign sign = event.getTargetTile();
     	
-    	if(PERMISSIONS.has(player, "core.signs.color")) {
+    	if(PermissionsUtils.has(player, "core.signs.color")) {
     	
     		SignData data = event.getText();
     		List<Text> o = data.get(Keys.SIGN_LINES).get();

@@ -3,13 +3,13 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.SERVER;
-import me.creepsterlgc.core.customized.TEXT;
-import me.creepsterlgc.core.customized.TIME;
-import me.creepsterlgc.core.files.CONFIG;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.customized.CoreServer;
+import me.creepsterlgc.core.files.FileConfig;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TimeUtils;
+import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -39,19 +39,19 @@ public class CommandWhois implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.whois")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.whois")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/whois <player>")); return CommandResult.success(); }
 		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/whois <player>")); return CommandResult.success(); }
 		
-		Player player = SERVER.getPlayer(args[0].toLowerCase());
+		Player player = CoreServer.getPlayer(args[0].toLowerCase());
 		
 		if(player == null) {
 			sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));
 			return CommandResult.success();
 		}
 		
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
 		Location<World> loc = player.getLocation();
 		
@@ -63,13 +63,13 @@ public class CommandWhois implements CommandCallable {
 		if(!p.getNick().equalsIgnoreCase("")) nick = p.getNick();
 		
 		String afk = "no";
-		if(p.getAFK()) afk = "since " + TIME.toString(System.currentTimeMillis() - p.getLastaction() - CONFIG.AFK_TIMER_IN_SECONDS() * 1000);
+		if(p.getAFK()) afk = "since " + TimeUtils.toString(System.currentTimeMillis() - p.getLastaction() - FileConfig.AFK_TIMER_IN_SECONDS() * 1000);
 		
 		sender.sendMessage(Texts.of(TextColors.GOLD, "Whois ", player.getName()));
-		sender.sendMessage(Texts.of(TextColors.YELLOW, "Nick: ", TextColors.GRAY, TEXT.color(nick)));
+		sender.sendMessage(Texts.of(TextColors.YELLOW, "Nick: ", TextColors.GRAY, TextUtils.color(nick)));
 		sender.sendMessage(Texts.of(TextColors.YELLOW, "AFK: ", TextColors.WHITE, afk));
 		sender.sendMessage(Texts.of(TextColors.YELLOW, "Location: ", TextColors.WHITE, "x:", x, " y:", y, " z:", z, " world:", loc.getExtent().getName()));
-		if(PERMISSIONS.has(sender, "core.whois-ip")) sender.sendMessage(Texts.of(TextColors.YELLOW, "IP: ", TextColors.WHITE, player.getConnection().getAddress().getAddress().getHostAddress().toString()));
+		if(PermissionsUtils.has(sender, "core.whois-ip")) sender.sendMessage(Texts.of(TextColors.YELLOW, "IP: ", TextColors.WHITE, player.getConnection().getAddress().getAddress().getHostAddress().toString()));
 		
 		return CommandResult.success();
 		

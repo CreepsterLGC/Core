@@ -1,16 +1,15 @@
 package me.creepsterlgc.core.api;
 
-import me.creepsterlgc.core.customized.BAN;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.MUTE;
+import me.creepsterlgc.core.customized.CoreBan;
+import me.creepsterlgc.core.customized.CoreDatabase;
 
 public class CoreAPIBanManager {
 
 	public static CoreAPIBanManager instance;
 	
 	public boolean addBan(String uuid, String sender, String reason, double time, double duration) {
-		if(DATABASE.getBan(uuid) != null) return false;
-		BAN ban = new BAN(uuid, sender.toLowerCase(), reason, time, duration); ban.insert(); return true;
+		if(CoreDatabase.getBan(uuid) != null) return false;
+		CoreBan ban = new CoreBan(uuid, sender.toLowerCase(), reason, time, duration); ban.insert(); return true;
 	}
 	
 	/*
@@ -28,8 +27,8 @@ public class CoreAPIBanManager {
 	 */
 	
 	public boolean removeBan(String uuid) {
-		if(DATABASE.getBan(uuid) == null) return false;
-		BAN ban = DATABASE.getBan(uuid); ban.delete(); return true;
+		if(CoreDatabase.getBan(uuid) == null) return false;
+		CoreBan ban = CoreDatabase.getBan(uuid); ban.delete(); return true;
 	}
 	
 	/*
@@ -43,7 +42,7 @@ public class CoreAPIBanManager {
 	 */
 	
 	public boolean isBanned(String uuid) {
-		return DATABASE.getBan(uuid) != null;
+		return CoreDatabase.getBan(uuid) != null;
 	}
 	
 	/*
@@ -56,8 +55,8 @@ public class CoreAPIBanManager {
 	 * 
 	 */
 	
-	public BAN getBan(String uuid) {
-		return DATABASE.getBan(uuid) != null ? DATABASE.getBan(uuid) : null;
+	public CoreBan getBan(String uuid) {
+		return CoreDatabase.getBan(uuid) != null ? CoreDatabase.getBan(uuid) : null;
 	}
 	
 	/*

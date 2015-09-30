@@ -1,8 +1,8 @@
-package me.creepsterlgc.core.customized;
+package me.creepsterlgc.core.utils;
 
 import java.util.List;
 
-public class SERIALIZE {
+public class SerializeUtils {
 
 	public static String list(List<String> list) {
 		

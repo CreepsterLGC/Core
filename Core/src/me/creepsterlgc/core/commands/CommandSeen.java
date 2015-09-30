@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.TIME;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TimeUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.text.Text;
@@ -33,23 +33,23 @@ public class CommandSeen implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.seen")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.seen")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/seen <player>")); return CommandResult.success(); }
 		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/seen <player>")); return CommandResult.success(); }
 		
-		PLAYER p = DATABASE.getPlayer(DATABASE.getUUID(args[0].toLowerCase()));
+		CorePlayer p = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[0].toLowerCase()));
 		if(p == null) {
 			sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));
 			return CommandResult.success();
 		}
 		
-		sender.sendMessage(Texts.of(TextColors.YELLOW, p.getName(), " has been first seen: ", TextColors.GRAY, TIME.toString(System.currentTimeMillis() - p.getFirstseen()), " ago"));
+		sender.sendMessage(Texts.of(TextColors.YELLOW, p.getName(), " has been first seen: ", TextColors.GRAY, TimeUtils.toString(System.currentTimeMillis() - p.getFirstseen()), " ago"));
 		
 		boolean online = Controller.getServer().getPlayer(args[0].toLowerCase()).isPresent();
 		
 		if(online) sender.sendMessage(Texts.of(TextColors.YELLOW, p.getName(), " has been last seen: ", TextColors.GREEN, "Currently online!"));
-		else sender.sendMessage(Texts.of(TextColors.YELLOW, p.getName(), " has been last seen: ", TextColors.GRAY, TIME.toString(System.currentTimeMillis() - p.getLastseen()), " ago"));
+		else sender.sendMessage(Texts.of(TextColors.YELLOW, p.getName(), " has been last seen: ", TextColors.GRAY, TimeUtils.toString(System.currentTimeMillis() - p.getLastseen()), " ago"));
 		
 		return CommandResult.success();
 		

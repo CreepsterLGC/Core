@@ -1,9 +1,9 @@
 package me.creepsterlgc.core.events;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.files.CONFIG;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.files.FileConfig;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -20,9 +20,9 @@ public class EventPlayerMove {
     	if(event.getTargetEntity() instanceof Player == false) return;
     	Player player = (Player) event.getTargetEntity();
     	
-    	if(!CONFIG.AFK_ENABLE_SYSTEM()) return;
+    	if(!FileConfig.AFK_ENABLE_SYSTEM()) return;
     	
-    	PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+    	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
     	if(p == null) return;
 		p.setLastaction(System.currentTimeMillis());
 		
@@ -31,7 +31,7 @@ public class EventPlayerMove {
 			p.setAFK(false);
 		}
 		
-		DATABASE.addPlayer(p.getUUID(), p);
+		CoreDatabase.addPlayer(p.getUUID(), p);
 		
     }
 	

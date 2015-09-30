@@ -2,9 +2,9 @@ package me.creepsterlgc.core.commands;
 
 import java.util.List;
 
-import me.creepsterlgc.core.customized.COMMAND;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.SERVER;
+import me.creepsterlgc.core.customized.CoreServer;
+import me.creepsterlgc.core.utils.CommandUtils;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -32,22 +32,22 @@ public class CommandForce implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.force")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.force")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(args.length < 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/force <player> <command>")); return CommandResult.success(); }
 		
-		Player player = SERVER.getPlayer(args[0]);
+		Player player = CoreServer.getPlayer(args[0]);
 		if(player == null) {
 			sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 		
-		if(PERMISSIONS.has(player, "core.force.except") && !PERMISSIONS.has(sender, "core.force.override")) {
+		if(PermissionsUtils.has(player, "core.force.except") && !PermissionsUtils.has(sender, "core.force.override")) {
 			sender.sendMessage(Texts.builder("You cannot force this player!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 		
-		String command = COMMAND.combineArgs(1, args);
+		String command = CommandUtils.combineArgs(1, args);
 
 		game.getCommandDispatcher().process(player.getCommandSource().get(), command);
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Forcing ", TextColors.YELLOW, player.getName(), TextColors.GRAY, " to enter command: ", TextColors.YELLOW, command));

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.files.CONFIG;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.files.FileConfig;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -28,10 +28,10 @@ public class CommandAFK implements CommandCallable {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(!PERMISSIONS.has(sender, "core.afk")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.afk")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
 		double time = System.currentTimeMillis();
 		
@@ -43,10 +43,10 @@ public class CommandAFK implements CommandCallable {
 		else if(!p.getAFK()) {
 			Controller.broadcast(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " is now afk."));
 			p.setAFK(true);
-			p.setLastaction(time - CONFIG.AFK_TIMER_IN_SECONDS() * 1000);
+			p.setLastaction(time - FileConfig.AFK_TIMER_IN_SECONDS() * 1000);
 		}
 		
-		DATABASE.addPlayer(p.getUUID(), p);
+		CoreDatabase.addPlayer(p.getUUID(), p);
 		
 		return CommandResult.success();
 		

@@ -3,8 +3,8 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.SERVER;
+import me.creepsterlgc.core.customized.CoreServer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -32,7 +32,7 @@ public class CommandTP implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(!PERMISSIONS.has(sender, "core.tp")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.tp")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tp <player> [target]")); return CommandResult.success(); }
 		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tp <player> [target]")); return CommandResult.success(); }
@@ -45,15 +45,15 @@ public class CommandTP implements CommandCallable {
 			if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 			
 			player = (Player)sender;
-			target = SERVER.getPlayer(args[0]);
+			target = CoreServer.getPlayer(args[0]);
 			
 		}
 		else if(args.length == 2) {
 			
-			if(!PERMISSIONS.has(sender, "core.tp-others")) { sender.sendMessage(Texts.builder("You do not have permissions to teleport others!").color(TextColors.RED).build()); return CommandResult.success(); }
+			if(!PermissionsUtils.has(sender, "core.tp-others")) { sender.sendMessage(Texts.builder("You do not have permissions to teleport others!").color(TextColors.RED).build()); return CommandResult.success(); }
 			
-			player = SERVER.getPlayer(args[0]);
-			target = SERVER.getPlayer(args[1]);
+			player = CoreServer.getPlayer(args[0]);
+			target = CoreServer.getPlayer(args[1]);
 			
 		}
 		

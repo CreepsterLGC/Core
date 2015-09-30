@@ -1,8 +1,8 @@
 package me.creepsterlgc.core.commands;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.TICKET;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreTicket;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -16,7 +16,7 @@ public class CommandTicketOpen {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.open")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.ticket.open")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length != 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/ticket open <id>")); return; }
 	
@@ -29,7 +29,7 @@ public class CommandTicketOpen {
 			return;
 		}
 		
-		TICKET ticket = DATABASE.getTicket(id);
+		CoreTicket ticket = CoreDatabase.getTicket(id);
 		
 		if(ticket == null) {
 			sender.sendMessage(Texts.builder("Ticket with that ID does not exist!").color(TextColors.RED).build());
@@ -41,11 +41,11 @@ public class CommandTicketOpen {
 			return;
 		}
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.open-others")) {
+		if(!PermissionsUtils.has(sender, "core.ticket.open-others")) {
 			if(ticket.getUUID().equalsIgnoreCase(player.getUniqueId().toString())) {
 				
 			}
-			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PERMISSIONS.has(sender, "core.ticket.open-assigned")) {
+			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PermissionsUtils.has(sender, "core.ticket.open-assigned")) {
 				
 			}
 			else {

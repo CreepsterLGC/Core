@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.COMMAND;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.MUTE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreMute;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.utils.CommandUtils;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -31,22 +31,22 @@ public class CommandReply implements CommandCallable {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(!PERMISSIONS.has(sender, "core.msg")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.msg")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(args.length < 1) { sender.sendMessage(Texts.builder("Usage: /r <message>").color(TextColors.YELLOW).build()); return CommandResult.success(); }
 		
-		String message = COMMAND.combineArgs(0, args);
+		String message = CommandUtils.combineArgs(0, args);
 		
 		if(sender instanceof Player) {
 			
 			Player checking = (Player) sender;
 			
-	    	MUTE mute = DATABASE.getMute(checking.getUniqueId().toString());
+	    	CoreMute mute = CoreDatabase.getMute(checking.getUniqueId().toString());
 	    	
 	    	if(mute != null) {
 	    		
 	    		if(mute.getDuration() != 0 && mute.getDuration() <= System.currentTimeMillis()) {
-	    			DATABASE.removeMute(checking.getUniqueId().toString());
+	    			CoreDatabase.removeMute(checking.getUniqueId().toString());
 	    			mute.delete();
 	    		}
 	    		else {
@@ -57,7 +57,7 @@ public class CommandReply implements CommandCallable {
 		}
 		
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
 		if(p.getReply().equalsIgnoreCase("")) {
 			sender.sendMessage(Texts.of(TextColors.RED, "No message to reply to!"));

@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.TICKET;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.customized.CoreTicket;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -25,7 +25,7 @@ public class CommandTicketList {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.ticket.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/ticket list [player]")); return; }
 	
@@ -33,7 +33,7 @@ public class CommandTicketList {
 		
 		if(args.length == 2) {
 			
-			uuid = DATABASE.getUUID(args[1]);
+			uuid = CoreDatabase.getUUID(args[1]);
 			
 			if(uuid == null || uuid.equalsIgnoreCase("")) {
 				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
@@ -46,8 +46,8 @@ public class CommandTicketList {
 		HashMap<Integer, List<Text>> pages = new HashMap<Integer, List<Text>>();
 		
 		int counter = 1;
-		for(Entry<Integer, TICKET> e : DATABASE.getTickets().entrySet()) {
-			TICKET ticket = e.getValue();
+		for(Entry<Integer, CoreTicket> e : CoreDatabase.getTickets().entrySet()) {
+			CoreTicket ticket = e.getValue();
 			if(!uuid.equalsIgnoreCase("")) {
 				if(!ticket.getUUID().equalsIgnoreCase(uuid)) continue;
 			}
@@ -59,7 +59,7 @@ public class CommandTicketList {
 			else if(ticket.getPriority().equalsIgnoreCase("high")) p = Texts.of(TextColors.RED, "High");
 			Text s = Texts.of(TextColors.DARK_GREEN, "Open");
 			if(ticket.getStatus().equalsIgnoreCase("closed")) s = Texts.of(TextColors.DARK_RED, "Closed");
-			Text message = Texts.of(TextColors.GREEN, "#", ticket.getID(), TextColors.GRAY, " | ", p, TextColors.GRAY, " | ", s, TextColors.GRAY, " | ", TextColors.WHITE, DATABASE.getPlayer(ticket.getUUID()).getName(), TextColors.GRAY, " | ", TextColors.WHITE, ticket.getMessage());
+			Text message = Texts.of(TextColors.GREEN, "#", ticket.getID(), TextColors.GRAY, " | ", p, TextColors.GRAY, " | ", s, TextColors.GRAY, " | ", TextColors.WHITE, CoreDatabase.getPlayer(ticket.getUUID()).getName(), TextColors.GRAY, " | ", TextColors.WHITE, ticket.getMessage());
 			Text hover = Texts.of(TextColors.YELLOW, "Click", TextColors.GRAY, " to view information on Ticket ", TextColors.GREEN, "#", ticket.getID());
 			String command = "/ticket view " + ticket.getID();
 			tickets.put(counter, Texts.builder().append(message).onHover(TextActions.showText(hover)).onClick(TextActions.runCommand(command)).build());
@@ -84,7 +84,7 @@ public class CommandTicketList {
 		}
 		
 		Player player = (Player) sender;
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		
 		p.setPages(pages);
 		

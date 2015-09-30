@@ -4,14 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map.Entry;
 
-import me.creepsterlgc.core.customized.CHANNEL;
-import me.creepsterlgc.core.customized.DATABASE;
+import me.creepsterlgc.core.customized.CoreChannel;
+import me.creepsterlgc.core.customized.CoreDatabase;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
-public class CHAT {
+public class FileChat {
 	
 	public static File file = new File("config/core/chat.conf");
 	public static ConfigurationLoader<?> manager = HoconConfigurationLoader.builder().setFile(file).build();
@@ -86,8 +86,8 @@ public class CHAT {
 					String format = chat.getNode("channels", channel, "format").getString();
 					String range = chat.getNode("channels", channel, "range").getString();
 					
-					CHANNEL c = new CHANNEL(channel, trigger, name, prefix, suffix, format, range);
-					DATABASE.addChannel(channel, c);
+					CoreChannel c = new CoreChannel(channel, trigger, name, prefix, suffix, format, range);
+					CoreDatabase.addChannel(channel, c);
 					
 				}
 			}

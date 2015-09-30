@@ -1,15 +1,15 @@
 package me.creepsterlgc.core.api;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.MUTE;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreMute;
 
 public class CoreAPIMuteManager {
 
 	public static CoreAPIMuteManager instance;
 	
 	public boolean addMute(String uuid, double duration, String reason) {
-		if(DATABASE.getMute(uuid) != null) return false;
-		MUTE mute = new MUTE(uuid, duration, reason); mute.insert(); return true;
+		if(CoreDatabase.getMute(uuid) != null) return false;
+		CoreMute mute = new CoreMute(uuid, duration, reason); mute.insert(); return true;
 	}
 	
 	/*
@@ -25,8 +25,8 @@ public class CoreAPIMuteManager {
 	 */
 	
 	public boolean removeMute(String uuid) {
-		if(DATABASE.getMute(uuid) == null) return false;
-		MUTE mute = DATABASE.getMute(uuid); mute.delete(); return true;
+		if(CoreDatabase.getMute(uuid) == null) return false;
+		CoreMute mute = CoreDatabase.getMute(uuid); mute.delete(); return true;
 	}
 	
 	/*
@@ -40,7 +40,7 @@ public class CoreAPIMuteManager {
 	 */
 	
 	public boolean isMuted(String uuid) {
-		return DATABASE.getMute(uuid) != null;
+		return CoreDatabase.getMute(uuid) != null;
 	}
 	
 	/*
@@ -53,8 +53,8 @@ public class CoreAPIMuteManager {
 	 * 
 	 */
 	
-	public MUTE getMute(String uuid) {
-		return DATABASE.getMute(uuid) != null ? DATABASE.getMute(uuid) : null;
+	public CoreMute getMute(String uuid) {
+		return CoreDatabase.getMute(uuid) != null ? CoreDatabase.getMute(uuid) : null;
 	}
 	
 	/*

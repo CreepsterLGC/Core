@@ -1,6 +1,6 @@
 package me.creepsterlgc.core.customized;
 
-public class BAN {
+public class CoreBan {
 
 	private String uuid;
 	private String sender;
@@ -8,7 +8,7 @@ public class BAN {
 	private double time;
 	private double duration;
 	
-	public BAN(String uuid, String sender, String reason, double time, double duration) {
+	public CoreBan(String uuid, String sender, String reason, double time, double duration) {
 		this.uuid = uuid;
 		this.sender = sender;
 		this.reason = reason;
@@ -29,19 +29,19 @@ public class BAN {
 	public double getDuration() { return duration; }
 	
 	public void insert() {
-		DATABASE.queue("INSERT INTO bans VALUES ('" + uuid + "', '" + sender + "', '" + reason + "', " + time + ", " + duration + ")");
-		DATABASE.addBan(uuid, this);
+		CoreDatabase.queue("INSERT INTO bans VALUES ('" + uuid + "', '" + sender + "', '" + reason + "', " + time + ", " + duration + ")");
+		CoreDatabase.addBan(uuid, this);
 	}
 	
 	public void update() {
-		DATABASE.queue("UPDATE bans SET sender = '" + sender + "', reason = '" + reason + "', time = " + time + ", duration = " + duration + " WHERE uuid = '" + uuid + "'");
-		DATABASE.removeBan(uuid);
-		DATABASE.addBan(uuid, this);
+		CoreDatabase.queue("UPDATE bans SET sender = '" + sender + "', reason = '" + reason + "', time = " + time + ", duration = " + duration + " WHERE uuid = '" + uuid + "'");
+		CoreDatabase.removeBan(uuid);
+		CoreDatabase.addBan(uuid, this);
 	}
 	
 	public void delete() {
-		DATABASE.queue("DELETE FROM bans WHERE uuid = '" + uuid + "'");
-		DATABASE.removeBan(uuid);
+		CoreDatabase.queue("DELETE FROM bans WHERE uuid = '" + uuid + "'");
+		CoreDatabase.removeBan(uuid);
 	}
 	
 }

@@ -1,14 +1,14 @@
 package me.creepsterlgc.core.events;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CHANNEL;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.MUTE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.TEXT;
-import me.creepsterlgc.core.files.CHAT;
-import me.creepsterlgc.core.files.CONFIG;
+import me.creepsterlgc.core.customized.CoreChannel;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreMute;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.files.FileChat;
+import me.creepsterlgc.core.files.FileConfig;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -32,14 +32,14 @@ public class EventPlayerChat {
 
     	Player player = optional.get();
     	String uuid = player.getUniqueId().toString();
-    	PLAYER p = DATABASE.getPlayer(uuid);
+    	CorePlayer p = CoreDatabase.getPlayer(uuid);
     	
-    	MUTE mute = DATABASE.getMute(uuid);
+    	CoreMute mute = CoreDatabase.getMute(uuid);
     	
     	if(mute != null) {
     		
     		if(mute.getDuration() != 0 && mute.getDuration() <= System.currentTimeMillis()) {
-    			DATABASE.removeMute(player.getUniqueId().toString());
+    			CoreDatabase.removeMute(player.getUniqueId().toString());
     			mute.delete();
     		}
     		else {
@@ -50,7 +50,7 @@ public class EventPlayerChat {
     		
     	}
     	
-    	if(CONFIG.AFK_ENABLE_SYSTEM()) {
+    	if(FileConfig.AFK_ENABLE_SYSTEM()) {
     	
 			p.setLastaction(System.currentTimeMillis());
 			
@@ -59,23 +59,23 @@ public class EventPlayerChat {
 				p.setAFK(false);
 			}
 			
-			DATABASE.addPlayer(p.getUUID(), p);
+			CoreDatabase.addPlayer(p.getUUID(), p);
 		
     	}
     	
-		if(!CHAT.USE()) return;
+		if(!FileChat.USE()) return;
     	
     	String name = player.getName();
     	String message = Texts.toPlain(event.getMessage()); message = message.replaceAll("<" + name + "> ", "");
-    	if(!p.getNick().equalsIgnoreCase("")) name = CONFIG.CHAT_NICK_PREFIX() + p.getNick();
-    	if(!PERMISSIONS.has(player, "core.chat.color")) { message = TEXT.uncolor(message); }
+    	if(!p.getNick().equalsIgnoreCase("")) name = FileConfig.CHAT_NICK_PREFIX() + p.getNick();
+    	if(!PermissionsUtils.has(player, "core.chat.color")) { message = TextUtils.uncolor(message); }
     	
-    	String prefix = TEXT.getPrefix(player);
-    	String suffix = TEXT.getSuffix(player);
+    	String prefix = TextUtils.getPrefix(player);
+    	String suffix = TextUtils.getSuffix(player);
 		
-    	if(!CHAT.CHANNELS()) {
+    	if(!FileChat.CHANNELS()) {
     	
-	    	String format = CHAT.DEFAULTFORMAT();
+	    	String format = FileChat.DEFAULTFORMAT();
 	    	
 	    	format = format
 	    			.replaceAll("%prefix", prefix)
@@ -83,7 +83,7 @@ public class EventPlayerChat {
 	    			.replaceAll("%player", name)
 	    			.replaceAll("%message", message);
 	    	
-	    	Text total = TEXT.color(format);
+	    	Text total = TextUtils.color(format);
 	    	
 	    	event.setMessage(Texts.of(total));
 	    	
@@ -91,10 +91,10 @@ public class EventPlayerChat {
     	else {
     		
     		String channel = p.getChannel();
-    		CHANNEL c = DATABASE.getChannel(channel);
-    		if(c == null) c = DATABASE.getChannel(CHAT.DEFAULTCHANNEL());
+    		CoreChannel c = CoreDatabase.getChannel(channel);
+    		if(c == null) c = CoreDatabase.getChannel(FileChat.DEFAULTCHANNEL());
     		
-    		if(!PERMISSIONS.has(player, "core.channel.speak." + c.getID())) {
+    		if(!PermissionsUtils.has(player, "core.channel.speak." + c.getID())) {
     			player.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to speak in this channel!"));
     			event.setCancelled(true);
     			return;
@@ -114,7 +114,7 @@ public class EventPlayerChat {
 					.replaceAll("%csuffix", csuffix)
 	    			.replaceAll("%world", player.getWorld().getName());
 	    	
-	    	Text total = TEXT.color(format);
+	    	Text total = TextUtils.color(format);
 	    	
 	    	String range = c.getRange();
 	    	

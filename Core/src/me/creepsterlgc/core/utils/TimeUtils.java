@@ -1,6 +1,6 @@
-package me.creepsterlgc.core.customized;
+package me.creepsterlgc.core.utils;
 
-public class TIME {
+public class TimeUtils {
 
 	public static String toString(double milliseconds) {
 		

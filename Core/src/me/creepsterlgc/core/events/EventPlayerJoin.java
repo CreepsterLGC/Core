@@ -1,12 +1,12 @@
 package me.creepsterlgc.core.events;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.SERVER;
-import me.creepsterlgc.core.customized.SPAWN;
-import me.creepsterlgc.core.customized.TEXT;
-import me.creepsterlgc.core.files.MESSAGES;
-import me.creepsterlgc.core.files.MOTD;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.customized.CoreServer;
+import me.creepsterlgc.core.customized.CoreSpawn;
+import me.creepsterlgc.core.files.FileMessages;
+import me.creepsterlgc.core.files.FileMotd;
+import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.Transform;
@@ -30,33 +30,33 @@ public class EventPlayerJoin {
 		String uuid = player.getUniqueId().toString();
 		String name = player.getName().toLowerCase();
 		
-		PLAYER player_uuid = DATABASE.getPlayer(DATABASE.getUUID(name));
-		PLAYER player_name = DATABASE.getPlayer(uuid);
+		CorePlayer player_uuid = CoreDatabase.getPlayer(CoreDatabase.getUUID(name));
+		CorePlayer player_name = CoreDatabase.getPlayer(uuid);
 		
-    	if(MESSAGES.EVENTS_JOIN_ENABLE()) {
-    		event.setMessage(TEXT.color(MESSAGES.EVENTS_JOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
+    	if(FileMessages.EVENTS_JOIN_ENABLE()) {
+    		event.setMessage(TextUtils.color(FileMessages.EVENTS_JOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
     	}
     	
-		PLAYER pl = DATABASE.getPlayer(event.getTargetEntity().getUniqueId().toString());
+		CorePlayer pl = CoreDatabase.getPlayer(event.getTargetEntity().getUniqueId().toString());
 		if(pl != null) {
 			pl.setLastaction(System.currentTimeMillis());
-			DATABASE.addPlayer(pl.getUUID(), pl);
+			CoreDatabase.addPlayer(pl.getUUID(), pl);
 		}
 		
 		if(player_uuid == null && player_name == null) {
 			
-			PLAYER p = new PLAYER(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), System.currentTimeMillis());
+			CorePlayer p = new CorePlayer(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), System.currentTimeMillis());
 			p.setLastaction(System.currentTimeMillis());
 			p.insert();
 			
-	    	if(MESSAGES.EVENTS_FIRSTJOIN_ENABLE()) {
-	    		event.setMessage(TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
-	    		if(MESSAGES.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_SHOW()) {
-		    		event.setMessage(Texts.of(TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(DATABASE.getPlayers().size())))));
+	    	if(FileMessages.EVENTS_FIRSTJOIN_ENABLE()) {
+	    		event.setMessage(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
+	    		if(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_SHOW()) {
+		    		event.setMessage(Texts.of(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(CoreDatabase.getPlayers().size())))));
 	    		}
 	    	}
 			
-			SPAWN spawn = DATABASE.getSpawn("default");
+			CoreSpawn spawn = CoreDatabase.getSpawn("default");
 			if(spawn != null) {
 				
 				if(event.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {
@@ -71,24 +71,24 @@ public class EventPlayerJoin {
 		}
 		else if(player_uuid == null && player_name != null) {
 			
-			DATABASE.removePlayer(player_name.getUUID());
-			DATABASE.removeUUID(player_name.getName());
+			CoreDatabase.removePlayer(player_name.getUUID());
+			CoreDatabase.removeUUID(player_name.getName());
 			
 			player_name.setName(player_name.getUUID());
 			player_name.update();
 			
-			PLAYER p = new PLAYER(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), System.currentTimeMillis());
+			CorePlayer p = new CorePlayer(uuid, name, "", "", 0, 0, 0, 0, 0, 0, "", "", "", System.currentTimeMillis(), System.currentTimeMillis());
 			p.setLastaction(System.currentTimeMillis());
 			p.insert();
 			
-	    	if(MESSAGES.EVENTS_FIRSTJOIN_ENABLE()) {
-	    		event.setMessage(TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
-	    		if(MESSAGES.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_SHOW()) {
-		    		event.setMessage(Texts.of(TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TEXT.color(MESSAGES.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(DATABASE.getPlayers().size())))));
+	    	if(FileMessages.EVENTS_FIRSTJOIN_ENABLE()) {
+	    		event.setMessage(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
+	    		if(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_SHOW()) {
+		    		event.setMessage(Texts.of(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(CoreDatabase.getPlayers().size())))));
 	    		}
 	    	}
 			
-			SPAWN spawn = DATABASE.getSpawn("default");
+			CoreSpawn spawn = CoreDatabase.getSpawn("default");
 			if(spawn != null) {
 				
 				if(event.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {
@@ -103,24 +103,24 @@ public class EventPlayerJoin {
 		}
 		else if(player_uuid != null && player_name == null) {
 			
-			DATABASE.removePlayer(player_uuid.getUUID());
-			DATABASE.removeUUID(player_uuid.getName());
+			CoreDatabase.removePlayer(player_uuid.getUUID());
+			CoreDatabase.removeUUID(player_uuid.getName());
 			
 			player_uuid.setName(name);
 			player_uuid.setLastaction(System.currentTimeMillis());
 			player_uuid.update();
 			
-			SERVER.broadcast(Texts.of(TextColors.GOLD, player_uuid.getName(), " is now known as ", player.getName(), "!"));
+			CoreServer.broadcast(Texts.of(TextColors.GOLD, player_uuid.getName(), " is now known as ", player.getName(), "!"));
 			
 		}
 		else {
 			
 		}
 		
-		if(MOTD.SHOW_ON_JOIN()) {
-			for(String s : MOTD.MESSAGE()) {
+		if(FileMotd.SHOW_ON_JOIN()) {
+			for(String s : FileMotd.MESSAGE()) {
 				s = s.replaceAll("%player", player.getName());
-				player.sendMessage(TEXT.color(s));
+				player.sendMessage(TextUtils.color(s));
 			}
 		}
 		

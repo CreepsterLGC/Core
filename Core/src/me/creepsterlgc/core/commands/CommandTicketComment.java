@@ -2,10 +2,10 @@ package me.creepsterlgc.core.commands;
 
 import java.util.List;
 
-import me.creepsterlgc.core.customized.COMMAND;
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.TICKET;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreTicket;
+import me.creepsterlgc.core.utils.CommandUtils;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -19,7 +19,7 @@ public class CommandTicketComment {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.comment")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.ticket.comment")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length < 3) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/ticket comment <id> <message>")); return; }
 	
@@ -32,25 +32,25 @@ public class CommandTicketComment {
 			return;
 		}
 		
-		TICKET ticket = DATABASE.getTicket(id);
+		CoreTicket ticket = CoreDatabase.getTicket(id);
 		
 		if(ticket == null) {
 			sender.sendMessage(Texts.builder("Ticket with that ID does not exist!").color(TextColors.RED).build());
 			return;
 		}
 		
-		String message = COMMAND.combineArgs(2, args);
+		String message = CommandUtils.combineArgs(2, args);
 		
 		if(message.contains("-;;")) {
 			sender.sendMessage(Texts.builder("'-;;' is not allowed in the message!").color(TextColors.RED).build());
 			return;
 		}
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.comment-others")) {
+		if(!PermissionsUtils.has(sender, "core.ticket.comment-others")) {
 			if(ticket.getUUID().equalsIgnoreCase(player.getUniqueId().toString())) {
 				
 			}
-			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PERMISSIONS.has(sender, "core.ticket.comment-assigned")) {
+			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PermissionsUtils.has(sender, "core.ticket.comment-assigned")) {
 				
 			}
 			else {

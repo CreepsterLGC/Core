@@ -1,7 +1,7 @@
 package me.creepsterlgc.core.events;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.SPAWN;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreSpawn;
 
 import org.spongepowered.api.entity.Transform;
 import org.spongepowered.api.event.Listener;
@@ -15,7 +15,7 @@ public class EventPlayerRespawn {
 	@Listener
 	public void onPlayerRespawn(RespawnPlayerEvent event) {
 		
-		SPAWN spawn = DATABASE.getSpawn("default");
+		CoreSpawn spawn = CoreDatabase.getSpawn("default");
 		if(spawn != null) {
 			
 			if(event.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {

@@ -1,8 +1,8 @@
 package me.creepsterlgc.core.commands;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.TICKET;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CoreTicket;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -17,7 +17,7 @@ public class CommandTicketPriority {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.priority")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.ticket.priority")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length != 3) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/ticket priority <id> <priority>")); return; }
 	
@@ -30,7 +30,7 @@ public class CommandTicketPriority {
 			return;
 		}
 		
-		TICKET ticket = DATABASE.getTicket(id);
+		CoreTicket ticket = CoreDatabase.getTicket(id);
 		
 		if(ticket == null) {
 			sender.sendMessage(Texts.builder("Ticket with that ID does not exist!").color(TextColors.RED).build());
@@ -45,11 +45,11 @@ public class CommandTicketPriority {
 			return;
 		}
 		
-		if(!PERMISSIONS.has(sender, "core.ticket.priority-others")) {
+		if(!PermissionsUtils.has(sender, "core.ticket.priority-others")) {
 			if(ticket.getUUID().equalsIgnoreCase(player.getUniqueId().toString())) {
 				
 			}
-			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PERMISSIONS.has(sender, "core.ticket.priority-assigned")) {
+			else if(ticket.getAssigned().equalsIgnoreCase(player.getUniqueId().toString()) && PermissionsUtils.has(sender, "core.ticket.priority-assigned")) {
 				
 			}
 			else {

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.PLAYER;
-import me.creepsterlgc.core.customized.SERVER;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
+import me.creepsterlgc.core.customized.CoreServer;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -37,7 +37,7 @@ public class CommandTPAHere implements CommandCallable {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(!PERMISSIONS.has(sender, "core.tpahere")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.tpahere")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpahere <player>")); return CommandResult.success(); }
 		
@@ -46,14 +46,14 @@ public class CommandTPAHere implements CommandCallable {
 		Player s = (Player) sender;
 		String uuid = s.getUniqueId().toString();
 		
-		Player player = SERVER.getPlayer(args[0]);
+		Player player = CoreServer.getPlayer(args[0]);
 		
 		if(player == null) {
 			sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 		
-		PLAYER p = DATABASE.getPlayer(player.getUniqueId().toString());
+		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		HashMap<String, Double> tpa = p.getTPA();
 		HashMap<String, Double> tpahere = p.getTPAHere();
 		

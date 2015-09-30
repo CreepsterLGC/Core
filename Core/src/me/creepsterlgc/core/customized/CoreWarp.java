@@ -2,7 +2,9 @@ package me.creepsterlgc.core.customized;
 
 import java.util.List;
 
-public class WARP {
+import me.creepsterlgc.core.utils.SerializeUtils;
+
+public class CoreWarp {
 	
 	private String name;
 	private String world;
@@ -16,7 +18,7 @@ public class WARP {
 	private String priv;
 	private String message;
 	
-	public WARP(String name, String world, double x, double y, double z, double yaw, double pitch, String owner, List<String> invited, String priv, String message) {
+	public CoreWarp(String name, String world, double x, double y, double z, double yaw, double pitch, String owner, List<String> invited, String priv, String message) {
 		this.name = name;
 		this.world = world;
 		this.x = x;
@@ -31,19 +33,19 @@ public class WARP {
 	}
 	
 	public void insert() {
-		DATABASE.queue("INSERT INTO warps VALUES ('" + name + "', '" + world + "', " + x + ", " + y + ", " + z + ", " + yaw + ", " + pitch + ", '" + owner + "', '" + SERIALIZE.list(invited) + "', '" + priv + "', '" + message + "')");
-		DATABASE.addWarp(name, this);
+		CoreDatabase.queue("INSERT INTO warps VALUES ('" + name + "', '" + world + "', " + x + ", " + y + ", " + z + ", " + yaw + ", " + pitch + ", '" + owner + "', '" + SerializeUtils.list(invited) + "', '" + priv + "', '" + message + "')");
+		CoreDatabase.addWarp(name, this);
 	}
 	
 	public void update() {
-		DATABASE.queue("UPDATE warps SET world = '" + world + "', x = " + x + ", y = " + y + ", z = " + z + ", yaw = " + yaw + ", pitch = " + pitch + ", owner = '" + owner + "', invited = '" + SERIALIZE.list(invited) + "', private = '" + priv + "', message = '" + message + "' WHERE name = '" + name + "'");
-		DATABASE.removeWarp(name);
-		DATABASE.addWarp(name, this);
+		CoreDatabase.queue("UPDATE warps SET world = '" + world + "', x = " + x + ", y = " + y + ", z = " + z + ", yaw = " + yaw + ", pitch = " + pitch + ", owner = '" + owner + "', invited = '" + SerializeUtils.list(invited) + "', private = '" + priv + "', message = '" + message + "' WHERE name = '" + name + "'");
+		CoreDatabase.removeWarp(name);
+		CoreDatabase.addWarp(name, this);
 	}
 	
 	public void delete() {
-		DATABASE.queue("DELETE FROM warps WHERE name = '" + name + "'");
-		DATABASE.removeWarp(name);
+		CoreDatabase.queue("DELETE FROM warps WHERE name = '" + name + "'");
+		CoreDatabase.removeWarp(name);
 	}
 	
 	public void setName(String name) { this.name = name; }

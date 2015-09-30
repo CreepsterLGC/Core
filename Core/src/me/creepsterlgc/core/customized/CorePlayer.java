@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.spongepowered.api.text.Text;
 
-public class PLAYER {
+public class CorePlayer {
 	
 	private String uuid;
 	private String name;
@@ -25,7 +25,7 @@ public class PLAYER {
 	
 	private double lastaction;
 	private boolean afk;
-	private HashMap<String, HOME> homes;
+	private HashMap<String, CoreHome> homes;
 	private String reply;
 	private HashMap<String, Double> tpa;
 	private HashMap<String, Double> tpahere;
@@ -34,7 +34,7 @@ public class PLAYER {
 	private Text page_title;
 	private Text page_header;
 	
-	public PLAYER(String uuid, String name, String nick, String channel, double money, double god, double fly, double tptoggle, double invisible, double onlinetime, String mails, String lastlocation, String lastdeath, double firstseen, double lastseen) {
+	public CorePlayer(String uuid, String name, String nick, String channel, double money, double god, double fly, double tptoggle, double invisible, double onlinetime, String mails, String lastlocation, String lastdeath, double firstseen, double lastseen) {
 		
 		this.uuid = uuid;
 		this.name = name;
@@ -54,7 +54,7 @@ public class PLAYER {
 		
 		lastaction = 0;
 		afk = false;
-		homes = new HashMap<String, HOME>();
+		homes = new HashMap<String, CoreHome>();
 		reply = "";
 		tpa = new HashMap<String, Double>();
 		tpahere = new HashMap<String, Double>();
@@ -64,23 +64,23 @@ public class PLAYER {
 	}
 	
 	public void insert() {
-		DATABASE.queue("INSERT INTO players VALUES ('" + uuid + "', '" + name + "', '" + nick + "', '" + channel + "', " + money + ", " + god + ", " + fly + ", " + tptoggle + ", " + invisible + ", " + onlinetime + ", '" + mails + "', '" + lastlocation + "', '" + lastdeath + "', " + firstseen + ", " + lastseen + ")");
-		DATABASE.addPlayer(uuid, this);
-		DATABASE.addUUID(name, uuid);
+		CoreDatabase.queue("INSERT INTO players VALUES ('" + uuid + "', '" + name + "', '" + nick + "', '" + channel + "', " + money + ", " + god + ", " + fly + ", " + tptoggle + ", " + invisible + ", " + onlinetime + ", '" + mails + "', '" + lastlocation + "', '" + lastdeath + "', " + firstseen + ", " + lastseen + ")");
+		CoreDatabase.addPlayer(uuid, this);
+		CoreDatabase.addUUID(name, uuid);
 	}
 	
 	public void update() {
-		DATABASE.queue("UPDATE players SET name = '" + name + "', nick = '" + nick + "', channel = '" + channel + "', money = " + money + ", god = " + god + ", fly = " + fly + ", tptoggle = " + tptoggle + ", invisible = " + invisible + ", onlinetime = " + onlinetime + ", mails = '" + mails + "', lastlocation = '" + lastlocation + "', lastdeath = '" + lastdeath + "', firstseen = " + firstseen + ", lastseen = " + lastseen + " WHERE uuid = '" + uuid + "'");
-		DATABASE.removePlayer(uuid);
-		DATABASE.removeUUID(name);
-		DATABASE.addPlayer(uuid, this);
-		DATABASE.addUUID(name, uuid);
+		CoreDatabase.queue("UPDATE players SET name = '" + name + "', nick = '" + nick + "', channel = '" + channel + "', money = " + money + ", god = " + god + ", fly = " + fly + ", tptoggle = " + tptoggle + ", invisible = " + invisible + ", onlinetime = " + onlinetime + ", mails = '" + mails + "', lastlocation = '" + lastlocation + "', lastdeath = '" + lastdeath + "', firstseen = " + firstseen + ", lastseen = " + lastseen + " WHERE uuid = '" + uuid + "'");
+		CoreDatabase.removePlayer(uuid);
+		CoreDatabase.removeUUID(name);
+		CoreDatabase.addPlayer(uuid, this);
+		CoreDatabase.addUUID(name, uuid);
 	}
 	
 	public void delete() {
-		DATABASE.queue("DELETE FROM players WHERE uuid = '" + uuid + "'");
-		DATABASE.removePlayer(uuid);
-		DATABASE.removeUUID(name);
+		CoreDatabase.queue("DELETE FROM players WHERE uuid = '" + uuid + "'");
+		CoreDatabase.removePlayer(uuid);
+		CoreDatabase.removeUUID(name);
 	}
 
 	public void setUUID(String uuid) { this.uuid = uuid; }
@@ -101,8 +101,8 @@ public class PLAYER {
 
 	public void setLastaction(double lastaction) { this.lastaction = lastaction; }
 	public void setAFK(boolean afk) { this.afk = afk; }
-	public void setHome(String name, HOME home) { if(homes == null) homes = new HashMap<String, HOME>(); homes.put(name, home); }
-	public void setHomes(HashMap<String, HOME> homes) { if(homes == null) homes = new HashMap<String, HOME>(); this.homes = homes; }
+	public void setHome(String name, CoreHome home) { if(homes == null) homes = new HashMap<String, CoreHome>(); homes.put(name, home); }
+	public void setHomes(HashMap<String, CoreHome> homes) { if(homes == null) homes = new HashMap<String, CoreHome>(); this.homes = homes; }
 	public void setReply(String reply) { this.reply = reply; }
 	public void setTPA(HashMap<String, Double> tpa) { this.tpa = tpa; }
 	public void setTPAHere(HashMap<String, Double> tpahere) { this.tpahere = tpahere; }
@@ -131,8 +131,8 @@ public class PLAYER {
 	
 	public double getLastaction() { return lastaction; }
 	public boolean getAFK() { return afk; }
-	public HOME getHome(String name) { if(homes == null) homes = new HashMap<String, HOME>(); return homes.containsKey(name) ? homes.get(name) : null; }
-	public HashMap<String, HOME> getHomes() { if(homes == null) homes = new HashMap<String, HOME>(); return homes; }
+	public CoreHome getHome(String name) { if(homes == null) homes = new HashMap<String, CoreHome>(); return homes.containsKey(name) ? homes.get(name) : null; }
+	public HashMap<String, CoreHome> getHomes() { if(homes == null) homes = new HashMap<String, CoreHome>(); return homes; }
 	public String getReply() { return reply; }
 	public HashMap<String, Double> getTPA() { return tpa; }
 	public HashMap<String, Double> getTPAHere() { return tpahere; }
