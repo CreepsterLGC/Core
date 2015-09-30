@@ -2,6 +2,7 @@ package me.creepsterlgc.core.api;
 
 import me.creepsterlgc.core.customized.BAN;
 import me.creepsterlgc.core.customized.DATABASE;
+import me.creepsterlgc.core.customized.MUTE;
 
 public class CoreAPIBanManager {
 
@@ -52,6 +53,15 @@ public class CoreAPIBanManager {
 	 * 
 	 * EXAMPLE: ("my-unique-id")
 	 * Would check "my-unique-id".
+	 * 
+	 */
+	
+	public BAN getBan(String uuid) {
+		return DATABASE.getBan(uuid) != null ? DATABASE.getBan(uuid) : null;
+	}
+	
+	/*
+	 * RETURNS: the ban or null if the player is not banned.
 	 * 
 	 */
 	

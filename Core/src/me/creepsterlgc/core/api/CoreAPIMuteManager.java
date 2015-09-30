@@ -53,4 +53,13 @@ public class CoreAPIMuteManager {
 	 * 
 	 */
 	
+	public MUTE getMute(String uuid) {
+		return DATABASE.getMute(uuid) != null ? DATABASE.getMute(uuid) : null;
+	}
+	
+	/*
+	 * RETURNS: the mute or null if the player is not muted.
+	 * 
+	 */
+	
 }
