@@ -5,10 +5,10 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 
 import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.MESSAGES;
 import me.creepsterlgc.core.customized.PLAYER;
 import me.creepsterlgc.core.customized.SERIALIZE;
 import me.creepsterlgc.core.customized.TEXT;
+import me.creepsterlgc.core.files.MESSAGES;
 
 
 public class EventPlayerQuit {

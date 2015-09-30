@@ -8,7 +8,6 @@ import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.PLAYER;
 import me.creepsterlgc.core.customized.TEXT;
 
-import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;

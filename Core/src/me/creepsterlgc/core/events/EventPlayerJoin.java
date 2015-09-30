@@ -1,12 +1,12 @@
 package me.creepsterlgc.core.events;
 
 import me.creepsterlgc.core.customized.DATABASE;
-import me.creepsterlgc.core.customized.MESSAGES;
-import me.creepsterlgc.core.customized.MOTD;
 import me.creepsterlgc.core.customized.PLAYER;
 import me.creepsterlgc.core.customized.SERVER;
 import me.creepsterlgc.core.customized.SPAWN;
 import me.creepsterlgc.core.customized.TEXT;
+import me.creepsterlgc.core.files.MESSAGES;
+import me.creepsterlgc.core.files.MOTD;
 
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.Transform;

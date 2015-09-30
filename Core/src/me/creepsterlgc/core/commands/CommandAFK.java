@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.DATABASE;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.PLAYER;
+import me.creepsterlgc.core.files.CONFIG;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;

@@ -1,6 +1,7 @@
 package me.creepsterlgc.core.customized;
 
 import me.creepsterlgc.core.Controller;
+import me.creepsterlgc.core.files.CONFIG;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;

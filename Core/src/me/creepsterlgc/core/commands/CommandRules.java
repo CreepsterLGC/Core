@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.creepsterlgc.core.customized.PERMISSIONS;
-import me.creepsterlgc.core.customized.RULES;
 import me.creepsterlgc.core.customized.TEXT;
+import me.creepsterlgc.core.files.RULES;
 
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;

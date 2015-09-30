@@ -3,9 +3,9 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.MESSAGES;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.TEXT;
+import me.creepsterlgc.core.files.MESSAGES;
 
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;

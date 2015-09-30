@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CONFIG;
 import me.creepsterlgc.core.customized.PERMISSIONS;
 import me.creepsterlgc.core.customized.TEXT;
+import me.creepsterlgc.core.files.CONFIG;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;

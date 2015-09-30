@@ -1,9 +1,11 @@
-package me.creepsterlgc.core.customized;
+package me.creepsterlgc.core.files;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map.Entry;
 
+import me.creepsterlgc.core.customized.CHANNEL;
+import me.creepsterlgc.core.customized.DATABASE;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
