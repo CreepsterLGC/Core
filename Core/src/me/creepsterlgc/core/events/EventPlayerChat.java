@@ -70,8 +70,8 @@ public class EventPlayerChat {
     	if(!p.getNick().equalsIgnoreCase("")) name = FileConfig.CHAT_NICK_PREFIX() + p.getNick();
     	if(!PermissionsUtils.has(player, "core.chat.color")) { message = TextUtils.uncolor(message); }
     	
-    	String prefix = TextUtils.getPrefix(player);
-    	String suffix = TextUtils.getSuffix(player);
+    	String prefix = PermissionsUtils.getPrefix(player);
+    	String suffix = PermissionsUtils.getSuffix(player);
 		
     	if(!FileChat.CHANNELS()) {
     	

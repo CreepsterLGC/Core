@@ -40,7 +40,6 @@ public class FileMotd {
 			}
 			
 			motd = manager.load();
-			
 		     
 		} catch (IOException e) { e.printStackTrace(); }
 		

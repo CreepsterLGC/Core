@@ -48,9 +48,9 @@ public class CommandList implements CommandCallable {
 			StringBuilder list = new StringBuilder();
 			
 			for(Player p : Controller.getServer().getOnlinePlayers()) {
-				if(FileConfig.LIST_SHOW_PREFIX()) list.append(TextUtils.getPrefix(p));
+				if(FileConfig.LIST_SHOW_PREFIX()) list.append(PermissionsUtils.getPrefix(p));
 				list.append(p.getName());
-				if(FileConfig.LIST_SHOW_SUFFIX()) list.append(TextUtils.getSuffix(p));
+				if(FileConfig.LIST_SHOW_SUFFIX()) list.append(PermissionsUtils.getSuffix(p));
 				list.append("&7, ");
 			}
 			
@@ -90,9 +90,9 @@ public class CommandList implements CommandCallable {
 				StringBuilder sb = new StringBuilder();
 				sb.append("&e" + e.getKey() + "&7: ");
 				for(Player p : e.getValue()) {
-					if(FileConfig.LIST_SHOW_PREFIX()) sb.append(TextUtils.getPrefix(p));
+					if(FileConfig.LIST_SHOW_PREFIX()) sb.append(PermissionsUtils.getPrefix(p));
 					sb.append(p.getName());
-					if(FileConfig.LIST_SHOW_SUFFIX()) sb.append(TextUtils.getSuffix(p));
+					if(FileConfig.LIST_SHOW_SUFFIX()) sb.append(PermissionsUtils.getSuffix(p));
 					sb.append("&7, ");
 				}
 				if(sb.toString().contains(", ")) sb.deleteCharAt(sb.length() - 2);

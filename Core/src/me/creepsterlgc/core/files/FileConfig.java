@@ -29,9 +29,6 @@ public class FileConfig {
 				config.getNode("mysql", "password").setValue("password");
 				config.getNode("mysql", "database").setValue("minecraft");
 				
-				config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").setValue(3600);
-				config.getNode("limits", "MAX_MUTE_TIME_IN_SECONDS").setValue(600);
-				
 				config.getNode("afk", "ENABLE_SYSTEM").setValue(true);
 				config.getNode("afk", "TIMER_IN_SECONDS").setValue(180);
 				config.getNode("afk", "KICK_ENABLE").setValue(false);
@@ -48,49 +45,6 @@ public class FileConfig {
 			}
 			
 	        config = manager.load();
-			
-			if(config.getNode("version").getInt() <= 5) {
-				
-				config.getNode("list", "ORDER_BY_GROUPS").setValue(true);
-				config.getNode("list", "SHOW_PREFIX").setValue(true);
-				config.getNode("list", "SHOW_SUFFIX").setValue(true);
-				
-				config.getNode("afk", "ENABLE_SYSTEM").setValue(true);
-				
-				config.getNode("version").setValue(6);
-				
-				manager.save(config);
-				
-				
-		        config = manager.load();
-				
-			}
-			
-			if(config.getNode("version").getInt() <= 6) {
-				
-				config.getNode("chat", "NICK_PREFIX").setValue("&7*");
-				
-				config.getNode("version").setValue(7);
-				
-				manager.save(config);
-				
-				
-		        config = manager.load();
-				
-			}
-			
-			if(config.getNode("version").getInt() <= 8) {
-				
-				config.getNode("chat", "NICK_PREFIX").setValue("&7*");
-				
-				config.getNode("version").setValue(9);
-				
-				manager.save(config);
-				
-				
-		        config = manager.load();
-				
-			}
 		     
 		} catch (IOException e) { e.printStackTrace(); }
 		

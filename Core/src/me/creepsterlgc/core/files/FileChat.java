@@ -91,7 +91,6 @@ public class FileChat {
 					
 				}
 			}
-			
 		     
 		} catch (IOException e) { e.printStackTrace(); }
 		

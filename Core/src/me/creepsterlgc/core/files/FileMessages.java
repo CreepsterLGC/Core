@@ -41,7 +41,6 @@ public class FileMessages {
 			
 			messages = manager.load();
 			
-		     
 		} catch (IOException e) { e.printStackTrace(); }
 		
 	}

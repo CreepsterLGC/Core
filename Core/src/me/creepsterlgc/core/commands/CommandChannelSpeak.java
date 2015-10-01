@@ -47,8 +47,8 @@ public class CommandChannelSpeak {
     	if(!p.getNick().equalsIgnoreCase("")) name = FileConfig.CHAT_NICK_PREFIX() + p.getNick();
     	if(!PermissionsUtils.has(player, "core.chat.color")) { message = TextUtils.uncolor(message); }
     	
-    	String prefix = TextUtils.getPrefix(player);
-    	String suffix = TextUtils.getSuffix(player);
+    	String prefix = PermissionsUtils.getPrefix(player);
+    	String suffix = PermissionsUtils.getSuffix(player);
     		
     	if(!PermissionsUtils.has(player, "core.channel.speak." + c.getID())) {
     		player.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to speak in this channel!"));

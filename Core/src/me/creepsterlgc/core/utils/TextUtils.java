@@ -45,22 +45,4 @@ public class TextUtils {
 		.replaceAll("&k", "");
 	}
 	
-	public static String getPrefix(Player player) {
-    	Subject subject = player.getContainingCollection().get(player.getIdentifier());
-		if (subject instanceof OptionSubject) {
-			OptionSubject optionSubject = (OptionSubject) subject;
-			return optionSubject.getOption("prefix").or("");
-		}
-		return "";
-	}
-
-	public static String getSuffix(Player player) {
-    	Subject subject = player.getContainingCollection().get(player.getIdentifier());
-		if (subject instanceof OptionSubject) {
-			OptionSubject optionSubject = (OptionSubject) subject;
-			return optionSubject.getOption("suffix").or("");
-		}
-		return "";
-	}
-	
 }

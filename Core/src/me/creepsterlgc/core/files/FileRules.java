@@ -40,7 +40,6 @@ public class FileRules {
 			
 			rules = manager.load();
 			
-		     
 		} catch (IOException e) { e.printStackTrace(); }
 		
 	}
