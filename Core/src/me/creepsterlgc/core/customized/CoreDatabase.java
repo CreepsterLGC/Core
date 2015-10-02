@@ -283,4 +283,10 @@ public class CoreDatabase {
 	public static CoreChannel getChannel(String name) { return channels.containsKey(name) ? channels.get(name) : null; }
 	public static HashMap<String, CoreChannel> getChannels() { return channels; }
 	
+	private static HashMap<String, CoreWorld> worlds = new HashMap<String, CoreWorld>();
+	public static void addWorld(String name, CoreWorld world) { if(!worlds.containsKey(name)) worlds.put(name, world); }
+	public static void removeWorld(String name) { if(worlds.containsKey(name)) worlds.remove(name); }
+	public static CoreWorld getWorld(String name) { return worlds.containsKey(name) ? worlds.get(name) : null; }
+	public static HashMap<String, CoreWorld> getWorlds() { return worlds; }
+	
 }

@@ -1,10 +1,8 @@
 package me.creepsterlgc.core.utils;
 
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.service.permission.Subject;
-import org.spongepowered.api.service.permission.option.OptionSubject;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
+import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.TextMessageException;
 
 public class TextUtils {
@@ -43,6 +41,14 @@ public class TextUtils {
 		.replaceAll("&m", "")
 		.replaceAll("&n", "")
 		.replaceAll("&k", "");
+	}
+	
+	public static Text error(String message) {
+		return Texts.of(TextColors.RED, message);
+	}
+	
+	public static Text usage(String message) {
+		return Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, message);
 	}
 	
 }
