@@ -34,7 +34,7 @@ public class CommandWorldEdit {
 		|| setting.equalsIgnoreCase("invulnerable")) {
 			
 			if(value.equalsIgnoreCase("allow") || value.equalsIgnoreCase("deny")) {
-				sender.sendMessage(Texts.of(TextColors.GRAY, "Set ", TextColors.YELLOW, setting, TextColors.GRAY, " to ", TextColors.YELLOW, value, TextColors.GRAY, " on world ", TextColors.GOLD, args[1]));
+				sender.sendMessage(Texts.of(TextColors.GRAY, "Set setting ", TextColors.YELLOW, setting, TextColors.GRAY, " to ", TextColors.YELLOW, value, TextColors.GRAY, " on world ", TextColors.GOLD, args[1]));
 				
 				boolean state = true;
 				if(value.equalsIgnoreCase("deny")) state = false;
@@ -45,7 +45,7 @@ public class CommandWorldEdit {
 				else if(setting.equalsIgnoreCase("build")) w.allowBuild(state);
 				else if(setting.equalsIgnoreCase("interact")) w.allowInteract(state);
 				else if(setting.equalsIgnoreCase("hunger")) w.allowHunger(state);
-				else if(setting.equalsIgnoreCase("invulnerable")) w.allowInvulnerability(state);
+				else if(setting.equalsIgnoreCase("invulnerability")) w.allowInvulnerability(state);
 				
 				return;
 			}
@@ -56,7 +56,7 @@ public class CommandWorldEdit {
 			
 		}
 		else {
-			sender.sendMessage(Texts.of(TextColors.RED, "Available settings: animals, monsters"));
+			sender.sendMessage(Texts.of(TextColors.RED, "Available settings: animals, monsters, pvp, build, interact, hunger, invulnerability"));
 			return;
 		}	
 		

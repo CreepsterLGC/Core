@@ -1,6 +1,7 @@
 package me.creepsterlgc.core.commands;
 
 
+import java.io.File;
 import java.util.ArrayList;
 
 import me.creepsterlgc.core.Controller;
@@ -19,26 +20,28 @@ import org.spongepowered.api.world.DimensionType;
 import org.spongepowered.api.world.DimensionTypes;
 import org.spongepowered.api.world.GeneratorType;
 import org.spongepowered.api.world.GeneratorTypes;
+import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 import org.spongepowered.api.world.difficulty.Difficulties;
 
 
-public class CommandWorldCreate {
+public class CommandWorldLoad {
 
-	public CommandWorldCreate(CommandSource sender, String[] args, Game game) {
+	public CommandWorldLoad(CommandSource sender, String[] args, Game game) {
 		
-		if(!PermissionsUtils.has(sender, "core.world.create")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.world.load")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
-		if(args.length != 4) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/world create <name> <environment> <gamemode>")); return; }
+		if(args.length != 4) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/world load <name> <environment> <gamemode>")); return; }
 		
 		String name = args[1];
 		String environment = args[2].toLowerCase();
 		String mode = args[3].toLowerCase();
 		
-		if(game.getServer().getWorld(name).isPresent()) {
-			sender.sendMessage(Texts.builder("World already exists!").color(TextColors.RED).build());
+    	File folder = new File(Controller.getServer().getDefaultWorld().get().getWorldName() + "/" + name);
+    	if(!folder.exists()) {
+			sender.sendMessage(Texts.builder("World does not exists!").color(TextColors.RED).build());
 			return;
-		}
+    	}
 	
 		DimensionType dimension;
 		GeneratorType generator;
@@ -77,8 +80,8 @@ public class CommandWorldCreate {
 			sender.sendMessage(Texts.builder("<gamemode> has to be: survival, creative, adventure or spectator").color(TextColors.RED).build());
 			return;
 		}
-
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Creating world ", TextColors.YELLOW, name, TextColors.GRAY, ".."));
+	
+		sender.sendMessage(Texts.of(TextColors.GRAY, "Loading world ", TextColors.YELLOW, name, TextColors.GRAY, ".."));
 		
 		game.getRegistry().createWorldBuilder()
 		.name(name)
@@ -90,13 +93,16 @@ public class CommandWorldCreate {
 		.gameMode(gamemode)
 		.build();
 		
-		World world = Controller.getServer().getWorld(name).get();
+		if(CoreDatabase.getWorld(name) == null) {
 		
-		CoreWorld w = new CoreWorld(name, false, new ArrayList<String>(), Difficulties.EASY, gamemode, true, true, true, true, true, world.getSpawnLocation(), true, false, "normal", "normal", 0, 2);
-		CoreDatabase.addWorld(name, w);
-		FileWorlds.save(w);
+			World world = Controller.getServer().getWorld(name).get();
+			CoreWorld w = new CoreWorld(name, false, new ArrayList<String>(), Difficulties.EASY, gamemode, true, true, true, true, true, world.getSpawnLocation(), true, false, "normal", "normal", 0, 2);
+			CoreDatabase.addWorld(name, w);
+			FileWorlds.save(w);
+			
+		}
 		
-		sender.sendMessage(Texts.of(TextColors.GRAY, "World ", TextColors.YELLOW, name, TextColors.GRAY, " has been created."));
+		sender.sendMessage(Texts.of(TextColors.GRAY, "World ", TextColors.YELLOW, name, TextColors.GRAY, " has been loaded."));
 		
 	}
 

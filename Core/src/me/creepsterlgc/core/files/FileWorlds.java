@@ -58,6 +58,7 @@ public class FileWorlds {
 					worlds.getNode("worlds", world.getName(), "time").setValue("normal");
 					worlds.getNode("worlds", world.getName(), "weather").setValue("normal");
 					worlds.getNode("worlds", world.getName(), "border").setValue("0");
+					worlds.getNode("worlds", world.getName(), "border-damage").setValue("2");
 				
 				}
 				
@@ -125,8 +126,9 @@ public class FileWorlds {
 					&& !weather.equalsIgnoreCase("rain")) weather = "normal";
 					
 					double border = worlds.getNode("worlds", world, "border").getDouble();
+					double borderdamage = worlds.getNode("worlds", world, "border-damage").getDouble();
 					
-					CoreWorld w = new CoreWorld(world, priv, whitelist, d, g, monsters, animals, pvp, build, interact, spawn, hunger, invulnerability, time, weather, border);
+					CoreWorld w = new CoreWorld(world, priv, whitelist, d, g, monsters, animals, pvp, build, interact, spawn, hunger, invulnerability, time, weather, border, borderdamage);
 					CoreDatabase.addWorld(world, w);
 					
 				}
@@ -165,6 +167,7 @@ public class FileWorlds {
 		worlds.getNode("worlds", world.getName(), "time").setValue(world.getTime());
 		worlds.getNode("worlds", world.getName(), "weather").setValue(world.getWeather());
 		worlds.getNode("worlds", world.getName(), "border").setValue(world.getBorder());
+		worlds.getNode("worlds", world.getName(), "border-damage").setValue(world.getBorderDamage());
 		
         try { manager.save(worlds); worlds = manager.load(); }
         catch (IOException e) { e.printStackTrace(); }

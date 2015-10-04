@@ -30,8 +30,9 @@ public class CoreWorld {
 	private String time;
 	private String weather;
 	private double border;
+	private double borderdamage;
 	
-	public CoreWorld(String name, boolean priv, List<String> whitelist, Difficulty difficulty, GameMode gamemode, boolean monsters, boolean animals, boolean pvp, boolean build, boolean interact, Location<World> spawn, boolean hunger, boolean invulnerability, String time, String weather, double border) {
+	public CoreWorld(String name, boolean priv, List<String> whitelist, Difficulty difficulty, GameMode gamemode, boolean monsters, boolean animals, boolean pvp, boolean build, boolean interact, Location<World> spawn, boolean hunger, boolean invulnerability, String time, String weather, double border, double borderdamage) {
 		this.name = name;
 		this.priv = priv;
 		this.whitelist = whitelist;
@@ -48,6 +49,7 @@ public class CoreWorld {
 		this.time = time;
 		this.weather = weather;
 		this.border = border;
+		this.borderdamage = borderdamage;
 	}
 	
 	public void update() {
@@ -56,7 +58,7 @@ public class CoreWorld {
 		if(!Controller.getServer().getWorld(name).isPresent()) return;
 		World world = Controller.getServer().getWorld(name).get();
 		world.getProperties().setDifficulty(difficulty);
-		world.getProperties().setGameMode(gamemode);
+//		world.getProperties().setGameMode(gamemode);
 		world.getProperties().setSpawnPosition(spawn.getBlockPosition());
 	}
 	
@@ -68,6 +70,7 @@ public class CoreWorld {
 	public void setTime(String time) { this.time = time; update(); }
 	public void setWeather(String weather) { this.weather = weather; update(); }
 	public void setBorder(double border) { this.border = border; update(); }
+	public void setBorderDamage(double damage) { this.borderdamage = damage; }
 	
 	public void allowMonsterSpawning(boolean state) { this.monsters = state; update(); }
 	public void allowAnimalSpawning(boolean state) { this.animals = state; update(); }
@@ -92,6 +95,7 @@ public class CoreWorld {
 	public String getTime() { return time; }
 	public String getWeather() { return weather; }
 	public double getBorder() { return border; }
+	public double getBorderDamage() { return borderdamage; }
 	
 	public void addWhitelist(String uuid) {
 		if(!whitelist.contains(uuid)) whitelist.add(uuid);
