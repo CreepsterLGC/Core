@@ -54,7 +54,7 @@ public class FileWorlds {
 					worlds.getNode("worlds", world.getName(), "spawn", "yaw").setValue(0);
 					worlds.getNode("worlds", world.getName(), "spawn", "pitch").setValue(0);
 					worlds.getNode("worlds", world.getName(), "hunger").setValue(true);
-					worlds.getNode("worlds", world.getName(), "invincible").setValue(false);
+					worlds.getNode("worlds", world.getName(), "invulnerability").setValue(false);
 					worlds.getNode("worlds", world.getName(), "time").setValue("normal");
 					worlds.getNode("worlds", world.getName(), "weather").setValue("normal");
 					worlds.getNode("worlds", world.getName(), "border").setValue("0");
@@ -110,7 +110,7 @@ public class FileWorlds {
 					Location<World> spawn = new Location<World>(original, x, y, z);
 					
 					boolean hunger = worlds.getNode("worlds", world, "hunger").getBoolean();
-					boolean invincible = worlds.getNode("worlds", world, "invincible").getBoolean();
+					boolean invulnerability = worlds.getNode("worlds", world, "invulnerability").getBoolean();
 					
 					String time = worlds.getNode("worlds", world, "time").getString();
 					if(!time.equalsIgnoreCase("normal")
@@ -126,7 +126,7 @@ public class FileWorlds {
 					
 					double border = worlds.getNode("worlds", world, "border").getDouble();
 					
-					CoreWorld w = new CoreWorld(world, priv, whitelist, d, g, monsters, animals, pvp, build, interact, spawn, hunger, invincible, time, weather, border);
+					CoreWorld w = new CoreWorld(world, priv, whitelist, d, g, monsters, animals, pvp, build, interact, spawn, hunger, invulnerability, time, weather, border);
 					CoreDatabase.addWorld(world, w);
 					
 				}
@@ -161,7 +161,7 @@ public class FileWorlds {
 		worlds.getNode("worlds", world.getName(), "spawn", "yaw").setValue(0);
 		worlds.getNode("worlds", world.getName(), "spawn", "pitch").setValue(0);
 		worlds.getNode("worlds", world.getName(), "hunger").setValue(world.getHunger());
-		worlds.getNode("worlds", world.getName(), "invincible").setValue(world.getInvincible());
+		worlds.getNode("worlds", world.getName(), "invulnerability").setValue(world.getInvulnerability());
 		worlds.getNode("worlds", world.getName(), "time").setValue(world.getTime());
 		worlds.getNode("worlds", world.getName(), "weather").setValue(world.getWeather());
 		worlds.getNode("worlds", world.getName(), "border").setValue(world.getBorder());

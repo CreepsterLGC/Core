@@ -2,7 +2,6 @@ package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CoreWorld;
-import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.text.Texts;
@@ -26,44 +25,28 @@ public class CommandWorldEdit {
 		String setting = args[2].toLowerCase();
 		String value = args[3].toLowerCase();
 		
-		if(setting.equalsIgnoreCase("animals")) {
+		if(setting.equalsIgnoreCase("animals")
+		|| setting.equalsIgnoreCase("monsters")
+		|| setting.equalsIgnoreCase("pvp")
+		|| setting.equalsIgnoreCase("build")
+		|| setting.equalsIgnoreCase("interact")
+		|| setting.equalsIgnoreCase("hunger")
+		|| setting.equalsIgnoreCase("invulnerable")) {
 			
-			if(!PermissionsUtils.has(sender, "core.world.edit." + w.getName().toLowerCase() + "." + setting)) {
-				sender.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to edit this setting!"));
-				return;
-			}
-			
-			if(value.equalsIgnoreCase("allow")) {
-				w.setAnimalSpawning(true);
+			if(value.equalsIgnoreCase("allow") || value.equalsIgnoreCase("deny")) {
 				sender.sendMessage(Texts.of(TextColors.GRAY, "Set ", TextColors.YELLOW, setting, TextColors.GRAY, " to ", TextColors.YELLOW, value, TextColors.GRAY, " on world ", TextColors.GOLD, args[1]));
-				return;
-			}
-			else if(value.equalsIgnoreCase("deny")) {
-				w.setAnimalSpawning(true);
-				sender.sendMessage(Texts.of(TextColors.GRAY, "Set ", TextColors.YELLOW, setting, TextColors.GRAY, " to ", TextColors.YELLOW, value, TextColors.GRAY, " on world ", TextColors.GOLD, args[1]));
-				return;
-			}
-			else {
-				sender.sendMessage(Texts.of(TextColors.RED, "Allowed values for ", setting, ": allow or deny"));
-				return;
-			}
-			
-		}
-		else if(setting.equalsIgnoreCase("monsters")) {
-			
-			if(!PermissionsUtils.has(sender, "core.world.edit." + w.getName().toLowerCase() + "." + setting)) {
-				sender.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to edit this setting!"));
-				return;
-			}
-			
-			if(value.equalsIgnoreCase("allow")) {
-				w.setMonsterSpawning(true);
-				sender.sendMessage(Texts.of(TextColors.GRAY, "Set ", TextColors.YELLOW, setting, TextColors.GRAY, " to ", TextColors.YELLOW, value, TextColors.GRAY, " on world ", TextColors.GOLD, args[1]));
-				return;
-			}
-			else if(value.equalsIgnoreCase("deny")) {
-				w.setMonsterSpawning(true);
-				sender.sendMessage(Texts.of(TextColors.GRAY, "Set ", TextColors.YELLOW, setting, TextColors.GRAY, " to ", TextColors.YELLOW, value, TextColors.GRAY, " on world ", TextColors.GOLD, args[1]));
+				
+				boolean state = true;
+				if(value.equalsIgnoreCase("deny")) state = false;
+				
+				if(setting.equalsIgnoreCase("animals")) w.allowAnimalSpawning(state);
+				else if(setting.equalsIgnoreCase("monsters")) w.allowMonsterSpawning(state);
+				else if(setting.equalsIgnoreCase("pvp")) w.allowPVP(state);
+				else if(setting.equalsIgnoreCase("build")) w.allowBuild(state);
+				else if(setting.equalsIgnoreCase("interact")) w.allowInteract(state);
+				else if(setting.equalsIgnoreCase("hunger")) w.allowHunger(state);
+				else if(setting.equalsIgnoreCase("invulnerable")) w.allowInvulnerability(state);
+				
 				return;
 			}
 			else {

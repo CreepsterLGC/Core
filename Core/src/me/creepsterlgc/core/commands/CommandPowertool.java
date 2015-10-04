@@ -66,10 +66,9 @@ public class CommandPowertool implements CommandCallable {
 		
 		String command = arguments;
 		command = command.replaceAll("/", "");
-		command = "/" + command;
 		
 		sender.sendMessage(Texts.of(TextColors.YELLOW, id, TextColors.GRAY, " is now a powertool."));
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Command: ", TextColors.YELLOW, command));
+		sender.sendMessage(Texts.of(TextColors.GRAY, "Command: ", TextColors.YELLOW, "/", command));
 		
 		powertools.put(id, command);
 		p.setPowertools(powertools);

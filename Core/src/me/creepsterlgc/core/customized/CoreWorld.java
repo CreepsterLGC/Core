@@ -26,12 +26,12 @@ public class CoreWorld {
 	private boolean interact;
 	private Location<World> spawn;
 	private boolean hunger;
-	private boolean invincible;
+	private boolean invulnerability;
 	private String time;
 	private String weather;
 	private double border;
 	
-	public CoreWorld(String name, boolean priv, List<String> whitelist, Difficulty difficulty, GameMode gamemode, boolean monsters, boolean animals, boolean pvp, boolean build, boolean interact, Location<World> spawn, boolean hunger, boolean invincible, String time, String weather, double border) {
+	public CoreWorld(String name, boolean priv, List<String> whitelist, Difficulty difficulty, GameMode gamemode, boolean monsters, boolean animals, boolean pvp, boolean build, boolean interact, Location<World> spawn, boolean hunger, boolean invulnerability, String time, String weather, double border) {
 		this.name = name;
 		this.priv = priv;
 		this.whitelist = whitelist;
@@ -44,7 +44,7 @@ public class CoreWorld {
 		this.interact = interact;
 		this.spawn = spawn;
 		this.hunger = hunger;
-		this.invincible = invincible;
+		this.invulnerability = invulnerability;
 		this.time = time;
 		this.weather = weather;
 		this.border = border;
@@ -65,16 +65,17 @@ public class CoreWorld {
 	public void setSpawn(Location<World> spawn) { this.spawn = spawn; update(); }
 	public void setDifficulty(Difficulty difficulty) { this.difficulty = difficulty; update(); }
 	public void setGamemode(GameMode gamemode) { this.gamemode = gamemode; update(); }
-	public void setMonsterSpawning(boolean state) { this.monsters = state; update(); }
-	public void setAnimalSpawning(boolean state) { this.animals = state; update(); }
-	public void setPVP(boolean state) { this.pvp = state; update(); }
-	public void setBuild(boolean state) { this.build = state; update(); }
-	public void setInteract(boolean state) { this.interact = state; update(); }
-	public void setHunger(boolean state) { this.hunger = state; update(); }
-	public void setInvincible(boolean state) { this.invincible = state; update(); }
 	public void setTime(String time) { this.time = time; update(); }
 	public void setWeather(String weather) { this.weather = weather; update(); }
 	public void setBorder(double border) { this.border = border; update(); }
+	
+	public void allowMonsterSpawning(boolean state) { this.monsters = state; update(); }
+	public void allowAnimalSpawning(boolean state) { this.animals = state; update(); }
+	public void allowPVP(boolean state) { this.pvp = state; update(); }
+	public void allowBuild(boolean state) { this.build = state; update(); }
+	public void allowInteract(boolean state) { this.interact = state; update(); }
+	public void allowHunger(boolean state) { this.hunger = state; update(); }
+	public void allowInvulnerability(boolean state) { this.invulnerability = state; update(); }
 	
 	public String getName() { return name; }
 	public List<String> getWhitelist() { return whitelist; }
@@ -87,7 +88,7 @@ public class CoreWorld {
 	public boolean getBuild() { return build; }
 	public boolean getInteract() { return interact; }
 	public boolean getHunger() { return hunger; }
-	public boolean getInvincible() { return invincible; }
+	public boolean getInvulnerability() { return invulnerability; }
 	public String getTime() { return time; }
 	public String getWeather() { return weather; }
 	public double getBorder() { return border; }
