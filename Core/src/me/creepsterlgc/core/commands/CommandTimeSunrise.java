@@ -1,5 +1,7 @@
 package me.creepsterlgc.core.commands;
 
+import me.creepsterlgc.core.Controller;
+import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
@@ -7,6 +9,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.World;
 
 
 public class CommandTimeSunrise {
@@ -17,7 +20,23 @@ public class CommandTimeSunrise {
 		
 		if(!PermissionsUtils.has(sender, "core.time.sunrise")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
-		game.getCommandDispatcher().process(game.getServer().getConsole(), "minecraft:time set 23000");
+		if(args.length == 2) {
+			
+			if(!Controller.getServer().getWorld(args[1]).isPresent()) {
+				sender.sendMessage(Texts.of(TextColors.RED, "World not found!"));
+				return;
+			}
+			
+			World world = Controller.getServer().getWorld(args[1]).get();
+			world.getProperties().setWorldTime(23000);
+			
+			CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to sunrise on ", TextColors.YELLOW, world.getName()));
+			
+			return;
+			
+		}
+		
+		for(World world : Controller.getServer().getWorlds()) world.getProperties().setWorldTime(23000);
 		
 		game.getServer().getBroadcastSink().sendMessage(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to sunrise."));
 		

@@ -3,51 +3,59 @@ package me.creepsterlgc.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.spongepowered.api.Game;
+import me.creepsterlgc.core.utils.PermissionsUtils;
+
+import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.util.blockray.BlockRay;
+import org.spongepowered.api.util.blockray.BlockRayHit;
 import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.world.World;
 
 import com.google.common.base.Optional;
 
 
-public class CommandTime implements CommandCallable {
-	
-	private Game game;
-	
-	public CommandTime(Game game) {
-		this.game = game;
-	}
+public class CommandJump implements CommandCallable {
 	
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
-		String[] args = arguments.split(" ");
-		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(args.length < 1 || args.length > 2) { sender.sendMessage(usage); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.jump")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(args[0].equalsIgnoreCase("day")) { new CommandTimeDay(sender, args, game); return CommandResult.success(); }
-		else if(args[0].equalsIgnoreCase("night")) { new CommandTimeNight(sender, args, game); return CommandResult.success(); }
-		else if(args[0].equalsIgnoreCase("sunrise")) { new CommandTimeSunrise(sender, args, game); return CommandResult.success(); }
-		else if(args[0].equalsIgnoreCase("sunset")) { new CommandTimeSunset(sender, args, game); return CommandResult.success(); }
-		else {
-			sender.sendMessage(usage);
+		Player player = (Player) sender;
+		BlockRay<World> r = BlockRay.from(player).blockLimit(300).build();
+		BlockRayHit<World> h = null;
+		
+		while(r.hasNext()) {
+			BlockRayHit<World> c = r.next();
+			if(player.getWorld().getBlockType(c.getBlockPosition()).equals(BlockTypes.AIR)) continue;
+			h = c; break;
 		}
+		
+		if(h == null) {
+			sender.sendMessage(Texts.of(TextColors.RED, "No block found!"));
+			return CommandResult.success();
+		}
+		
+		player.setLocationSafely(h.getLocation());
+		
+		sender.sendMessage(Texts.of(TextColors.GRAY, "Jumped to ", TextColors.YELLOW, "x:", h.getBlockX(), " y:", h.getBlockY(), " z:", h.getBlockZ()));
 		
 		return CommandResult.success();
 		
 	}
 
-	private final Text usage = Texts.builder("Usage: /time <day|night|sunrise|sunset> [world]").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /time <day|night|sunrise|sunset> [world]").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Time Command").color(TextColors.YELLOW).build();
+	private final Text usage = Texts.builder("Usage: /jump").color(TextColors.YELLOW).build();
+	private final Text help = Texts.builder("Help: /jump").color(TextColors.YELLOW).build();
+	private final Text description = Texts.builder("Core | Jump Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 	

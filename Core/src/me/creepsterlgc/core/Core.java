@@ -19,6 +19,7 @@ import me.creepsterlgc.core.commands.CommandForce;
 import me.creepsterlgc.core.commands.CommandGamemode;
 import me.creepsterlgc.core.commands.CommandHeal;
 import me.creepsterlgc.core.commands.CommandHome;
+import me.creepsterlgc.core.commands.CommandJump;
 import me.creepsterlgc.core.commands.CommandKill;
 import me.creepsterlgc.core.commands.CommandList;
 import me.creepsterlgc.core.commands.CommandMail;
@@ -60,6 +61,10 @@ import me.creepsterlgc.core.commands.CommandWhois;
 import me.creepsterlgc.core.commands.CommandWorld;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CoreServer;
+import me.creepsterlgc.core.events.EventEntitySpawn;
+import me.creepsterlgc.core.events.EventPlayerBlockBreak;
+import me.creepsterlgc.core.events.EventPlayerBlockPlace;
+import me.creepsterlgc.core.events.EventPlayerInteractBlock;
 import me.creepsterlgc.core.events.EventPlayerLogin;
 import me.creepsterlgc.core.events.EventPlayerAttackEntity;
 import me.creepsterlgc.core.events.EventPlayerChat;
@@ -77,6 +82,7 @@ import me.creepsterlgc.core.files.FileConfig;
 import me.creepsterlgc.core.files.FileMessages;
 import me.creepsterlgc.core.files.FileMotd;
 import me.creepsterlgc.core.files.FileRules;
+import me.creepsterlgc.core.files.FileWorlds;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.event.Listener;
@@ -117,6 +123,8 @@ public class Core {
     	FileMessages.setup();
     	FileMotd.setup();
     	FileRules.setup();
+    	FileWorlds.setup();
+    	
     	CoreDatabase.setup(game);
     	CoreDatabase.load(game);
     	
@@ -129,10 +137,14 @@ public class Core {
         }
     	
     	game.getEventManager().registerListeners(this, this);
+    	game.getEventManager().registerListeners(this, new EventEntitySpawn());
     	game.getEventManager().registerListeners(this, new EventPlayerLogin());
     	game.getEventManager().registerListeners(this, new EventPlayerAttackEntity());
     	game.getEventManager().registerListeners(this, new EventPlayerChat());
     	game.getEventManager().registerListeners(this, new EventPlayerDeath());
+    	game.getEventManager().registerListeners(this, new EventPlayerBlockPlace());
+    	game.getEventManager().registerListeners(this, new EventPlayerBlockBreak());
+    	game.getEventManager().registerListeners(this, new EventPlayerInteractBlock());
     	game.getEventManager().registerListeners(this, new EventPlayerInteractEntity());
     	game.getEventManager().registerListeners(this, new EventPlayerJoin());
     	game.getEventManager().registerListeners(this, new EventPlayerKick());
@@ -155,6 +167,7 @@ public class Core {
     	if(FileCommands.GAMEMODE()) game.getCommandDispatcher().register(this, new CommandGamemode(), "gamemode", "gm");
     	if(FileCommands.HEAL()) game.getCommandDispatcher().register(this, new CommandHeal(game), "heal");
     	if(FileCommands.HOME()) game.getCommandDispatcher().register(this, new CommandHome(), "home");
+    	if(FileCommands.JUMP()) game.getCommandDispatcher().register(this, new CommandJump(), "jump", "j");
     	if(FileCommands.KICK()) game.getCommandDispatcher().register(this, new CommandKick(game), "kick");
     	if(FileCommands.KILL()) game.getCommandDispatcher().register(this, new CommandKill(game), "kill");
     	if(FileCommands.LIST()) game.getCommandDispatcher().register(this, new CommandList(game), "list", "who");

@@ -35,6 +35,7 @@ public class FileCommands {
 				commands.getNode("enabled", "gamemode").setValue(true);
 				commands.getNode("enabled", "heal").setValue(true);
 				commands.getNode("enabled", "home").setValue(true);
+				commands.getNode("enabled", "jump").setValue(true);
 				commands.getNode("enabled", "kick").setValue(true);
 				commands.getNode("enabled", "kill").setValue(true);
 				commands.getNode("enabled", "list").setValue(true);
@@ -81,7 +82,19 @@ public class FileCommands {
 			}
 			
 			commands = manager.load();
-		     
+
+			if(commands.getNode("version").getInt() <= 11) {
+				
+				commands.getNode("enabled", "jump").setValue(true);
+				
+				commands.getNode("version").setValue(12);
+				
+				manager.save(commands);
+				
+				commands = manager.load();
+				
+			}
+			
 		} catch (IOException e) { e.printStackTrace(); }
 		
 	}
@@ -100,6 +113,7 @@ public class FileCommands {
 	public static boolean GAMEMODE() { return commands.getNode("enabled", "gamemode").getBoolean(); }
 	public static boolean HEAL() { return commands.getNode("enabled", "heal").getBoolean(); }
 	public static boolean HOME() { return commands.getNode("enabled", "home").getBoolean(); }
+	public static boolean JUMP() { return commands.getNode("enabled", "jump").getBoolean(); }
 	public static boolean KICK() { return commands.getNode("enabled", "kick").getBoolean(); }
 	public static boolean KILL() { return commands.getNode("enabled", "kill").getBoolean(); }
 	public static boolean LIST() { return commands.getNode("enabled", "list").getBoolean(); }

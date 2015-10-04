@@ -31,10 +31,11 @@ public class CommandWeather implements CommandCallable {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 		
-		if(args.length != 1) { sender.sendMessage(usage); return CommandResult.success(); }
+		if(args.length < 1 || args.length > 2) { sender.sendMessage(usage); return CommandResult.success(); }
 		
 		if(args[0].equalsIgnoreCase("sun")) { new CommandWeatherSun(sender, args, game); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("rain")) { new CommandWeatherRain(sender, args, game); return CommandResult.success(); }
+		else if(args[0].equalsIgnoreCase("storm")) { new CommandWeatherStorm(sender, args, game); return CommandResult.success(); }
 		else {
 			sender.sendMessage(usage);
 		}
@@ -43,8 +44,8 @@ public class CommandWeather implements CommandCallable {
 		
 	}
 
-	private final Text usage = Texts.builder("Usage: /weather <sun|rain>").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /weather <sun|rain>").color(TextColors.YELLOW).build();
+	private final Text usage = Texts.builder("Usage: /weather <sun|rain|storm> [world]").color(TextColors.YELLOW).build();
+	private final Text help = Texts.builder("Help: /weather <sun|rain|storm> [world]").color(TextColors.YELLOW).build();
 	private final Text description = Texts.builder("Core | Time Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";

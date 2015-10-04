@@ -57,6 +57,7 @@ public class FileWorlds {
 					worlds.getNode("worlds", world.getName(), "invincible").setValue(false);
 					worlds.getNode("worlds", world.getName(), "time").setValue("normal");
 					worlds.getNode("worlds", world.getName(), "weather").setValue("normal");
+					worlds.getNode("worlds", world.getName(), "border").setValue("0");
 				
 				}
 				
@@ -75,8 +76,6 @@ public class FileWorlds {
 					
 					if(!Controller.getServer().getWorld(world).isPresent()) continue;
 					World original = Controller.getServer().getWorld(world).get();
-					
-					String name = worlds.getNode("worlds", world, "name").getString();
 					
 					boolean priv = worlds.getNode("worlds", world, "private").getBoolean();
 					
@@ -125,8 +124,10 @@ public class FileWorlds {
 					&& !weather.equalsIgnoreCase("sun")
 					&& !weather.equalsIgnoreCase("rain")) weather = "normal";
 					
-					CoreWorld w = new CoreWorld(name, priv, whitelist, d, g, monsters, animals, pvp, build, interact, spawn, hunger, invincible, time, weather);
-					CoreDatabase.addWorld(name, w);
+					double border = worlds.getNode("worlds", world, "border").getDouble();
+					
+					CoreWorld w = new CoreWorld(world, priv, whitelist, d, g, monsters, animals, pvp, build, interact, spawn, hunger, invincible, time, weather, border);
+					CoreDatabase.addWorld(world, w);
 					
 				}
 			}
@@ -163,6 +164,7 @@ public class FileWorlds {
 		worlds.getNode("worlds", world.getName(), "invincible").setValue(world.getInvincible());
 		worlds.getNode("worlds", world.getName(), "time").setValue(world.getTime());
 		worlds.getNode("worlds", world.getName(), "weather").setValue(world.getWeather());
+		worlds.getNode("worlds", world.getName(), "border").setValue(world.getBorder());
 		
         try { manager.save(worlds); worlds = manager.load(); }
         catch (IOException e) { e.printStackTrace(); }

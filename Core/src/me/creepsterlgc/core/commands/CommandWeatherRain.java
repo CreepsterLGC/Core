@@ -1,11 +1,11 @@
 package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.Controller;
+import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.util.command.CommandSource;
@@ -21,16 +21,25 @@ public class CommandWeatherRain {
 		
 		if(!PermissionsUtils.has(sender, "core.weather.rain")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
-		for(World world : Controller.getGame().getServer().getWorlds()) {
+		if(args.length == 2) {
+			
+			if(!Controller.getServer().getWorld(args[1]).isPresent()) {
+				sender.sendMessage(Texts.of(TextColors.RED, "World not found!"));
+				return;
+			}
+			
+			World world = Controller.getServer().getWorld(args[1]).get();
 			world.forecast(Weathers.RAIN);
+			
+			CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to rain on ", TextColors.YELLOW, world.getName()));
+			
+			return;
+			
 		}
 		
-		Text t1 = Texts.builder(sender.getName()).color(TextColors.YELLOW).build();
-		Text t2 = Texts.builder(" has changed the weather to rain.").color(TextColors.GRAY).build();
+		for(World world : Controller.getServer().getWorlds()) world.forecast(Weathers.RAIN);
 		
-		Text total = Texts.builder().append(t1).append(t2).build();
-		
-		game.getServer().getBroadcastSink().sendMessage(total);
+		CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to rain."));
 		
 	}
 

@@ -29,8 +29,9 @@ public class CoreWorld {
 	private boolean invincible;
 	private String time;
 	private String weather;
+	private double border;
 	
-	public CoreWorld(String name, boolean priv, List<String> whitelist, Difficulty difficulty, GameMode gamemode, boolean monsters, boolean animals, boolean pvp, boolean build, boolean interact, Location<World> spawn, boolean hunger, boolean invincible, String time, String weather) {
+	public CoreWorld(String name, boolean priv, List<String> whitelist, Difficulty difficulty, GameMode gamemode, boolean monsters, boolean animals, boolean pvp, boolean build, boolean interact, Location<World> spawn, boolean hunger, boolean invincible, String time, String weather, double border) {
 		this.name = name;
 		this.priv = priv;
 		this.whitelist = whitelist;
@@ -46,11 +47,17 @@ public class CoreWorld {
 		this.invincible = invincible;
 		this.time = time;
 		this.weather = weather;
+		this.border = border;
 	}
 	
 	public void update() {
 		CoreDatabase.addWorld(name, this);
 		FileWorlds.save(this);
+		if(!Controller.getServer().getWorld(name).isPresent()) return;
+		World world = Controller.getServer().getWorld(name).get();
+		world.getProperties().setDifficulty(difficulty);
+		world.getProperties().setGameMode(gamemode);
+		world.getProperties().setSpawnPosition(spawn.getBlockPosition());
 	}
 	
 	
@@ -67,6 +74,7 @@ public class CoreWorld {
 	public void setInvincible(boolean state) { this.invincible = state; update(); }
 	public void setTime(String time) { this.time = time; update(); }
 	public void setWeather(String weather) { this.weather = weather; update(); }
+	public void setBorder(double border) { this.border = border; update(); }
 	
 	public String getName() { return name; }
 	public List<String> getWhitelist() { return whitelist; }
@@ -82,6 +90,7 @@ public class CoreWorld {
 	public boolean getInvincible() { return invincible; }
 	public String getTime() { return time; }
 	public String getWeather() { return weather; }
+	public double getBorder() { return border; }
 	
 	public void addWhitelist(String uuid) {
 		if(!whitelist.contains(uuid)) whitelist.add(uuid);
@@ -115,6 +124,10 @@ public class CoreWorld {
 	
 	public boolean isWhitelisted(Player player) {
 		return whitelist.contains(player.getUniqueId().toString());
+	}
+	
+	public boolean hasBorder() {
+		return border > 0;
 	}
 
 	public void teleport(Player player) {
