@@ -1,6 +1,7 @@
 package me.creepsterlgc.core.commands;
 
 import java.util.List;
+import java.util.Optional;
 
 import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.CoreBan;
@@ -20,8 +21,6 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
-
-import com.google.common.base.Optional;
 
 
 public class CommandTempban implements CommandCallable {

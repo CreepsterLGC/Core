@@ -22,7 +22,7 @@ public class PermissionsUtils {
     	Subject subject = player.getContainingCollection().get(player.getIdentifier());
 		if (subject instanceof OptionSubject) {
 			OptionSubject optionSubject = (OptionSubject) subject;
-			return optionSubject.getOption("prefix").or("");
+			return optionSubject.getOption("prefix").orElse("");
 		}
 		return "";
 	}
@@ -45,7 +45,7 @@ public class PermissionsUtils {
     	Subject subject = player.getContainingCollection().get(player.getIdentifier());
 		if (subject instanceof OptionSubject) {
 			OptionSubject optionSubject = (OptionSubject) subject;
-			return optionSubject.getOption("suffix").or("");
+			return optionSubject.getOption("suffix").orElse("");
 		}
 		return "";
 	}
@@ -54,7 +54,7 @@ public class PermissionsUtils {
     	Subject subject = player.getContainingCollection().get(player.getIdentifier());
 		if (subject instanceof OptionSubject) {
 			OptionSubject optionSubject = (OptionSubject) subject;
-			String o = optionSubject.getOption("homes").or("");
+			String o = optionSubject.getOption("homes").orElse("");
 			if(o.equalsIgnoreCase("") || o.equalsIgnoreCase("unlimited")) return -1;
 			int h;
 			try { h = Integer.parseInt(o); }
@@ -68,7 +68,7 @@ public class PermissionsUtils {
     	Subject subject = player.getContainingCollection().get(player.getIdentifier());
 		if (subject instanceof OptionSubject) {
 			OptionSubject optionSubject = (OptionSubject) subject;
-			String o = optionSubject.getOption("warps").or("");
+			String o = optionSubject.getOption("warps").orElse("");
 			if(o.equalsIgnoreCase("") || o.equalsIgnoreCase("unlimited")) return -1;
 			int w;
 			try { w = Integer.parseInt(o); }
@@ -82,7 +82,7 @@ public class PermissionsUtils {
     	Subject subject = player.getContainingCollection().get(player.getIdentifier());
 		if (subject instanceof OptionSubject) {
 			OptionSubject optionSubject = (OptionSubject) subject;
-			String o = optionSubject.getOption("tempban").or("");
+			String o = optionSubject.getOption("tempban").orElse("");
 			if(o.equalsIgnoreCase("") || o.equalsIgnoreCase("unlimited")) return -1;
 			int w;
 			try { w = Integer.parseInt(o); }
@@ -96,7 +96,7 @@ public class PermissionsUtils {
     	Subject subject = player.getContainingCollection().get(player.getIdentifier());
 		if (subject instanceof OptionSubject) {
 			OptionSubject optionSubject = (OptionSubject) subject;
-			String o = optionSubject.getOption("mute").or("");
+			String o = optionSubject.getOption("mute").orElse("");
 			if(o.equalsIgnoreCase("") || o.equalsIgnoreCase("unlimited")) return -1;
 			int w;
 			try { w = Integer.parseInt(o); }

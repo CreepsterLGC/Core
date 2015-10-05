@@ -2,6 +2,7 @@ package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CoreWorld;
+import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.text.Texts;
@@ -34,6 +35,12 @@ public class CommandWorldEdit {
 		|| setting.equalsIgnoreCase("invulnerable")) {
 			
 			if(value.equalsIgnoreCase("allow") || value.equalsIgnoreCase("deny")) {
+				
+				if(!PermissionsUtils.has(sender, "core.world.edit." + w.getName() + "." + setting)) {
+					sender.sendMessage(Texts.of(TextColors.RED, "You do not have permissions to modify this setting!"));
+					return;
+				}
+				
 				sender.sendMessage(Texts.of(TextColors.GRAY, "Set setting ", TextColors.YELLOW, setting, TextColors.GRAY, " to ", TextColors.YELLOW, value, TextColors.GRAY, " on world ", TextColors.GOLD, args[1]));
 				
 				boolean state = true;

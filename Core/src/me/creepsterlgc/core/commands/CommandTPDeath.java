@@ -2,6 +2,7 @@ package me.creepsterlgc.core.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.CoreDatabase;
@@ -21,7 +22,6 @@ import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import com.flowpowered.math.vector.Vector3d;
-import com.google.common.base.Optional;
 
 
 public class CommandTPDeath implements CommandCallable {

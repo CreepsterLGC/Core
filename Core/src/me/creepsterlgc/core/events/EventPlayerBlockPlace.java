@@ -1,5 +1,7 @@
 package me.creepsterlgc.core.events;
 
+import java.util.Optional;
+
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CoreWorld;
 import me.creepsterlgc.core.utils.PermissionsUtils;
@@ -7,8 +9,6 @@ import me.creepsterlgc.core.utils.PermissionsUtils;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.PlaceBlockEvent;
-
-import com.google.common.base.Optional;
 
 
 public class EventPlayerBlockPlace {

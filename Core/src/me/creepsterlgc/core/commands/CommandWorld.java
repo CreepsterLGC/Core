@@ -2,6 +2,7 @@ package me.creepsterlgc.core.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.text.Text;
@@ -11,8 +12,6 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
-
-import com.google.common.base.Optional;
 
 
 public class CommandWorld implements CommandCallable {
@@ -32,7 +31,6 @@ public class CommandWorld implements CommandCallable {
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world create <name> <environment> <gamemode>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world remove <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world list"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world load <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world edit <world> <setting> <value>"));
 			return CommandResult.success();
 		}
@@ -42,14 +40,12 @@ public class CommandWorld implements CommandCallable {
 		if(args[0].equalsIgnoreCase("create")) { new CommandWorldCreate(sender, args, game); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("remove")) { new CommandWorldRemove(sender, args, game); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("list")) { new CommandWorldList(sender, args, game); return CommandResult.success(); }
-		else if(args[0].equalsIgnoreCase("load")) { new CommandWorldLoad(sender, args, game); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("edit")) { new CommandWorldEdit(sender, args, game); return CommandResult.success(); }
 		else {
 			sender.sendMessage(Texts.of(TextColors.GOLD, "World Help"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world create <name> <environment> <gamemode>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world remove <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world list"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world load <name>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/world edit <world> <setting> <value>"));
 		}
 		

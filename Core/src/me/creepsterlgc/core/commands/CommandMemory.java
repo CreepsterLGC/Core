@@ -2,6 +2,7 @@ package me.creepsterlgc.core.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import me.creepsterlgc.core.utils.PermissionsUtils;
 
@@ -12,8 +13,6 @@ import org.spongepowered.api.util.command.CommandCallable;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
-
-import com.google.common.base.Optional;
 
 
 public class CommandMemory implements CommandCallable {

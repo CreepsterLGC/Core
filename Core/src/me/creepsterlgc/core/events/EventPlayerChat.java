@@ -1,5 +1,7 @@
 package me.creepsterlgc.core.events;
 
+import java.util.Optional;
+
 import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.CoreChannel;
 import me.creepsterlgc.core.customized.CoreDatabase;
@@ -18,8 +20,6 @@ import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
-
-import com.google.common.base.Optional;
 
 
 public class EventPlayerChat {

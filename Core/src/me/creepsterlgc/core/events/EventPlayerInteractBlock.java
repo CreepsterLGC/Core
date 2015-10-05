@@ -1,6 +1,7 @@
 package me.creepsterlgc.core.events;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.CoreDatabase;
@@ -12,8 +13,6 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.InteractBlockEvent;
 import org.spongepowered.api.item.inventory.ItemStack;
-
-import com.google.common.base.Optional;
 
 
 public class EventPlayerInteractBlock {

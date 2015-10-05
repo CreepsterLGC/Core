@@ -2,6 +2,7 @@ package me.creepsterlgc.core.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import me.creepsterlgc.core.utils.PermissionsUtils;
 
@@ -19,8 +20,6 @@ import org.spongepowered.api.util.command.CommandResult;
 import org.spongepowered.api.util.command.CommandSource;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
-
-import com.google.common.base.Optional;
 
 
 public class CommandButcher implements CommandCallable {

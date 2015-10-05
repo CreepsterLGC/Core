@@ -2,6 +2,7 @@ package me.creepsterlgc.core.events;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import me.creepsterlgc.core.utils.PermissionsUtils;
 
@@ -14,8 +15,6 @@ import org.spongepowered.api.event.block.tileentity.ChangeSignEvent;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.util.TextMessageException;
-
-import com.google.common.base.Optional;
 
 
 public class EventSignChange {
