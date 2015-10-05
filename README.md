@@ -26,4 +26,5 @@ The [wiki](https://github.com/CreepsterLGC/Core/wiki) provides useful informatio
 7. [File: messages.conf](https://github.com/CreepsterLGC/Core/wiki/messages.conf)
 8. [File: motd.conf](https://github.com/CreepsterLGC/Core/wiki/motd.conf)
 9. [File: rules.conf](https://github.com/CreepsterLGC/Core/wiki/rules.conf)
-10. [API](https://github.com/CreepsterLGC/Core/wiki/API)
+10. [File: worlds.conf](https://github.com/CreepsterLGC/Core/wiki/worlds.conf)
+11. [API](https://github.com/CreepsterLGC/Core/wiki/API)
