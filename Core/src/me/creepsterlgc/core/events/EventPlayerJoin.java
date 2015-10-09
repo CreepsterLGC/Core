@@ -3,20 +3,15 @@ package me.creepsterlgc.core.events;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePlayer;
 import me.creepsterlgc.core.customized.CoreServer;
-import me.creepsterlgc.core.customized.CoreSpawn;
 import me.creepsterlgc.core.files.FileMessages;
 import me.creepsterlgc.core.files.FileMotd;
 import me.creepsterlgc.core.utils.TextUtils;
 
-import org.spongepowered.api.entity.Transform;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.world.World;
-
-import com.flowpowered.math.vector.Vector3d;
 
 
 public class EventPlayerJoin {
@@ -29,8 +24,8 @@ public class EventPlayerJoin {
 		String uuid = player.getUniqueId().toString();
 		String name = player.getName().toLowerCase();
 		
-		CorePlayer player_uuid = CoreDatabase.getPlayer(CoreDatabase.getUUID(name));
-		CorePlayer player_name = CoreDatabase.getPlayer(uuid);
+		CorePlayer player_uuid = CoreDatabase.getPlayer(uuid);
+		CorePlayer player_name = CoreDatabase.getPlayer(CoreDatabase.getUUID(name));
 		
     	if(FileMessages.EVENTS_JOIN_ENABLE()) {
     		event.setMessage(TextUtils.color(FileMessages.EVENTS_JOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
@@ -55,18 +50,6 @@ public class EventPlayerJoin {
 	    		}
 	    	}
 			
-			CoreSpawn spawn = CoreDatabase.getSpawn("default");
-			if(spawn != null) {
-				
-				if(event.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {
-					Transform<World> t = event.getToTransform();
-					t.setExtent(event.getGame().getServer().getWorld(spawn.getWorld()).get());
-					t.setPosition(new Vector3d(spawn.getX(), spawn.getY(), spawn.getZ()));
-					event.setToTransform(t);				
-				}
-				
-			}
-			
 		}
 		else if(player_uuid == null && player_name != null) {
 			
@@ -86,18 +69,6 @@ public class EventPlayerJoin {
 		    		event.setMessage(Texts.of(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(CoreDatabase.getPlayers().size())))));
 	    		}
 	    	}
-			
-			CoreSpawn spawn = CoreDatabase.getSpawn("default");
-			if(spawn != null) {
-				
-				if(event.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {
-					Transform<World> t = event.getToTransform();
-					t.setExtent(event.getGame().getServer().getWorld(spawn.getWorld()).get());
-					t.setPosition(new Vector3d(spawn.getX(), spawn.getY(), spawn.getZ()));
-					event.setToTransform(t);				
-				}
-				
-			}
 			
 		}
 		else if(player_uuid != null && player_name == null) {

@@ -17,11 +17,15 @@ public class CommandWeatherSun {
 
 	public CommandWeatherSun(CommandSource sender, String[] args, Game game) {
 		
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
-		
 		if(!PermissionsUtils.has(sender, "core.weather.sun")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 		
 		if(args.length == 2) {
+			
+			if(args[1].equalsIgnoreCase("*")) {
+				for(World world : Controller.getServer().getWorlds()) world.forecast(Weathers.CLEAR);
+				CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to sun."));
+				return;
+			}
 			
 			if(!Controller.getServer().getWorld(args[1]).isPresent()) {
 				sender.sendMessage(Texts.of(TextColors.RED, "World not found!"));
@@ -37,9 +41,13 @@ public class CommandWeatherSun {
 			
 		}
 		
-		for(World world : Controller.getServer().getWorlds()) world.forecast(Weathers.CLEAR);
+		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to sun."));
+		Player player = (Player) sender;
+		World world = player.getWorld();
+		world.forecast(Weathers.CLEAR);
+		
+		CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to sun on ", TextColors.YELLOW, world.getName()));
 		
 	}
 

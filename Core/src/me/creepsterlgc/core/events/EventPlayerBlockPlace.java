@@ -8,13 +8,13 @@ import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.block.PlaceBlockEvent;
+import org.spongepowered.api.event.block.ChangeBlockEvent;
 
 
 public class EventPlayerBlockPlace {
 
     @Listener
-    public void onPlayerBlockPlace(PlaceBlockEvent event) {
+    public void onPlayerBlockPlace(ChangeBlockEvent.Break event) {
     	
     	Optional<Player> optional = event.getCause().first(Player.class);
     	if(!optional.isPresent()) return;
