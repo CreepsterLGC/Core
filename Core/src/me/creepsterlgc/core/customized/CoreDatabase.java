@@ -85,6 +85,14 @@ public class CoreDatabase {
 			if(!tables.contains("warps")) {
 				execute("CREATE TABLE warps (name TEXT, world TEXT, x DOUBLE, y DOUBLE, z DOUBLE, yaw DOUBLE, pitch DOUBLE, owner TEXT, invited TEXT, private TEXT, message TEXT)");
 			}
+			
+			if(!tables.contains("zones")) {
+				execute("CREATE TABLE zones (name TEXT, world TEXT, x1 DOUBLE, y1 DOUBLE, z1 DOUBLE, x2 DOUBLE, y2 DOUBLE, z2 DOUBLE, priority DOUBLE, owner TEXT, members TEXT, settings TEXT)");
+			}
+			
+			if(!tables.contains("portals")) {
+				execute("CREATE TABLE portals (name TEXT, zone TEXT, warp TEXT, message TEXT)");
+			}
 				
 		} catch (SQLException e) { e.printStackTrace(); }
 			
@@ -195,6 +203,34 @@ public class CoreDatabase {
 			e.printStackTrace();
 		}
 		
+		try {
+			Connection c = datasource.getConnection();
+			Statement s = c.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM zones");
+			while(rs.next()) {
+				CoreZone zone = new CoreZone(rs.getString("name"), rs.getString("world"), rs.getDouble("x1"), rs.getDouble("y1"), rs.getDouble("z1"), rs.getDouble("x2"), rs.getDouble("y2"), rs.getDouble("z2"), rs.getDouble("priority"), rs.getString("owner"), DeserializeUtils.members(rs.getString("members")), DeserializeUtils.settings(rs.getString("settings")));
+				CoreDatabase.addZone(zone.getName(), zone);
+			}
+			s.close();
+			c.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			Connection c = datasource.getConnection();
+			Statement s = c.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM portals");
+			while(rs.next()) {
+				CorePortal portal = new CorePortal(rs.getString("name"), rs.getString("zone"), rs.getString("warp"), rs.getString("message"));
+				CoreDatabase.addPortal(portal.getName(), portal);
+			}
+			s.close();
+			c.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static void execute(String execute) {	
@@ -288,5 +324,17 @@ public class CoreDatabase {
 	public static void removeWorld(String name) { if(worlds.containsKey(name)) worlds.remove(name); }
 	public static CoreWorld getWorld(String name) { return worlds.containsKey(name) ? worlds.get(name) : null; }
 	public static HashMap<String, CoreWorld> getWorlds() { return worlds; }
+	
+	private static HashMap<String, CoreZone> zones = new HashMap<String, CoreZone>();
+	public static void addZone(String name, CoreZone zone) { zones.put(name, zone); }
+	public static void removeZone(String name) { if(zones.containsKey(name)) zones.remove(name); }
+	public static CoreZone getZone(String name) { return zones.containsKey(name) ? zones.get(name) : null; }
+	public static HashMap<String, CoreZone> getZones() { return zones; }
+	
+	private static HashMap<String, CorePortal> portals = new HashMap<String, CorePortal>();
+	public static void addPortal(String name, CorePortal portal) { portals.put(name, portal); }
+	public static void removePortal(String name) { if(portals.containsKey(name)) portals.remove(name); }
+	public static CorePortal getPortal(String name) { return portals.containsKey(name) ? portals.get(name) : null; }
+	public static HashMap<String, CorePortal> getPortals() { return portals; }
 	
 }

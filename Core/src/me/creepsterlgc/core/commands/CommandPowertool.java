@@ -10,6 +10,7 @@ import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
@@ -44,6 +45,12 @@ public class CommandPowertool implements CommandCallable {
 		}
 		
 		ItemStack i = player.getItemInHand().get();
+		
+		if(!i.getItem().equals(ItemTypes.GOLDEN_AXE)) {
+			sender.sendMessage(Texts.of(TextColors.RED, "You cannot use this item!"));
+			return CommandResult.success();
+		}
+		
 		String id = i.getItem().getId().replaceAll("minecraft:", "");
 		
 		HashMap<String, String> powertools = p.getPowertools();

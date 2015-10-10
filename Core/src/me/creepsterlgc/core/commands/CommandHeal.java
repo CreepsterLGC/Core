@@ -42,7 +42,8 @@ public class CommandHeal implements CommandCallable {
 
 			Player p = (Player) sender;
 			double max = p.get(Keys.MAX_HEALTH).get(); p.offer(Keys.HEALTH, max);
-			
+			sender.sendMessage(Texts.of(p.getRotation().getX()));
+			sender.sendMessage(Texts.of(p.getRotation().getY()));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "You ", TextColors.GRAY, "have been healed."));
 			
 		}

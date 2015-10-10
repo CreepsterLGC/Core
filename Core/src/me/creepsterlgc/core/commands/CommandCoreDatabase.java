@@ -30,6 +30,8 @@ public class CommandCoreDatabase {
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Homes: ", TextColors.YELLOW, homes));
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Warps: ", TextColors.YELLOW, CoreDatabase.getWarps().size()));
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Tickets: ", TextColors.YELLOW, CoreDatabase.getTickets().size()));
+		sender.sendMessage(Texts.of(TextColors.GRAY, "Zones: ", TextColors.YELLOW, CoreDatabase.getZones().size()));
+		sender.sendMessage(Texts.of(TextColors.GRAY, "Portals: ", TextColors.YELLOW, CoreDatabase.getPortals().size()));
 		
 	}
 

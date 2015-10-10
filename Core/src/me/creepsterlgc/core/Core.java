@@ -1,6 +1,7 @@
 package me.creepsterlgc.core;
 
 import java.io.File;
+import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -32,12 +33,14 @@ import me.creepsterlgc.core.commands.CommandNick;
 import me.creepsterlgc.core.commands.CommandOnlinetime;
 import me.creepsterlgc.core.commands.CommandPage;
 import me.creepsterlgc.core.commands.CommandPing;
+import me.creepsterlgc.core.commands.CommandPortal;
 import me.creepsterlgc.core.commands.CommandPowertool;
 import me.creepsterlgc.core.commands.CommandRealname;
 import me.creepsterlgc.core.commands.CommandReply;
 import me.creepsterlgc.core.commands.CommandRules;
 import me.creepsterlgc.core.commands.CommandSearchitem;
 import me.creepsterlgc.core.commands.CommandSeen;
+import me.creepsterlgc.core.commands.CommandSelection;
 import me.creepsterlgc.core.commands.CommandTP;
 import me.creepsterlgc.core.commands.CommandTPA;
 import me.creepsterlgc.core.commands.CommandTPAHere;
@@ -59,7 +62,9 @@ import me.creepsterlgc.core.commands.CommandWarp;
 import me.creepsterlgc.core.commands.CommandWeather;
 import me.creepsterlgc.core.commands.CommandWhois;
 import me.creepsterlgc.core.commands.CommandWorld;
+import me.creepsterlgc.core.commands.CommandZone;
 import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePortal;
 import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.events.EventEntitySpawn;
 import me.creepsterlgc.core.events.EventPlayerBlockBreak;
@@ -180,12 +185,14 @@ public class Core {
     	if(FileCommands.NICK()) game.getCommandDispatcher().register(this, new CommandNick(), "nick");
     	if(FileCommands.ONLINETIME()) game.getCommandDispatcher().register(this, new CommandOnlinetime(game), "onlinetime");
     	if(FileCommands.PING()) game.getCommandDispatcher().register(this, new CommandPing(), "ping");
+    	if(FileCommands.PORTAL()) game.getCommandDispatcher().register(this, new CommandPortal(), "portal");
     	if(FileCommands.POWERTOOL()) game.getCommandDispatcher().register(this, new CommandPowertool(game), "powertool");
     	if(FileCommands.REALNAME()) game.getCommandDispatcher().register(this, new CommandRealname(), "realname");
     	if(FileCommands.REPLY()) game.getCommandDispatcher().register(this, new CommandReply(), "r", "reply");
     	if(FileCommands.RULES()) game.getCommandDispatcher().register(this, new CommandRules(), "rules");
     	if(FileCommands.SEARCHITEM()) game.getCommandDispatcher().register(this, new CommandSearchitem(), "searchitem", "si", "search");
     	if(FileCommands.SEEN()) game.getCommandDispatcher().register(this, new CommandSeen(game), "seen");
+    	if(FileCommands.SELECTION()) game.getCommandDispatcher().register(this, new CommandSelection(), "selection", "s");
     	if(FileCommands.SPAWN()) game.getCommandDispatcher().register(this, new CommandSpawn(), "spawn");
     	if(FileCommands.TEMPBAN()) game.getCommandDispatcher().register(this, new CommandTempban(game), "tempban");
     	if(FileCommands.TICKET()) game.getCommandDispatcher().register(this, new CommandTicket(), "ticket");
@@ -206,6 +213,7 @@ public class Core {
     	if(FileCommands.WEATHER()) game.getCommandDispatcher().register(this, new CommandWeather(game), "weather");
     	if(FileCommands.WHOIS()) game.getCommandDispatcher().register(this, new CommandWhois(game), "whois", "check");
     	if(FileCommands.WORLD()) game.getCommandDispatcher().register(this, new CommandWorld(game), "world");
+    	if(FileCommands.ZONE()) game.getCommandDispatcher().register(this, new CommandZone(), "zone", "z");
     	
     	game.getCommandDispatcher().register(this, new CommandPage(), "page");
     	
@@ -213,6 +221,13 @@ public class Core {
     		@Override
 			public void run() {
     			CoreDatabase.commit();
+    		}
+    	}).submit(this);
+    	
+    	game.getScheduler().createTaskBuilder().interval(200, TimeUnit.MILLISECONDS).execute(new Runnable() {
+    		@Override
+			public void run() {
+    			for(Entry<String, CorePortal> e : CoreDatabase.getPortals().entrySet()) e.getValue().transport();
     		}
     	}).submit(this);
     	

@@ -5,10 +5,13 @@ import java.util.Optional;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CoreWorld;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ZoneUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
+import org.spongepowered.api.text.Texts;
+import org.spongepowered.api.text.format.TextColors;
 
 
 public class EventPlayerBlockPlace {
@@ -25,6 +28,11 @@ public class EventPlayerBlockPlace {
     	if(w == null) return;
 	    if(!w.getBuild() && !PermissionsUtils.has(player, "core.world." + w.getName() + ".bypass.build")) {
 		    event.setCancelled(true);
+	    }
+	    
+	    if(!ZoneUtils.canBuild(player, event.getTransactions().iterator().next().getFinalReplacement().getLocation().get())) {
+	    	player.sendMessage(Texts.of(TextColors.RED, "You do not have permissions!"));
+	    	event.setCancelled(true);
 	    }
     	
     }

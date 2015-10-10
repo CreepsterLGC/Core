@@ -48,12 +48,14 @@ public class FileCommands {
 				commands.getNode("enabled", "nick").setValue(true);
 				commands.getNode("enabled", "onlinetime").setValue(true);
 				commands.getNode("enabled", "ping").setValue(true);
+				commands.getNode("enabled", "portal").setValue(true);
 				commands.getNode("enabled", "powertool").setValue(true);
 				commands.getNode("enabled", "realname").setValue(true);
 				commands.getNode("enabled", "reply").setValue(true);
 				commands.getNode("enabled", "rules").setValue(true);
 				commands.getNode("enabled", "searchitem").setValue(true);
 				commands.getNode("enabled", "seen").setValue(true);
+				commands.getNode("enabled", "selection").setValue(true);
 				commands.getNode("enabled", "spawn").setValue(true);
 				commands.getNode("enabled", "tempban").setValue(true);
 				commands.getNode("enabled", "ticket").setValue(true);
@@ -74,6 +76,7 @@ public class FileCommands {
 				commands.getNode("enabled", "weather").setValue(true);
 				commands.getNode("enabled", "whois").setValue(true);
 				commands.getNode("enabled", "world").setValue(true);
+				commands.getNode("enabled", "zone").setValue(true);
 				
 				commands.getNode("version").setValue(11);
 				
@@ -88,6 +91,20 @@ public class FileCommands {
 				commands.getNode("enabled", "jump").setValue(true);
 				
 				commands.getNode("version").setValue(12);
+				
+				manager.save(commands);
+				
+				commands = manager.load();
+				
+			}
+			
+			if(commands.getNode("version").getInt() <= 12) {
+				
+				commands.getNode("enabled", "portal").setValue(true);
+				commands.getNode("enabled", "selection").setValue(true);
+				commands.getNode("enabled", "zone").setValue(true);
+				
+				commands.getNode("version").setValue(13);
 				
 				manager.save(commands);
 				
@@ -126,12 +143,14 @@ public class FileCommands {
 	public static boolean NICK() { return commands.getNode("enabled", "nick").getBoolean(); }
 	public static boolean ONLINETIME() { return commands.getNode("enabled", "onlinetime").getBoolean(); }
 	public static boolean PING() { return commands.getNode("enabled", "ping").getBoolean(); }
+	public static boolean PORTAL() { return commands.getNode("enabled", "portal").getBoolean(); }
 	public static boolean POWERTOOL() { return commands.getNode("enabled", "powertool").getBoolean(); }
 	public static boolean REALNAME() { return commands.getNode("enabled", "realname").getBoolean(); }
 	public static boolean REPLY() { return commands.getNode("enabled", "reply").getBoolean(); }
 	public static boolean RULES() { return commands.getNode("enabled", "rules").getBoolean(); }
 	public static boolean SEARCHITEM() { return commands.getNode("enabled", "searchitem").getBoolean(); }
 	public static boolean SEEN() { return commands.getNode("enabled", "seen").getBoolean(); }
+	public static boolean SELECTION() { return commands.getNode("enabled", "selection").getBoolean(); }
 	public static boolean SPAWN() { return commands.getNode("enabled", "spawn").getBoolean(); }
 	public static boolean TEMPBAN() { return commands.getNode("enabled", "tempban").getBoolean(); }
 	public static boolean TICKET() { return commands.getNode("enabled", "ticket").getBoolean(); }
@@ -152,5 +171,6 @@ public class FileCommands {
 	public static boolean WEATHER() { return commands.getNode("enabled", "weather").getBoolean(); }
 	public static boolean WHOIS() { return commands.getNode("enabled", "whois").getBoolean(); }
 	public static boolean WORLD() { return commands.getNode("enabled", "world").getBoolean(); }
+	public static boolean ZONE() { return commands.getNode("enabled", "zone").getBoolean(); }
 	
 }

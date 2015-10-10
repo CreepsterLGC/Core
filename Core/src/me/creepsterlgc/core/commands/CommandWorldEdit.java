@@ -32,7 +32,7 @@ public class CommandWorldEdit {
 		|| setting.equalsIgnoreCase("build")
 		|| setting.equalsIgnoreCase("interact")
 		|| setting.equalsIgnoreCase("hunger")
-		|| setting.equalsIgnoreCase("invulnerable")) {
+		|| setting.equalsIgnoreCase("invulnerability")) {
 			
 			if(value.equalsIgnoreCase("allow") || value.equalsIgnoreCase("deny")) {
 				

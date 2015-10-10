@@ -23,6 +23,7 @@ public class CorePlayer {
 	private double firstseen;
 	private double lastseen;
 	
+	private CoreSelection selection;
 	private double lastaction;
 	private boolean afk;
 	private HashMap<String, CoreHome> homes;
@@ -52,6 +53,7 @@ public class CorePlayer {
 		this.firstseen = firstseen;
 		this.lastseen = lastseen;
 		
+		selection = new CoreSelection();
 		lastaction = 0;
 		afk = false;
 		homes = new HashMap<String, CoreHome>();
@@ -99,6 +101,7 @@ public class CorePlayer {
 	public void setFirstseen(double firstseen) { this.firstseen = firstseen; }
 	public void setLastseen(double lastseen) { this.lastseen = lastseen; }
 
+	public void setSelection(CoreSelection selection) { this.selection = selection; }
 	public void setLastaction(double lastaction) { this.lastaction = lastaction; }
 	public void setAFK(boolean afk) { this.afk = afk; }
 	public void setHome(String name, CoreHome home) { if(homes == null) homes = new HashMap<String, CoreHome>(); homes.put(name, home); }
@@ -115,9 +118,7 @@ public class CorePlayer {
 	public String getName() { return name; }
 	public String getNick() { return nick; }
 	public String getChannel() { return channel; }
-	public double getMoney() {
-		return Math.round(money * 100) / 100;
-	}
+	public double getMoney() { return Math.round(money * 100) / 100; }
 	public double getGod() { return god; }
 	public double getFly() { return fly; }
 	public double getTPToggle() { return tptoggle; }
@@ -129,6 +130,7 @@ public class CorePlayer {
 	public double getFirstseen() { return firstseen; }
 	public double getLastseen() { return lastseen; }
 	
+	public CoreSelection getSelection() { return selection; }
 	public double getLastaction() { return lastaction; }
 	public boolean getAFK() { return afk; }
 	public CoreHome getHome(String name) { if(homes == null) homes = new HashMap<String, CoreHome>(); return homes.containsKey(name) ? homes.get(name) : null; }
