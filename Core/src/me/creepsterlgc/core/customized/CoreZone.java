@@ -1,8 +1,11 @@
 package me.creepsterlgc.core.customized;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
+import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.utils.SerializeUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
@@ -217,6 +220,59 @@ public class CoreZone {
 	public boolean getInvulnerability() {
 		if(!settings.containsKey("invulnerability")) return false; String s = settings.get("invulnerability");
 		if(s.equalsIgnoreCase("allow")) return true; return false;
+	}
+	
+	public List<CoreZone> getOverlappingZones() {
+		
+		List<CoreZone> result = new ArrayList<CoreZone>();
+		
+		for(Entry<String, CoreZone> e : CoreDatabase.getZones().entrySet()) {
+			
+			CoreZone z = e.getValue(); if(!world.equals(z.getWorld())) continue;
+			
+			if(!Controller.getServer().getWorld(world).isPresent()) return result;
+			World w = Controller.getServer().getWorld(world).get();
+			
+			double length = z.getX2() - z.getX1() + 1;
+			double height = z.getY2() - z.getY1() + 1;
+			double width = z.getZ2() - z.getZ1() + 1;
+			
+			Location<World> p1 = new Location<World>(w, z.getX1(), z.getY1(), z.getZ1());
+			Location<World> p2 = new Location<World>(w, z.getX2(), z.getY2(), z.getZ2());
+			Location<World> p3 = new Location<World>(w, z.getX1() + length, z.getY1(), z.getZ1());
+			Location<World> p4 = new Location<World>(w, z.getX1(), z.getY1() + height, z.getZ1());
+			Location<World> p5 = new Location<World>(w, z.getX1(), z.getY1(), z.getZ1() + width);
+			Location<World> p6 = new Location<World>(w, z.getX1() + length, z.getY1() + height, z.getZ1());
+			Location<World> p7 = new Location<World>(w, z.getX1() + length, z.getY1(), z.getZ1() + width);
+			Location<World> p8 = new Location<World>(w, z.getX1(), z.getY1() + height, z.getZ1() + width);
+			
+			if(isInside(p1) || isInside(p2) || isInside(p3) || isInside(p4) || isInside(p5) || isInside(p6) || isInside(p7) || isInside(p8)) {
+				result.add(z);
+				continue;
+			}
+			
+			length = x2 - x1 + 1;
+			height = y2 - y1 + 1;
+			width = z2 - z1 + 1;
+			
+			p1 = new Location<World>(w, x1, y1, z1);
+			p2 = new Location<World>(w, x2, y2, z2);
+			p3 = new Location<World>(w, x1 + length, y1, z1);
+			p4 = new Location<World>(w, x1, y1 + height, z1);
+			p5 = new Location<World>(w, x1, y1, z1 + width);
+			p6 = new Location<World>(w, x1 + length, y1 + height, z1);
+			p7 = new Location<World>(w, x1 + length, y1, z1 + width);
+			p8 = new Location<World>(w, x1, y1 + height, z1 + width);
+			
+			if(z.isInside(p1) || z.isInside(p2) || z.isInside(p3) || z.isInside(p4) || z.isInside(p5) || z.isInside(p6) || z.isInside(p7) || z.isInside(p8)) {
+				result.add(z);
+				continue;
+			}
+			
+		}
+		
+		return result;
+		
 	}
 	
 }

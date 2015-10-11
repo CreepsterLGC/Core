@@ -1,5 +1,10 @@
 package me.creepsterlgc.core.customized;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -65,6 +70,22 @@ public class CoreSelection {
 		if(first <= second) return second; return first;
 	}
 	
+	public boolean isInside(Location<World> location) {
+		if(!location.getExtent().getName().equals(firstpoint.getExtent().getName())) return false;
+		if(!location.getExtent().getName().equals(secondpoint.getExtent().getName())) return false;
+    	if(location.getX() < getX1() || location.getX() > getX2()
+    	|| location.getY() < getY1() || location.getY() > getY2()
+    	|| location.getZ() < getZ1() || location.getZ() > getZ2()) return false; return true;
+	}
+	
+	public boolean isInside(Player player) {
+		if(!player.getWorld().getName().equals(firstpoint.getExtent().getName())) return false;
+		if(!player.getWorld().getName().equals(secondpoint.getExtent().getName())) return false;
+    	if(player.getLocation().getX() < getX1() || player.getLocation().getX() > getX2()
+    	|| player.getLocation().getY() < getY1() || player.getLocation().getY() > getY2()
+    	|| player.getLocation().getZ() < getZ1() || player.getLocation().getZ() > getZ2()) return false; return true;
+	}
+	
 	public void expand(String direction, double range) {
 		
 		double fx = firstpoint.getX();
@@ -110,6 +131,67 @@ public class CoreSelection {
 			if(fz <= sz) firstpoint = new Location<World>(firstpoint.getExtent(), x, fy, fz);
 			else secondpoint = new Location<World>(secondpoint.getExtent(), x, sy, sz);
 		}
+		
+	}
+	
+	public List<CoreZone> getOverlappingZones() {
+		
+		List<CoreZone> result = new ArrayList<CoreZone>();
+		
+		for(Entry<String, CoreZone> e : CoreDatabase.getZones().entrySet()) {
+			
+			CoreZone z = e.getValue();
+			if(!firstpoint.getExtent().getName().equals(z.getWorld())) continue;
+			if(!secondpoint.getExtent().getName().equals(z.getWorld())) continue;
+			
+			World w = firstpoint.getExtent();
+			
+			double length = z.getX2() - z.getX1() + 1;
+			double height = z.getY2() - z.getY1() + 1;
+			double width = z.getZ2() - z.getZ1() + 1;
+			
+			Location<World> p1 = new Location<World>(w, z.getX1(), z.getY1(), z.getZ1());
+			Location<World> p2 = new Location<World>(w, z.getX2(), z.getY2(), z.getZ2());
+			Location<World> p3 = new Location<World>(w, z.getX1() + length, z.getY1(), z.getZ1());
+			Location<World> p4 = new Location<World>(w, z.getX1(), z.getY1() + height, z.getZ1());
+			Location<World> p5 = new Location<World>(w, z.getX1(), z.getY1(), z.getZ1() + width);
+			Location<World> p6 = new Location<World>(w, z.getX1() + length, z.getY1() + height, z.getZ1());
+			Location<World> p7 = new Location<World>(w, z.getX1() + length, z.getY1(), z.getZ1() + width);
+			Location<World> p8 = new Location<World>(w, z.getX1(), z.getY1() + height, z.getZ1() + width);
+			
+			if(isInside(p1) || isInside(p2) || isInside(p3) || isInside(p4) || isInside(p5) || isInside(p6) || isInside(p7) || isInside(p8)) {
+				result.add(z);
+				continue;
+			}
+			
+			double x1 = getX1();
+			double y1 = getY1();
+			double z1 = getZ1();
+			double x2 = getX2();
+			double y2 = getY2();
+			double z2 = getZ2();
+			
+			length = x2 - x1 + 1;
+			height = y2 - y1 + 1;
+			width = z2 - z1 + 1;
+			
+			p1 = new Location<World>(w, x1, y1, z1);
+			p2 = new Location<World>(w, x2, y2, z2);
+			p3 = new Location<World>(w, x1 + length, y1, z1);
+			p4 = new Location<World>(w, x1, y1 + height, z1);
+			p5 = new Location<World>(w, x1, y1, z1 + width);
+			p6 = new Location<World>(w, x1 + length, y1 + height, z1);
+			p7 = new Location<World>(w, x1 + length, y1, z1 + width);
+			p8 = new Location<World>(w, x1, y1 + height, z1 + width);
+			
+			if(z.isInside(p1) || z.isInside(p2) || z.isInside(p3) || z.isInside(p4) || z.isInside(p5) || z.isInside(p6) || z.isInside(p7) || z.isInside(p8)) {
+				result.add(z);
+				continue;
+			}
+			
+		}
+		
+		return result;
 		
 	}
 
