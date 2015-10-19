@@ -70,7 +70,7 @@ public class EventPlayerInteractBlock {
     	
     	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
     	
-    	if(!PermissionsUtils.has(player, "core.region.select")) return;
+    	if(!PermissionsUtils.has(player, "core.selection.select")) return;
     	if(!player.getItemInHand().isPresent()) return;
     	if(!player.getItemInHand().get().getItem().equals(ItemTypes.GOLDEN_AXE)) return;
     	if(location.getBlockPosition().equals(new Vector3i(0, 0, 0))) return;
@@ -135,7 +135,7 @@ public class EventPlayerInteractBlock {
     	
     	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
     	
-    	if(!PermissionsUtils.has(player, "core.region.select")) return;
+    	if(!PermissionsUtils.has(player, "core.selection.select")) return;
     	if(!player.getItemInHand().isPresent()) return;
     	if(!player.getItemInHand().get().getItem().equals(ItemTypes.GOLDEN_AXE)) return;
     	if(location.getBlockPosition().equals(new Vector3i(0, 0, 0))) return;

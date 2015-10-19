@@ -20,8 +20,6 @@ public class CommandWarpCreate {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PermissionsUtils.has(sender, "core.warp.create")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
-		
 		if(args.length < 2 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/warp create <name>")); return; }
 		
 		Player player = (Player)sender;
@@ -42,7 +40,7 @@ public class CommandWarpCreate {
 			if(PermissionsUtils.has(player, "core.warp.create." + i)) possible = i;
 		}
 		
-		if(!PermissionsUtils.has(player, "core.warp.create.unlimited") && possible <= warps) {
+		if(!PermissionsUtils.has(player, "core.warp.create-unlimited") && possible <= warps) {
 			if(possible == 1) sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " warp!").color(TextColors.RED).build());
 			else sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " warps!").color(TextColors.RED).build());
 			return;
@@ -65,7 +63,7 @@ public class CommandWarpCreate {
 		
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Warp ", TextColors.YELLOW, name, TextColors.GRAY, " has been created."));
-		if(!PermissionsUtils.has(player, "core.warp.create.unlimited")) sender.sendMessage(Texts.of(TextColors.GRAY, "You currently own ", TextColors.GOLD, warps + 1, TextColors.GRAY, " / ", TextColors.GOLD, possible, TextColors.GRAY, " possible warps."));
+		if(!PermissionsUtils.has(player, "core.warp.create-unlimited")) sender.sendMessage(Texts.of(TextColors.GRAY, "You currently own ", TextColors.GOLD, warps + 1, TextColors.GRAY, " / ", TextColors.GOLD, possible, TextColors.GRAY, " possible warps."));
 		else sender.sendMessage(Texts.of(TextColors.GRAY, "You currently own ", TextColors.GOLD, warps + 1, TextColors.GRAY, " / ", TextColors.GOLD, "oo", TextColors.GRAY, " possible warps."));
 	}
 

@@ -33,8 +33,10 @@ public class FileCommands {
 				commands.getNode("enabled", "fakeleave").setValue(true);
 				commands.getNode("enabled", "feed").setValue(true);
 				commands.getNode("enabled", "gamemode").setValue(true);
+				commands.getNode("enabled", "give").setValue(true);
 				commands.getNode("enabled", "heal").setValue(true);
 				commands.getNode("enabled", "home").setValue(true);
+				commands.getNode("enabled", "item").setValue(true);
 				commands.getNode("enabled", "jump").setValue(true);
 				commands.getNode("enabled", "kick").setValue(true);
 				commands.getNode("enabled", "kill").setValue(true);
@@ -78,7 +80,7 @@ public class FileCommands {
 				commands.getNode("enabled", "world").setValue(true);
 				commands.getNode("enabled", "zone").setValue(true);
 				
-				commands.getNode("version").setValue(11);
+				commands.getNode("version").setValue(14);
 				
 		        manager.save(commands);
 				
@@ -112,6 +114,19 @@ public class FileCommands {
 				
 			}
 			
+			if(commands.getNode("version").getInt() <= 13) {
+				
+				commands.getNode("enabled", "item").setValue(true);
+				commands.getNode("enabled", "give").setValue(true);
+				
+				commands.getNode("version").setValue(14);
+				
+				manager.save(commands);
+				
+				commands = manager.load();
+				
+			}
+			
 		} catch (IOException e) { e.printStackTrace(); }
 		
 	}
@@ -128,8 +143,10 @@ public class FileCommands {
 	public static boolean FEED() { return commands.getNode("enabled", "feed").getBoolean(); }
 	public static boolean FORCE() { return commands.getNode("enabled", "force").getBoolean(); }
 	public static boolean GAMEMODE() { return commands.getNode("enabled", "gamemode").getBoolean(); }
+	public static boolean GIVE() { return commands.getNode("enabled", "give").getBoolean(); }
 	public static boolean HEAL() { return commands.getNode("enabled", "heal").getBoolean(); }
 	public static boolean HOME() { return commands.getNode("enabled", "home").getBoolean(); }
+	public static boolean ITEM() { return commands.getNode("enabled", "item").getBoolean(); }
 	public static boolean JUMP() { return commands.getNode("enabled", "jump").getBoolean(); }
 	public static boolean KICK() { return commands.getNode("enabled", "kick").getBoolean(); }
 	public static boolean KILL() { return commands.getNode("enabled", "kill").getBoolean(); }

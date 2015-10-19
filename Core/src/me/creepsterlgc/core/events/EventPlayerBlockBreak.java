@@ -30,7 +30,7 @@ public class EventPlayerBlockBreak {
 		    event.setCancelled(true);
 	    }
 	    
-	    if(!ZoneUtils.canBuild(player, event.getTransactions().iterator().next().getFinalReplacement().getLocation().get())) {
+	    if(!ZoneUtils.canBuild(player, event.getTransactions().iterator().next().getDefaultReplacement().getLocation().get())) {
 	    	player.sendMessage(Texts.of(TextColors.RED, "You do not have permissions!"));
 	    	event.setCancelled(true);
 	    }

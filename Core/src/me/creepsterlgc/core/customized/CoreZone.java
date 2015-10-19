@@ -88,6 +88,19 @@ public class CoreZone {
 		}
 		return members;
 	}
+	
+	public double getLength() {
+		return getX2() - getX1() + 1;
+	}
+	
+	public double getHeight() {
+		return getY2() - getY1() + 1;
+	}
+	
+	public double getWidth() {
+		return getZ2() - getZ1() + 1;
+	}
+	
 	public HashMap<String, String> getSettings() { return settings; }
 
 	public void addMember(String uuid, double time) {

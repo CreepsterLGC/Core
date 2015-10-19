@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import me.creepsterlgc.core.utils.PermissionsUtils;
-
 import org.spongepowered.api.block.tileentity.Sign;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.manipulator.mutable.tileentity.SignData;
@@ -29,15 +28,16 @@ public class EventSignChange {
     	
     	Sign sign = event.getTargetTile();
     	
+		SignData data = event.getText();
+		List<Text> lines = data.get(Keys.SIGN_LINES).get();
+		
     	if(PermissionsUtils.has(player, "core.signs.color")) {
     	
-    		SignData data = event.getText();
-    		List<Text> o = data.get(Keys.SIGN_LINES).get();
     		List<Text> n = new ArrayList<Text>();
     		
     		for(int i = 0; i <= 3; i++) {
-    			if(o.size() < i + 1) continue;
-    			Text line = o.get(i);
+    			if( lines.size() < i + 1) continue;
+    			Text line =  lines.get(i);
     			String plain = Texts.toPlain(line);
     			try {
 					line = Texts.legacy('&').from(plain);
@@ -53,6 +53,22 @@ public class EventSignChange {
     		
     	}
     	
+    }
+    
+    public void addShop(ChangeSignEvent event) {
+    	
+    	Optional<Player> optional = event.getCause().first(Player.class);
+    	if(!optional.isPresent()) return;
+    	
+    	Player player = optional.get();
+    	
+    	Sign sign = event.getTargetTile();
+    	
+		SignData data = event.getText();
+		List<Text> lines = data.get(Keys.SIGN_LINES).get();
+		
+		
+		
     }
 	
 }

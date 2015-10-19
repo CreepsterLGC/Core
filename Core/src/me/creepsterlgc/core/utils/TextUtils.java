@@ -47,6 +47,10 @@ public class TextUtils {
 		return Texts.of(TextColors.RED, message);
 	}
 	
+	public static Text permissions() {
+		return Texts.of(TextColors.RED, "You do not have permissions!");
+	}
+	
 	public static Text usage(String message) {
 		return Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, message);
 	}

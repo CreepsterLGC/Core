@@ -4,7 +4,7 @@ import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.CoreChannel;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.files.FileConfig;
+import me.creepsterlgc.core.files.FileChat;
 import me.creepsterlgc.core.utils.CommandUtils;
 import me.creepsterlgc.core.utils.PermissionsUtils;
 import me.creepsterlgc.core.utils.TextUtils;
@@ -44,7 +44,7 @@ public class CommandChannelSpeak {
 		
     	String name = player.getName();
 		String message = CommandUtils.combineArgs(1, args);
-    	if(!p.getNick().equalsIgnoreCase("")) name = FileConfig.CHAT_NICK_PREFIX() + p.getNick();
+    	if(!p.getNick().equalsIgnoreCase("")) name = FileChat.NICKPREFIX() + p.getNick();
     	if(!PermissionsUtils.has(player, "core.chat.color")) { message = TextUtils.uncolor(message); }
     	
     	String prefix = PermissionsUtils.getPrefix(player);

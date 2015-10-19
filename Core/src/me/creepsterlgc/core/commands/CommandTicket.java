@@ -44,9 +44,6 @@ public class CommandTicket implements CommandCallable {
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/ticket <open|close> <id>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/ticket clear"));
 		}
-		else if(!arguments.equalsIgnoreCase("") && args.length == 1) {
-			new CommandWarpTeleport(sender, args); return CommandResult.success();
-		}
 		else {
 			sender.sendMessage(Texts.of(TextColors.GOLD, "Ticket Help"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/ticket create <message>"));

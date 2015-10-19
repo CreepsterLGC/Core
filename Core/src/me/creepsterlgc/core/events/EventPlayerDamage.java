@@ -10,15 +10,15 @@ import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.entity.InteractEntityEvent;
+import org.spongepowered.api.event.entity.DamageEntityEvent;
 import org.spongepowered.api.item.inventory.ItemStack;
 
 
-public class EventPlayerAttackEntity {
+public class EventPlayerDamage {
 
     @Listener
-    public void onEventPlayerAttackEntity(InteractEntityEvent.Attack event) {
-    	
+    public void onEventDamageEntity(DamageEntityEvent event) {
+
     	if(event.getTargetEntity() instanceof Player == false) return;
     	Player player = (Player) event.getTargetEntity();
     	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
@@ -39,7 +39,7 @@ public class EventPlayerAttackEntity {
     	
     	if(w == null) return;
 	    if(!w.getBuild() && !PermissionsUtils.has(player, "core.world." + w.getName() + ".bypass.pvp")) {
-		    event.setCancelled(true);
+//		    event.setCancelled(true);
 	    }
     	
     }

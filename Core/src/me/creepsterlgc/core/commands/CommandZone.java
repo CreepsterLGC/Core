@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import me.creepsterlgc.core.utils.TextUtils;
+
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
@@ -20,9 +22,10 @@ public class CommandZone implements CommandCallable {
 		
 		String[] args = arguments.split(" ");
 		
-		if(args.length > 6) { sender.sendMessage(usage); return CommandResult.success(); }
+		if(args.length > 6) { sender.sendMessage(Texts.of(TextUtils.usage("/zone help"))); return CommandResult.success(); }
 		
 		if(args[0].equalsIgnoreCase("create")) { new CommandZoneCreate(sender, args); return CommandResult.success(); }
+		else if(args[0].equalsIgnoreCase("claim")) { new CommandZoneRemove(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("remove")) { new CommandZoneRemove(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("list")) { new CommandZoneList(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("info")) { new CommandZoneInfo(sender, args); return CommandResult.success(); }
@@ -32,6 +35,7 @@ public class CommandZone implements CommandCallable {
 		else if(args[0].equalsIgnoreCase("help")) {
 			sender.sendMessage(Texts.of(TextColors.DARK_AQUA, "Zone Help"));
 			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone create <name> [priority]"));
+			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone claim <name>"));
 			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone remove <name>"));
 			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone list [keyword]"));
 			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone info <zone>"));
@@ -42,6 +46,7 @@ public class CommandZone implements CommandCallable {
 		else {
 			sender.sendMessage(Texts.of(TextColors.DARK_AQUA, "Zone Help"));
 			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone create <name> [priority]"));
+			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone claim <name>"));
 			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone remove <name>"));
 			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone list [keyword]"));
 			sender.sendMessage(Texts.of(TextColors.AQUA, "/zone info <zone>"));

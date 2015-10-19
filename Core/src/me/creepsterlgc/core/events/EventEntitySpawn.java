@@ -15,7 +15,7 @@ public class EventEntitySpawn {
 	@Listener
     public void onEntitySpawn(SpawnEntityEvent event) {
     	
-		Entity entity = event.getTargetEntity();
+		Entity entity = event.getEntities().iterator().next();
 		
     	CoreWorld w = CoreDatabase.getWorld(entity.getWorld().getName());
     	

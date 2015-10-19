@@ -106,4 +106,46 @@ public class PermissionsUtils {
 		return 0;
 	}
 	
+	public static int getClaimZonesLimit(Player player) {
+    	Subject subject = player.getContainingCollection().get(player.getIdentifier());
+		if (subject instanceof OptionSubject) {
+			OptionSubject optionSubject = (OptionSubject) subject;
+			String o = optionSubject.getOption("claim-zones").orElse("");
+			if(o.equalsIgnoreCase("") || o.equalsIgnoreCase("unlimited")) return -1;
+			int w;
+			try { w = Integer.parseInt(o); }
+			catch(NumberFormatException e) { return 0; }
+			return w;
+		}
+		return 0;
+	}
+	
+	public static int getClaimBlocksLimit(Player player) {
+    	Subject subject = player.getContainingCollection().get(player.getIdentifier());
+		if (subject instanceof OptionSubject) {
+			OptionSubject optionSubject = (OptionSubject) subject;
+			String o = optionSubject.getOption("claim-blocks").orElse("");
+			if(o.equalsIgnoreCase("") || o.equalsIgnoreCase("unlimited")) return -1;
+			int w;
+			try { w = Integer.parseInt(o); }
+			catch(NumberFormatException e) { return 0; }
+			return w;
+		}
+		return 0;
+	}
+	
+	public static int getClaimTotalLimit(Player player) {
+    	Subject subject = player.getContainingCollection().get(player.getIdentifier());
+		if (subject instanceof OptionSubject) {
+			OptionSubject optionSubject = (OptionSubject) subject;
+			String o = optionSubject.getOption("claim-total").orElse("");
+			if(o.equalsIgnoreCase("") || o.equalsIgnoreCase("unlimited")) return -1;
+			int w;
+			try { w = Integer.parseInt(o); }
+			catch(NumberFormatException e) { return 0; }
+			return w;
+		}
+		return 0;
+	}
+	
 }

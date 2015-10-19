@@ -70,6 +70,18 @@ public class CoreSelection {
 		if(first <= second) return second; return first;
 	}
 	
+	public double getLength() {
+		return getX2() - getX1() + 1;
+	}
+	
+	public double getHeight() {
+		return getY2() - getY1() + 1;
+	}
+	
+	public double getWidth() {
+		return getZ2() - getZ1() + 1;
+	}
+	
 	public boolean isInside(Location<World> location) {
 		if(!location.getExtent().getName().equals(firstpoint.getExtent().getName())) return false;
 		if(!location.getExtent().getName().equals(secondpoint.getExtent().getName())) return false;

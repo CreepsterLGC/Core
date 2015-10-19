@@ -67,7 +67,7 @@ public class EventPlayerChat {
     	
     	String name = player.getName();
     	String message = Texts.toPlain(event.getMessage()); message = message.replaceAll("<" + name + "> ", "");
-    	if(!p.getNick().equalsIgnoreCase("")) name = FileConfig.CHAT_NICK_PREFIX() + p.getNick();
+    	if(!p.getNick().equalsIgnoreCase("")) name = FileChat.NICKPREFIX() + p.getNick();
     	if(!PermissionsUtils.has(player, "core.chat.color")) { message = TextUtils.uncolor(message); }
     	
     	String prefix = PermissionsUtils.getPrefix(player);

@@ -39,7 +39,7 @@ public class CommandTicketCreate {
 		}
 		
 		if(!PermissionsUtils.has(player, "core.ticket.create-unlimited") && possible <= tickets) {
-			if(possible == 1) sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " open tickets!").color(TextColors.RED).build());
+			if(possible == 1) sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " open ticket!").color(TextColors.RED).build());
 			else sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " open tickets!").color(TextColors.RED).build());
 			return;
 		}

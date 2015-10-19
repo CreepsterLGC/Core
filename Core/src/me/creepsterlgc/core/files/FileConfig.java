@@ -3,16 +3,16 @@ package me.creepsterlgc.core.files;
 import java.io.File;
 import java.io.IOException;
 
-import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
+import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 public class FileConfig {
 	
 	public static File file = new File("config/core/config.conf");
-	public static ConfigurationLoader<?> manager = HoconConfigurationLoader.builder().setFile(file).build();
-	public static ConfigurationNode config = manager.createEmptyNode(ConfigurationOptions.defaults());
+	public static ConfigurationLoader<CommentedConfigurationNode> manager = HoconConfigurationLoader.builder().setFile(file).build();
+	public static CommentedConfigurationNode config = manager.createEmptyNode(ConfigurationOptions.defaults());
 
 	public static void setup() {
 
@@ -34,9 +34,15 @@ public class FileConfig {
 				config.getNode("afk", "KICK_ENABLE").setValue(false);
 				config.getNode("afk", "KICK_AFTER").setValue(300);
 				
+				config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").setValue(7200);
+				config.getNode("limits", "MAX_MUTE_TIME_IN_SECONDS").setValue(600);
+				
 				config.getNode("list", "ORDER_BY_GROUPS").setValue(true);
 				config.getNode("list", "SHOW_PREFIX").setValue(true);
 				config.getNode("list", "SHOW_SUFFIX").setValue(true);
+				
+				config.getNode("zones", "claim", "DEFAULT_PRIORITY").setValue(5).setComment("The default priority of claimed regions.");
+				config.getNode("zones", "claim", "OVERLAPPING_LEVEL").setValue("member").setComment("Levels: all, own, member, none");
 				
 				config.getNode("version").setValue(7);
 				
@@ -45,6 +51,19 @@ public class FileConfig {
 			}
 			
 	        config = manager.load();
+	        
+			if(config.getNode("version").getInt() <= 7) {
+				
+				config.getNode("zones", "claim", "DEFAULT_PRIORITY").setValue(5).setComment("The default priority of claimed zones.");
+				config.getNode("zones", "claim", "OVERLAPPING_LEVEL").setValue("member").setComment("Levels: all, own, member, none");
+				
+				config.getNode("version").setValue(8);
+				
+				manager.save(config);
+				
+				config = manager.load();
+				
+			}
 		     
 		} catch (IOException e) { e.printStackTrace(); }
 		
@@ -72,7 +91,7 @@ public class FileConfig {
 	public static boolean LIST_SHOW_PREFIX() { return config.getNode("list", "SHOW_PREFIX").getBoolean(); }
 	public static boolean LIST_SHOW_SUFFIX() { return config.getNode("list", "SHOW_SUFFIX").getBoolean(); }
 	
-	public static String CHAT_NICK_PREFIX() { return config.getNode("chat", "NICK_PREFIX").getString(); }
-	
+	public static int ZONES_CLAIM_DEFAULT_PRIORITY() { return config.getNode("zones", "claim", "DEFAULT_PRIORITY").getInt(); }
+	public static String ZONES_CLAIM_OVERLAPPING_LEVEL() { return config.getNode("zones", "claim", "OVERLAPPING_LEVEL").getString(); }
 	
 }

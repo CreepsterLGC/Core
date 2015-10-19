@@ -38,7 +38,7 @@ public class CommandHomeSet {
 		}
 		
 		if(!PermissionsUtils.has(player, "core.home.set-unlimited") && possible <= homes.size()) {
-			if(possible == 1) sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " homes!").color(TextColors.RED).build());
+			if(possible == 1) sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " home!").color(TextColors.RED).build());
 			else sender.sendMessage(Texts.builder("You are only allowed to own " + possible + " homes!").color(TextColors.RED).build());
 			return;
 		}
@@ -57,7 +57,7 @@ public class CommandHomeSet {
 		p.setHome(name, home);
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Home ", TextColors.YELLOW, name, TextColors.GRAY, " has been set."));
-		if(!PermissionsUtils.has(player, "core.warp.create.unlimited")) sender.sendMessage(Texts.of(TextColors.GRAY, "You currently own ", TextColors.GOLD, homes.size(), TextColors.GRAY, " / ", TextColors.GOLD, possible, TextColors.GRAY, " possible homes."));
+		if(!PermissionsUtils.has(player, "core.home.set-unlimited")) sender.sendMessage(Texts.of(TextColors.GRAY, "You currently own ", TextColors.GOLD, homes.size(), TextColors.GRAY, " / ", TextColors.GOLD, possible, TextColors.GRAY, " possible homes."));
 		else sender.sendMessage(Texts.of(TextColors.GRAY, "You currently own ", TextColors.GOLD, homes.size(), TextColors.GRAY, " / ", TextColors.GOLD, "oo", TextColors.GRAY, " possible homes."));
 		
 	}
