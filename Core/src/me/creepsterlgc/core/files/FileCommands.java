@@ -26,14 +26,19 @@ public class FileCommands {
 				commands.getNode("enabled", "ban").setValue(true);
 				commands.getNode("enabled", "banlist").setValue(true);
 				commands.getNode("enabled", "broadcast").setValue(true);
+				commands.getNode("enabled", "burn").setValue(true);
 				commands.getNode("enabled", "butcher").setValue(true);
 				commands.getNode("enabled", "channel").setValue(true);
 				commands.getNode("enabled", "core").setValue(true);
+				commands.getNode("enabled", "enchant").setValue(true);
 				commands.getNode("enabled", "fakejoin").setValue(true);
 				commands.getNode("enabled", "fakeleave").setValue(true);
 				commands.getNode("enabled", "feed").setValue(true);
+				commands.getNode("enabled", "fly").setValue(true);
+				commands.getNode("enabled", "force").setValue(true);
 				commands.getNode("enabled", "gamemode").setValue(true);
 				commands.getNode("enabled", "give").setValue(true);
+				commands.getNode("enabled", "hat").setValue(true);
 				commands.getNode("enabled", "heal").setValue(true);
 				commands.getNode("enabled", "home").setValue(true);
 				commands.getNode("enabled", "item").setValue(true);
@@ -59,6 +64,7 @@ public class FileCommands {
 				commands.getNode("enabled", "seen").setValue(true);
 				commands.getNode("enabled", "selection").setValue(true);
 				commands.getNode("enabled", "spawn").setValue(true);
+				commands.getNode("enabled", "speed").setValue(true);
 				commands.getNode("enabled", "tempban").setValue(true);
 				commands.getNode("enabled", "ticket").setValue(true);
 				commands.getNode("enabled", "time").setValue(true);
@@ -127,6 +133,22 @@ public class FileCommands {
 				
 			}
 			
+			if(commands.getNode("version").getInt() <= 14) {
+				
+				commands.getNode("enabled", "burn").setValue(true);
+				commands.getNode("enabled", "enchant").setValue(true);
+				commands.getNode("enabled", "fly").setValue(true);
+				commands.getNode("enabled", "hat").setValue(true);
+				commands.getNode("enabled", "speed").setValue(true);
+				
+				commands.getNode("version").setValue(15);
+				
+				manager.save(commands);
+				
+				commands = manager.load();
+				
+			}
+			
 		} catch (IOException e) { e.printStackTrace(); }
 		
 	}
@@ -135,15 +157,19 @@ public class FileCommands {
 	public static boolean BAN() { return commands.getNode("enabled", "ban").getBoolean(); }
 	public static boolean BANLIST() { return commands.getNode("enabled", "banlist").getBoolean(); }
 	public static boolean BROADCAST() { return commands.getNode("enabled", "broadcast").getBoolean(); }
+	public static boolean BURN() { return commands.getNode("enabled", "burn").getBoolean(); }
 	public static boolean BUTCHER() { return commands.getNode("enabled", "butcher").getBoolean(); }
 	public static boolean CHANNEL() { return commands.getNode("enabled", "channel").getBoolean(); }
 	public static boolean CORE() { return commands.getNode("enabled", "core").getBoolean(); }
+	public static boolean ENCHANT() { return commands.getNode("enabled", "enchant").getBoolean(); }
 	public static boolean FAKEJOIN() { return commands.getNode("enabled", "fakejoin").getBoolean(); }
 	public static boolean FAKELEAVE() { return commands.getNode("enabled", "fakeleave").getBoolean(); }
 	public static boolean FEED() { return commands.getNode("enabled", "feed").getBoolean(); }
+	public static boolean FLY() { return commands.getNode("enabled", "fly").getBoolean(); }
 	public static boolean FORCE() { return commands.getNode("enabled", "force").getBoolean(); }
 	public static boolean GAMEMODE() { return commands.getNode("enabled", "gamemode").getBoolean(); }
 	public static boolean GIVE() { return commands.getNode("enabled", "give").getBoolean(); }
+	public static boolean HAT() { return commands.getNode("enabled", "hat").getBoolean(); }
 	public static boolean HEAL() { return commands.getNode("enabled", "heal").getBoolean(); }
 	public static boolean HOME() { return commands.getNode("enabled", "home").getBoolean(); }
 	public static boolean ITEM() { return commands.getNode("enabled", "item").getBoolean(); }
@@ -169,6 +195,7 @@ public class FileCommands {
 	public static boolean SEEN() { return commands.getNode("enabled", "seen").getBoolean(); }
 	public static boolean SELECTION() { return commands.getNode("enabled", "selection").getBoolean(); }
 	public static boolean SPAWN() { return commands.getNode("enabled", "spawn").getBoolean(); }
+	public static boolean SPEED() { return commands.getNode("enabled", "speed").getBoolean(); }
 	public static boolean TEMPBAN() { return commands.getNode("enabled", "tempban").getBoolean(); }
 	public static boolean TICKET() { return commands.getNode("enabled", "ticket").getBoolean(); }
 	public static boolean TIME() { return commands.getNode("enabled", "time").getBoolean(); }
