@@ -25,7 +25,7 @@ public class CommandZone implements CommandCallable {
 		if(args.length > 6) { sender.sendMessage(Texts.of(TextUtils.usage("/zone help"))); return CommandResult.success(); }
 		
 		if(args[0].equalsIgnoreCase("create")) { new CommandZoneCreate(sender, args); return CommandResult.success(); }
-		else if(args[0].equalsIgnoreCase("claim")) { new CommandZoneRemove(sender, args); return CommandResult.success(); }
+		else if(args[0].equalsIgnoreCase("claim")) { new CommandZoneClaim(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("remove")) { new CommandZoneRemove(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("list")) { new CommandZoneList(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("info")) { new CommandZoneInfo(sender, args); return CommandResult.success(); }

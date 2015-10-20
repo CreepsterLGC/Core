@@ -13,6 +13,7 @@ import me.creepsterlgc.core.commands.CommandBroadcast;
 import me.creepsterlgc.core.commands.CommandButcher;
 import me.creepsterlgc.core.commands.CommandChannel;
 import me.creepsterlgc.core.commands.CommandCore;
+import me.creepsterlgc.core.commands.CommandEnchant;
 import me.creepsterlgc.core.commands.CommandFakejoin;
 import me.creepsterlgc.core.commands.CommandFakeleave;
 import me.creepsterlgc.core.commands.CommandFeed;
@@ -169,6 +170,7 @@ public class Core {
     	if(FileCommands.BUTCHER()) game.getCommandDispatcher().register(this, new CommandButcher(), "butcher");
     	if(FileCommands.CHANNEL()) game.getCommandDispatcher().register(this, new CommandChannel(), "channel", "ch", "c");
     	if(FileCommands.CORE()) game.getCommandDispatcher().register(this, new CommandCore(), "core");
+    	if(FileCommands.ENCHANT()) game.getCommandDispatcher().register(this, new CommandEnchant(game), "enchant");
     	if(FileCommands.FAKEJOIN()) game.getCommandDispatcher().register(this, new CommandFakejoin(), "fakejoin");
     	if(FileCommands.FAKELEAVE()) game.getCommandDispatcher().register(this, new CommandFakeleave(), "fakeleave");
     	if(FileCommands.FEED()) game.getCommandDispatcher().register(this, new CommandFeed(game), "feed");
