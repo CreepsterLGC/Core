@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.CommandUtils;
 import me.creepsterlgc.core.utils.ItemUtils;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
@@ -33,7 +33,7 @@ public class CommandGive implements CommandCallable {
 		
 		if(args.length < 2 || args.length > 3) { sender.sendMessage(TextUtils.usage("/give <player> <item> [amount]")); return CommandResult.success(); }
 		
-		Player player = CoreServer.getPlayer(args[0].toLowerCase());
+		Player player = ServerUtils.getPlayer(args[0].toLowerCase());
 		if(player == null) {
 			sender.sendMessage(TextUtils.error("Player not found!"));
 			return CommandResult.success();

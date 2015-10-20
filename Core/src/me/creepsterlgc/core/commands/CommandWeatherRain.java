@@ -1,8 +1,8 @@
 package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -23,7 +23,7 @@ public class CommandWeatherRain {
 			
 			if(args[1].equalsIgnoreCase("*")) {
 				for(World world : Controller.getServer().getWorlds()) world.forecast(Weathers.RAIN);
-				CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to rain."));
+				ServerUtils.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to rain."));
 				return;
 			}
 			
@@ -35,7 +35,7 @@ public class CommandWeatherRain {
 			World world = Controller.getServer().getWorld(args[1]).get();
 			world.forecast(Weathers.RAIN);
 			
-			CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to rain on ", TextColors.YELLOW, world.getName()));
+			ServerUtils.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to rain on ", TextColors.YELLOW, world.getName()));
 			
 			return;
 			
@@ -47,7 +47,7 @@ public class CommandWeatherRain {
 		World world = player.getWorld();
 		world.forecast(Weathers.RAIN);
 		
-		CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to rain on ", TextColors.YELLOW, world.getName()));
+		ServerUtils.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the weather to rain on ", TextColors.YELLOW, world.getName()));
 		
 	}
 

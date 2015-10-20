@@ -6,9 +6,9 @@ import java.util.Optional;
 
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.files.FileConfig;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 import me.creepsterlgc.core.utils.TimeUtils;
 import me.creepsterlgc.core.utils.TextUtils;
 
@@ -43,7 +43,7 @@ public class CommandWhois implements CommandCallable {
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/whois <player>")); return CommandResult.success(); }
 		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/whois <player>")); return CommandResult.success(); }
 		
-		Player player = CoreServer.getPlayer(args[0].toLowerCase());
+		Player player = ServerUtils.getPlayer(args[0].toLowerCase());
 		
 		if(player == null) {
 			sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));

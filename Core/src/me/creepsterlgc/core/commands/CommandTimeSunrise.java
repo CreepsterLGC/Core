@@ -1,8 +1,8 @@
 package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -22,7 +22,7 @@ public class CommandTimeSunrise {
 			
 			if(args[1].equalsIgnoreCase("*")) {
 				for(World world : Controller.getServer().getWorlds()) world.getProperties().setWorldTime(23000);
-				CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to sunrise."));
+				ServerUtils.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to sunrise."));
 				return;
 			}
 			
@@ -34,7 +34,7 @@ public class CommandTimeSunrise {
 			World world = Controller.getServer().getWorld(args[1]).get();
 			world.getProperties().setWorldTime(23000);
 			
-			CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to sunrise on ", TextColors.YELLOW, world.getName()));
+			ServerUtils.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to sunrise on ", TextColors.YELLOW, world.getName()));
 			
 			return;
 			
@@ -46,7 +46,7 @@ public class CommandTimeSunrise {
 		World world = player.getWorld();
 		world.getProperties().setWorldTime(23000);
 		
-		CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to sunrise on ", TextColors.YELLOW, world.getName()));
+		ServerUtils.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to sunrise on ", TextColors.YELLOW, world.getName()));
 		
 	}
 

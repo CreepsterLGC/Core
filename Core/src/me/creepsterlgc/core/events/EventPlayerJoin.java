@@ -2,9 +2,9 @@ package me.creepsterlgc.core.events;
 
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.files.FileMessages;
 import me.creepsterlgc.core.files.FileMotd;
+import me.creepsterlgc.core.utils.ServerUtils;
 import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
@@ -80,7 +80,7 @@ public class EventPlayerJoin {
 			player_uuid.setLastaction(System.currentTimeMillis());
 			player_uuid.update();
 			
-			CoreServer.broadcast(Texts.of(TextColors.GOLD, player_uuid.getName(), " is now known as ", player.getName(), "!"));
+			ServerUtils.broadcast(Texts.of(TextColors.GOLD, player_uuid.getName(), " is now known as ", player.getName(), "!"));
 			
 		}
 		else {

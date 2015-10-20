@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -43,7 +43,7 @@ public class CommandTPAccept implements CommandCallable {
 		if(args.length < 1 || args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpaccept <player>")); return CommandResult.success(); }
 		
 		Player player = (Player) sender;
-		Player target = CoreServer.getPlayer(args[0]);
+		Player target = ServerUtils.getPlayer(args[0]);
 		
 		if(target == null) {
 			sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());

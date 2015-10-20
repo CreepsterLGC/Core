@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -44,7 +44,7 @@ public class CommandTPA implements CommandCallable {
 		Player s = (Player) sender;
 		String uuid = s.getUniqueId().toString();
 		
-		Player player = CoreServer.getPlayer(args[0]);
+		Player player = ServerUtils.getPlayer(args[0]);
 		
 		if(player == null) {
 			sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());

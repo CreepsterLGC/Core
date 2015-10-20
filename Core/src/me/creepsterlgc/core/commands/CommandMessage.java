@@ -7,9 +7,9 @@ import java.util.Optional;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CoreMute;
 import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.CommandUtils;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -53,7 +53,7 @@ public class CommandMessage implements CommandCallable {
 	    	}
 		}
 		
-		Player player = CoreServer.getPlayer(args[0]);
+		Player player = ServerUtils.getPlayer(args[0]);
 		
 		if(player == null) {
 			sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));

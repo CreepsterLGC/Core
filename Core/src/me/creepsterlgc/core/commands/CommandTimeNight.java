@@ -1,8 +1,8 @@
 package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -22,7 +22,7 @@ public class CommandTimeNight {
 			
 			if(args[1].equalsIgnoreCase("*")) {
 				for(World world : Controller.getServer().getWorlds()) world.getProperties().setWorldTime(14000);
-				CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to night."));
+				ServerUtils.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to night."));
 				return;
 			}
 			
@@ -34,7 +34,7 @@ public class CommandTimeNight {
 			World world = Controller.getServer().getWorld(args[1]).get();
 			world.getProperties().setWorldTime(14000);
 			
-			CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to night on ", TextColors.YELLOW, world.getName()));
+			ServerUtils.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to night on ", TextColors.YELLOW, world.getName()));
 			
 			return;
 			
@@ -46,7 +46,7 @@ public class CommandTimeNight {
 		World world = player.getWorld();
 		world.getProperties().setWorldTime(14000);
 		
-		CoreServer.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to night on ", TextColors.YELLOW, world.getName()));
+		ServerUtils.broadcast(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the time to night on ", TextColors.YELLOW, world.getName()));
 		
 	}
 

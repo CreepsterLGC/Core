@@ -70,7 +70,6 @@ import me.creepsterlgc.core.commands.CommandWorld;
 import me.creepsterlgc.core.commands.CommandZone;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePortal;
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.events.EventEntitySpawn;
 import me.creepsterlgc.core.events.EventPlayerBlockBreak;
 import me.creepsterlgc.core.events.EventPlayerBlockPlace;
@@ -93,6 +92,7 @@ import me.creepsterlgc.core.files.FileMessages;
 import me.creepsterlgc.core.files.FileMotd;
 import me.creepsterlgc.core.files.FileRules;
 import me.creepsterlgc.core.files.FileWorlds;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.event.Listener;
@@ -125,7 +125,7 @@ public class Core {
     	if(!folder.exists()) folder.mkdir();
     	
     	Controller.game = game;
-    	CoreServer.sink = game.getServer().getBroadcastSink();
+    	ServerUtils.sink = game.getServer().getBroadcastSink();
     	
     	FileConfig.setup();
     	FileChat.setup();
@@ -244,7 +244,7 @@ public class Core {
     	game.getScheduler().createTaskBuilder().interval(1, TimeUnit.SECONDS).execute(new Runnable() {
     		@Override
 			public void run() {
-    			CoreServer.heartbeat();
+    			ServerUtils.heartbeat();
     		}
     	}).submit(this);
     	

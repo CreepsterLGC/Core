@@ -3,8 +3,8 @@ package me.creepsterlgc.core.commands;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
@@ -67,7 +67,7 @@ public class CommandGamemode implements CommandCallable {
 				return CommandResult.success();
 			}
 			
-			Player player = CoreServer.getPlayer(args[1].toLowerCase());
+			Player player = ServerUtils.getPlayer(args[1].toLowerCase());
 			if(player == null) {
 				sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));
 				return CommandResult.success();

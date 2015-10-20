@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -46,13 +46,13 @@ public class CommandTPSwap implements CommandCallable {
 			if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 			
 			player = (Player)sender;
-			target = CoreServer.getPlayer(args[0]);
+			target = ServerUtils.getPlayer(args[0]);
 			
 		}
 		else if(args.length == 2) {
 			
-			player = CoreServer.getPlayer(args[0]);
-			target = CoreServer.getPlayer(args[1]);
+			player = ServerUtils.getPlayer(args[0]);
+			target = ServerUtils.getPlayer(args[1]);
 			
 		}
 		

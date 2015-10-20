@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.CommandUtils;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 import me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.data.key.Keys;
@@ -63,7 +63,7 @@ public class CommandSpeed implements CommandCallable {
 				return CommandResult.success();
 			}
 			
-			Player p = CoreServer.getPlayer(args[0]);
+			Player p = ServerUtils.getPlayer(args[0]);
 			if(p == null) {
 				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
 				return CommandResult.success();

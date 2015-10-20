@@ -3,9 +3,9 @@ package me.creepsterlgc.core.commands;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.CommandUtils;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -35,7 +35,7 @@ public class CommandForce implements CommandCallable {
 		
 		if(args.length < 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/force <player> <command>")); return CommandResult.success(); }
 		
-		Player player = CoreServer.getPlayer(args[0]);
+		Player player = ServerUtils.getPlayer(args[0]);
 		if(player == null) {
 			sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
 			return CommandResult.success();

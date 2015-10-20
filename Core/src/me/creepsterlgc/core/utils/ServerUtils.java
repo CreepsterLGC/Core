@@ -1,8 +1,9 @@
-package me.creepsterlgc.core.customized;
+package me.creepsterlgc.core.utils;
 
 import me.creepsterlgc.core.Controller;
+import me.creepsterlgc.core.customized.CoreDatabase;
+import me.creepsterlgc.core.customized.CorePlayer;
 import me.creepsterlgc.core.files.FileConfig;
-import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -10,7 +11,7 @@ import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.sink.MessageSink;
 
-public class CoreServer {
+public class ServerUtils {
 	
 	public static MessageSink sink;
 	
@@ -32,6 +33,13 @@ public class CoreServer {
 	
 	public static void broadcast(Text text) {
 		sink.sendMessage(text);
+	}
+	
+	public static void broadcast(String permission, Text text) {
+		for(Player player : Controller.getPlayers()) {
+			if(!PermissionsUtils.has(player, permission)) continue;
+			player.sendMessage(text);
+		}
 	}
 	
 	public static void heartbeat() {

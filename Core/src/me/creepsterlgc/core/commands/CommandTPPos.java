@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.customized.CoreServer;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
@@ -80,7 +80,7 @@ public class CommandTPPos implements CommandCallable {
 				return CommandResult.success();
 			}
 			
-			Player player = CoreServer.getPlayer(args[0].toLowerCase());
+			Player player = ServerUtils.getPlayer(args[0].toLowerCase());
 			if(player == null) {
 				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
 				return CommandResult.success();
