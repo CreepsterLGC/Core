@@ -6,6 +6,7 @@ import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CoreTicket;
 import me.creepsterlgc.core.utils.CommandUtils;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -65,6 +66,8 @@ public class CommandTicketComment {
 		ticket.update();
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Comment has been added to ", TextColors.GREEN, "#", id));
+		
+		ServerUtils.broadcast("core.ticket.notify", Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has commented on ticket ", TextColors.GREEN, "#", id));
 		
 	}
 

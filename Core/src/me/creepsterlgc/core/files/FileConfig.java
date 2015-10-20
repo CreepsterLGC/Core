@@ -29,20 +29,17 @@ public class FileConfig {
 				config.getNode("mysql", "password").setValue("password");
 				config.getNode("mysql", "database").setValue("minecraft");
 				
-				config.getNode("afk", "ENABLE_SYSTEM").setValue(true);
-				config.getNode("afk", "TIMER_IN_SECONDS").setValue(180);
-				config.getNode("afk", "KICK_ENABLE").setValue(false);
-				config.getNode("afk", "KICK_AFTER").setValue(300);
+				config.getNode("afk", "ENABLE_SYSTEM").setValue(true).setComment("Set players players automatically to AFK?");
+				config.getNode("afk", "TIMER_IN_SECONDS").setValue(180).setComment("Time in seconds after a player will be set to AFK.");
+				config.getNode("afk", "KICK_ENABLE").setValue(false).setComment("Should AFK players be kicked?");
+				config.getNode("afk", "KICK_AFTER").setValue(300).setComment("Time in seconds a player can be AFK after the kick happens.");
 				
 				config.getNode("limits", "MAX_TEMPBAN_TIME_IN_SECONDS").setValue(7200);
 				config.getNode("limits", "MAX_MUTE_TIME_IN_SECONDS").setValue(600);
 				
-				config.getNode("list", "ORDER_BY_GROUPS").setValue(true);
-				config.getNode("list", "SHOW_PREFIX").setValue(true);
-				config.getNode("list", "SHOW_SUFFIX").setValue(true);
-				
-				config.getNode("zones", "claim", "DEFAULT_PRIORITY").setValue(5).setComment("The default priority of claimed regions.");
-				config.getNode("zones", "claim", "OVERLAPPING_LEVEL").setValue("member").setComment("Levels: all, own, member, none");
+				config.getNode("list", "ORDER_BY_GROUPS").setValue(true).setComment("Should /list be ordered by groups?");
+				config.getNode("list", "SHOW_PREFIX").setValue(true).setComment("Should /list display prefixes?");
+				config.getNode("list", "SHOW_SUFFIX").setValue(true).setComment("Should /list display suffixes?");
 				
 				config.getNode("version").setValue(7);
 				
@@ -51,19 +48,6 @@ public class FileConfig {
 			}
 			
 	        config = manager.load();
-	        
-			if(config.getNode("version").getInt() <= 7) {
-				
-				config.getNode("zones", "claim", "DEFAULT_PRIORITY").setValue(5).setComment("The default priority of claimed zones.");
-				config.getNode("zones", "claim", "OVERLAPPING_LEVEL").setValue("member").setComment("Levels: all, own, member, none");
-				
-				config.getNode("version").setValue(8);
-				
-				manager.save(config);
-				
-				config = manager.load();
-				
-			}
 		     
 		} catch (IOException e) { e.printStackTrace(); }
 		

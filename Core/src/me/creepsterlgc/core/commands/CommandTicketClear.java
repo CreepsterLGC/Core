@@ -2,6 +2,7 @@ package me.creepsterlgc.core.commands;
 
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
@@ -28,7 +29,7 @@ public class CommandTicketClear {
 			sender.sendMessage(Texts.of(TextColors.YELLOW, size, TextColors.GRAY," tickets have been removed!"));
 		}
 		
-
+		ServerUtils.broadcast("core.ticket.notify", Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has cleared all tickets."));
 		
 	}
 

@@ -7,6 +7,7 @@ import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CoreTicket;
 import me.creepsterlgc.core.utils.CommandUtils;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -61,6 +62,7 @@ public class CommandTicketCreate {
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Ticket ", TextColors.GREEN, "#", id, TextColors.GRAY, " has been created!"));
 		
+		ServerUtils.broadcast("core.ticket.notify", Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has submitted ticket ", TextColors.GREEN, "#", id));
 		
 	}
 

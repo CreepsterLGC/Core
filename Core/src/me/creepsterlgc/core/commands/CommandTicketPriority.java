@@ -3,6 +3,7 @@ package me.creepsterlgc.core.commands;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CoreTicket;
 import me.creepsterlgc.core.utils.PermissionsUtils;
+import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -66,6 +67,8 @@ public class CommandTicketPriority {
 		else if(ticket.getPriority().equalsIgnoreCase("high")) p = Texts.of(TextColors.RED, "High");
 		
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Priority of ticket ", TextColors.GREEN, "#", id, TextColors.GRAY, " has been changed to ", p));
+		
+		ServerUtils.broadcast("core.ticket.notify", Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has changed the priority of ticket ", TextColors.GREEN, "#", id, TextColors.GRAY, " to ", p));
 		
 	}
 
