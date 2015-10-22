@@ -2,10 +2,7 @@ package me.creepsterlgc.core.commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.Set;
-
 import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.utils.PermissionsUtils;
 
@@ -36,9 +33,10 @@ public class CommandSearchitem implements CommandCallable {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		for(Entry<String, Set<ItemType>> e : Controller.getGame().getRegistry().getGameDictionary().getAllItems().entrySet()) {
-			if(!e.getValue().iterator().next().getName().contains(name)) continue;
-			sb.append(e.getValue().iterator().next().getName().replaceAll("minecraft:", "") + ", ");
+		
+		for(ItemType t : Controller.getGame().getRegistry().getAllOf(ItemType.class)) {
+			if(!t.getName().contains(name)) continue;
+			sb.append(t.getName() + ", ");
 		}
 		
 		if(sb.toString().contains(", ")) {
