@@ -11,7 +11,6 @@ import me.creepsterlgc.core.commands.CommandBan;
 import me.creepsterlgc.core.commands.CommandBanlist;
 import me.creepsterlgc.core.commands.CommandBroadcast;
 import me.creepsterlgc.core.commands.CommandButcher;
-import me.creepsterlgc.core.commands.CommandChannel;
 import me.creepsterlgc.core.commands.CommandCore;
 import me.creepsterlgc.core.commands.CommandEnchant;
 import me.creepsterlgc.core.commands.CommandFakejoin;
@@ -33,18 +32,14 @@ import me.creepsterlgc.core.commands.CommandMessage;
 import me.creepsterlgc.core.commands.CommandMoney;
 import me.creepsterlgc.core.commands.CommandMotd;
 import me.creepsterlgc.core.commands.CommandMute;
-import me.creepsterlgc.core.commands.CommandNick;
 import me.creepsterlgc.core.commands.CommandOnlinetime;
 import me.creepsterlgc.core.commands.CommandPage;
 import me.creepsterlgc.core.commands.CommandPing;
-import me.creepsterlgc.core.commands.CommandPortal;
 import me.creepsterlgc.core.commands.CommandPowertool;
-import me.creepsterlgc.core.commands.CommandRealname;
 import me.creepsterlgc.core.commands.CommandReply;
 import me.creepsterlgc.core.commands.CommandRules;
 import me.creepsterlgc.core.commands.CommandSearchitem;
 import me.creepsterlgc.core.commands.CommandSeen;
-import me.creepsterlgc.core.commands.CommandSelection;
 import me.creepsterlgc.core.commands.CommandSpeed;
 import me.creepsterlgc.core.commands.CommandTP;
 import me.creepsterlgc.core.commands.CommandTPA;
@@ -59,20 +54,14 @@ import me.creepsterlgc.core.commands.CommandTPWorld;
 import me.creepsterlgc.core.commands.CommandTempban;
 import me.creepsterlgc.core.commands.CommandKick;
 import me.creepsterlgc.core.commands.CommandSpawn;
-import me.creepsterlgc.core.commands.CommandTicket;
 import me.creepsterlgc.core.commands.CommandTime;
 import me.creepsterlgc.core.commands.CommandUnban;
 import me.creepsterlgc.core.commands.CommandUnmute;
 import me.creepsterlgc.core.commands.CommandWarp;
 import me.creepsterlgc.core.commands.CommandWeather;
 import me.creepsterlgc.core.commands.CommandWhois;
-import me.creepsterlgc.core.commands.CommandWorld;
-import me.creepsterlgc.core.commands.CommandZone;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePortal;
-import me.creepsterlgc.core.events.EventEntitySpawn;
-import me.creepsterlgc.core.events.EventPlayerBlockBreak;
-import me.creepsterlgc.core.events.EventPlayerBlockPlace;
 import me.creepsterlgc.core.events.EventPlayerDamage;
 import me.creepsterlgc.core.events.EventPlayerInteractBlock;
 import me.creepsterlgc.core.events.EventPlayerLogin;
@@ -85,13 +74,11 @@ import me.creepsterlgc.core.events.EventPlayerMove;
 import me.creepsterlgc.core.events.EventPlayerQuit;
 import me.creepsterlgc.core.events.EventPlayerRespawn;
 import me.creepsterlgc.core.events.EventSignChange;
-import me.creepsterlgc.core.files.FileChat;
 import me.creepsterlgc.core.files.FileCommands;
 import me.creepsterlgc.core.files.FileConfig;
 import me.creepsterlgc.core.files.FileMessages;
 import me.creepsterlgc.core.files.FileMotd;
 import me.creepsterlgc.core.files.FileRules;
-import me.creepsterlgc.core.files.FileWorlds;
 import me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
@@ -128,12 +115,10 @@ public class Core {
     	ServerUtils.sink = game.getServer().getBroadcastSink();
     	
     	FileConfig.setup();
-    	FileChat.setup();
     	FileCommands.setup();
     	FileMessages.setup();
     	FileMotd.setup();
     	FileRules.setup();
-    	FileWorlds.setup();
     	
     	CoreDatabase.setup(game);
     	CoreDatabase.load(game);
@@ -147,13 +132,10 @@ public class Core {
         }
     	
     	game.getEventManager().registerListeners(this, this);
-    	game.getEventManager().registerListeners(this, new EventEntitySpawn());
     	game.getEventManager().registerListeners(this, new EventPlayerLogin());
     	game.getEventManager().registerListeners(this, new EventPlayerChat());
     	game.getEventManager().registerListeners(this, new EventPlayerDamage());
     	game.getEventManager().registerListeners(this, new EventPlayerDeath());
-    	game.getEventManager().registerListeners(this, new EventPlayerBlockPlace());
-    	game.getEventManager().registerListeners(this, new EventPlayerBlockBreak());
     	game.getEventManager().registerListeners(this, new EventPlayerInteractBlock());
     	game.getEventManager().registerListeners(this, new EventPlayerInteractEntity());
     	game.getEventManager().registerListeners(this, new EventPlayerJoin());
@@ -168,7 +150,6 @@ public class Core {
     	if(FileCommands.BANLIST()) game.getCommandDispatcher().register(this, new CommandBanlist(), "banlist");
     	if(FileCommands.BROADCAST()) game.getCommandDispatcher().register(this, new CommandBroadcast(), "broadcast");
     	if(FileCommands.BUTCHER()) game.getCommandDispatcher().register(this, new CommandButcher(), "butcher");
-    	if(FileCommands.CHANNEL()) game.getCommandDispatcher().register(this, new CommandChannel(), "channel", "ch", "c");
     	if(FileCommands.CORE()) game.getCommandDispatcher().register(this, new CommandCore(), "core");
     	if(FileCommands.ENCHANT()) game.getCommandDispatcher().register(this, new CommandEnchant(game), "enchant");
     	if(FileCommands.FAKEJOIN()) game.getCommandDispatcher().register(this, new CommandFakejoin(), "fakejoin");
@@ -191,21 +172,16 @@ public class Core {
     	if(FileCommands.MONEY()) game.getCommandDispatcher().register(this, new CommandMoney(), "money");
     	if(FileCommands.MOTD()) game.getCommandDispatcher().register(this, new CommandMotd(), "motd");
     	if(FileCommands.MUTE()) game.getCommandDispatcher().register(this, new CommandMute(game), "mute");
-    	if(FileCommands.NICK()) game.getCommandDispatcher().register(this, new CommandNick(), "nick");
     	if(FileCommands.ONLINETIME()) game.getCommandDispatcher().register(this, new CommandOnlinetime(game), "onlinetime");
     	if(FileCommands.PING()) game.getCommandDispatcher().register(this, new CommandPing(), "ping");
-    	if(FileCommands.PORTAL()) game.getCommandDispatcher().register(this, new CommandPortal(), "portal");
     	if(FileCommands.POWERTOOL()) game.getCommandDispatcher().register(this, new CommandPowertool(game), "powertool");
-    	if(FileCommands.REALNAME()) game.getCommandDispatcher().register(this, new CommandRealname(), "realname");
     	if(FileCommands.REPLY()) game.getCommandDispatcher().register(this, new CommandReply(), "r", "reply");
     	if(FileCommands.RULES()) game.getCommandDispatcher().register(this, new CommandRules(), "rules");
     	if(FileCommands.SEARCHITEM()) game.getCommandDispatcher().register(this, new CommandSearchitem(), "searchitem", "si", "search");
     	if(FileCommands.SEEN()) game.getCommandDispatcher().register(this, new CommandSeen(game), "seen");
-    	if(FileCommands.SELECTION()) game.getCommandDispatcher().register(this, new CommandSelection(), "selection", "s");
     	if(FileCommands.SPAWN()) game.getCommandDispatcher().register(this, new CommandSpawn(), "spawn");
     	if(FileCommands.SPEED()) game.getCommandDispatcher().register(this, new CommandSpeed(), "speed");
     	if(FileCommands.TEMPBAN()) game.getCommandDispatcher().register(this, new CommandTempban(game), "tempban");
-    	if(FileCommands.TICKET()) game.getCommandDispatcher().register(this, new CommandTicket(), "ticket");
     	if(FileCommands.TIME()) game.getCommandDispatcher().register(this, new CommandTime(game), "time");
     	if(FileCommands.TP()) game.getCommandDispatcher().register(this, new CommandTP(game), "tp", "teleport");
     	if(FileCommands.TPA()) game.getCommandDispatcher().register(this, new CommandTPA(game), "tpa");
@@ -222,8 +198,6 @@ public class Core {
     	if(FileCommands.WARP()) game.getCommandDispatcher().register(this, new CommandWarp(), "warp");
     	if(FileCommands.WEATHER()) game.getCommandDispatcher().register(this, new CommandWeather(game), "weather");
     	if(FileCommands.WHOIS()) game.getCommandDispatcher().register(this, new CommandWhois(game), "whois", "check");
-    	if(FileCommands.WORLD()) game.getCommandDispatcher().register(this, new CommandWorld(game), "world");
-    	if(FileCommands.ZONE()) game.getCommandDispatcher().register(this, new CommandZone(), "zone", "z");
     	
     	game.getCommandDispatcher().register(this, new CommandPage(), "page");
     	

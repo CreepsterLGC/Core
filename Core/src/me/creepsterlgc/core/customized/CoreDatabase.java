@@ -312,18 +312,6 @@ public class CoreDatabase {
 	public static void removeWarp(String name) { if(warps.containsKey(name)) warps.remove(name); }
 	public static CoreWarp getWarp(String name) { return warps.containsKey(name) ? warps.get(name) : null; }
 	public static HashMap<String, CoreWarp> getWarps() { return warps; }
-
-	private static HashMap<String, CoreChannel> channels = new HashMap<String, CoreChannel>();
-	public static void addChannel(String name, CoreChannel channel) { if(!channels.containsKey(name)) channels.put(name, channel); }
-	public static void removeChannel(String name) { if(channels.containsKey(name)) channels.remove(name); }
-	public static CoreChannel getChannel(String name) { return channels.containsKey(name) ? channels.get(name) : null; }
-	public static HashMap<String, CoreChannel> getChannels() { return channels; }
-	
-	private static HashMap<String, CoreWorld> worlds = new HashMap<String, CoreWorld>();
-	public static void addWorld(String name, CoreWorld world) { if(!worlds.containsKey(name)) worlds.put(name, world); }
-	public static void removeWorld(String name) { if(worlds.containsKey(name)) worlds.remove(name); }
-	public static CoreWorld getWorld(String name) { return worlds.containsKey(name) ? worlds.get(name) : null; }
-	public static HashMap<String, CoreWorld> getWorlds() { return worlds; }
 	
 	private static HashMap<String, CoreZone> zones = new HashMap<String, CoreZone>();
 	public static void addZone(String name, CoreZone zone) { zones.put(name, zone); }

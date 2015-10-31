@@ -25,7 +25,7 @@ public class EventSignChange {
     	if(!optional.isPresent()) return;
     	
     	Player player = optional.get();
-    	
+
     	Sign sign = event.getTargetTile();
     	
 		SignData data = event.getText();

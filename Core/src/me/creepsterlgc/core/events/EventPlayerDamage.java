@@ -5,7 +5,6 @@ import java.util.HashMap;
 import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.customized.CoreWorld;
 import me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
@@ -34,13 +33,6 @@ public class EventPlayerDamage {
     		}
     		
     	}
-    	
-    	CoreWorld w = CoreDatabase.getWorld(player.getWorld().getName());
-    	
-    	if(w == null) return;
-	    if(!w.getBuild() && !PermissionsUtils.has(player, "core.world." + w.getName() + ".bypass.pvp")) {
-//		    event.setCancelled(true);
-	    }
     	
     }
 	

@@ -50,7 +50,7 @@ public class DeserializeUtils {
 		
 		for(String s : settings.split("-;;")) {
 			String setting = s.split(":")[0];
-			String value = s.split(":")[1];
+			String value = s.split(":", 2)[1];
 			result.put(setting, value);
 		}
 		

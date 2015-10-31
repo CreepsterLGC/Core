@@ -7,9 +7,7 @@ import me.creepsterlgc.core.Controller;
 import me.creepsterlgc.core.customized.CoreDatabase;
 import me.creepsterlgc.core.customized.CorePlayer;
 import me.creepsterlgc.core.customized.CoreSelection;
-import me.creepsterlgc.core.customized.CoreWorld;
 import me.creepsterlgc.core.utils.PermissionsUtils;
-import me.creepsterlgc.core.utils.ZoneUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -37,11 +35,6 @@ public class EventPlayerInteractBlock {
     	Player player = optional.get();
     	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
     	
-	    if(!ZoneUtils.canInteract(player, event.getTargetBlock().getLocation().get())) {
-	    	player.sendMessage(Texts.of(TextColors.RED, "You do not have permissions!"));
-	    	event.setCancelled(true);
-	    }
-    	
     	if(player.getItemInHand().isPresent() && PermissionsUtils.has(player, "core.powertool")) {
     		
     		ItemStack i = player.getItemInHand().get();
@@ -53,13 +46,6 @@ public class EventPlayerInteractBlock {
     		}
     		
     	}
-    	
-    	CoreWorld w = CoreDatabase.getWorld(player.getWorld().getName());
-    	
-    	if(w == null) return;
-	    if(!w.getBuild() && !PermissionsUtils.has(player, "core.world." + w.getName() + ".bypass.interact")) {
-		    event.setCancelled(true);
-	    }
     	
     }
     
@@ -102,11 +88,6 @@ public class EventPlayerInteractBlock {
     	Player player = optional.get();
     	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
     	
-	    if(!ZoneUtils.canInteract(player, event.getTargetBlock().getLocation().get())) {
-	    	player.sendMessage(Texts.of(TextColors.RED, "You do not have permissions!"));
-	    	event.setCancelled(true);
-	    }
-    	
     	if(player.getItemInHand().isPresent() && PermissionsUtils.has(player, "core.powertool")) {
     		
     		ItemStack i = player.getItemInHand().get();
@@ -118,13 +99,6 @@ public class EventPlayerInteractBlock {
     		}
     		
     	}
-    	
-    	CoreWorld w = CoreDatabase.getWorld(player.getWorld().getName());
-    	
-    	if(w == null) return;
-	    if(!w.getBuild() && !PermissionsUtils.has(player, "core.world." + w.getName() + ".bypass.interact")) {
-		    event.setCancelled(true);
-	    }
     	
     }
     

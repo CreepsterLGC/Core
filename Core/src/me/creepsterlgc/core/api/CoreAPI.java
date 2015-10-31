@@ -41,16 +41,6 @@ public class CoreAPI {
 	 * 
 	 */
 	
-	public CoreAPIChatManager getPlayerManager() {
-		if(CoreAPIChatManager.instance == null) CoreAPIChatManager.instance = new CoreAPIChatManager();
-		return CoreAPIChatManager.instance;
-	}
-
-	/*
-	 * returns Core's chat manager @(/me/creepsterlgc/core/api/CoreAPIChatManager)
-	 * 
-	 */
-	
 	public CoreAPIEconomyManager getEconomyManager() {
 		if(CoreAPIEconomyManager.instance == null) CoreAPIEconomyManager.instance = new CoreAPIEconomyManager();
 		return CoreAPIEconomyManager.instance;

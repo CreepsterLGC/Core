@@ -16,7 +16,7 @@ public class EventPlayerDeath {
     	
     	if(event.getTargetEntity() instanceof Player == false) return;
     	Player player = (Player) event.getTargetEntity();
-    	
+
     	String world = player.getWorld().getName();
     	double x = player.getLocation().getX();
     	double y = player.getLocation().getY();
