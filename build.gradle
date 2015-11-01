@@ -9,7 +9,7 @@ apply plugin: 'net.ellune.blossom'
 group 'me.creepsterlgc'
 version 'Latest'
 
-project.buildDir = '../var/www/html/downloads/core'
+project.buildDir = '../../../../www/html/downloads/core'
 
 repositories {
     jcenter()
