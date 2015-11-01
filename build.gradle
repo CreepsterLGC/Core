@@ -8,7 +8,6 @@ apply plugin: 'net.ellune.blossom'
 
 group 'me.creepsterlgc'
 version 'Latest'
-buildDir = 'releases'
 
 repositories {
     jcenter()
