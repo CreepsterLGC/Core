@@ -18,7 +18,6 @@ repositories {
 }
 
 dependencies {
- 	classpath 'org.jenkins-ci.tools:gradle-jpi-plugin:0.12.2'
     compile 'org.spongepowered:spongeapi:2.1-SNAPSHOT'
 }
 
