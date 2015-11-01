@@ -197,7 +197,7 @@ public class Core {
     	if(FileCommands.UNMUTE()) game.getCommandDispatcher().register(this, new CommandUnmute(game), "unmute");
     	if(FileCommands.WARP()) game.getCommandDispatcher().register(this, new CommandWarp(), "warp");
     	if(FileCommands.WEATHER()) game.getCommandDispatcher().register(this, new CommandWeather(game), "weather");
-    	if(FileCommands.WHOIS()) game.getCommandDispatcher().register(this, new CommandWhois(game), "whois", "check");
+    	if(FileCommands.WHOIS()) game.getCommandDispatcher().register(this, new CommandWhois(), "whois", "check");
     	
     	game.getCommandDispatcher().register(this, new CommandPage(), "page");
     	

@@ -27,12 +27,6 @@ import org.spongepowered.api.world.World;
 
 public class CommandWhois implements CommandCallable {
 	
-	public Game game;
-	
-	public CommandWhois(Game game) {
-		this.game = game;
-	}
-	
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
