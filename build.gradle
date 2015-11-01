@@ -9,8 +9,6 @@ apply plugin: 'net.ellune.blossom'
 group 'me.creepsterlgc'
 version 'Latest'
 
-project.buildDir = './home/core'
-
 repositories {
     jcenter()
     maven {
