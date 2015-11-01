@@ -90,7 +90,7 @@ import org.spongepowered.api.service.ProviderExistsException;
 
 import com.google.inject.Inject;
 
-@Plugin(id = "Core", name = "Core Plugin")
+@Plugin(id = "Core", name = "Core Plugin", version = "@project.version@")
 
 public class Core {
 
