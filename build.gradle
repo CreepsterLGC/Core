@@ -12,11 +12,13 @@ version 'v2-7-1c'
 repositories {
     jcenter()
     maven {
+      	url 'http://repo.jenkins-ci.org/releases/'    
         url 'https://repo.spongepowered.org/maven/'
     }
 }
 
 dependencies {
+ 	classpath 'org.jenkins-ci.tools:gradle-jpi-plugin:0.12.2'
     compile 'org.spongepowered:spongeapi:2.1-SNAPSHOT'
 }
 
@@ -28,4 +30,11 @@ def getGitHash() {
 
 blossom {
     replaceToken '@project.version@', project.version + getGitHash(), 'src/main/java/me/creepsterlgc/core/Core.java'
+}
+
+jenkinsPlugin {
+    coreVersion = '1.420'
+    displayName = 'Core built with Gradle'
+    url = 'http://minecraft.je/core'
+    shortName = 'core'
 }
