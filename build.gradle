@@ -5,6 +5,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'net.ellune.blossom'
+apply plugin: 'org.jenkins-ci.jpi'
 
 group 'me.creepsterlgc'
 version 'v2-7-1c'
