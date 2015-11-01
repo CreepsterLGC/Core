@@ -7,7 +7,7 @@ apply plugin: 'maven'
 apply plugin: 'net.ellune.blossom'
 
 group 'me.creepsterlgc'
-version 'latest'
+version 'Latest'
 
 repositories {
     jcenter()
