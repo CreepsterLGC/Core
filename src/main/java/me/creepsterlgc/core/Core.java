@@ -146,7 +146,7 @@ public class Core {
     	game.getEventManager().registerListeners(this, new EventSignChange());
     	
     	if(FileCommands.AFK()) game.getCommandDispatcher().register(this, new CommandAFK(), "afk");
-    	if(FileCommands.BAN()) game.getCommandDispatcher().register(this, new CommandBan(game), "ban");
+    	if(FileCommands.BAN()) game.getCommandDispatcher().register(this, new CommandBan(), "ban");
     	if(FileCommands.BANLIST()) game.getCommandDispatcher().register(this, new CommandBanlist(), "banlist");
     	if(FileCommands.BROADCAST()) game.getCommandDispatcher().register(this, new CommandBroadcast(), "broadcast");
     	if(FileCommands.BUTCHER()) game.getCommandDispatcher().register(this, new CommandButcher(), "butcher");

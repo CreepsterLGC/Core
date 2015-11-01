@@ -23,12 +23,6 @@ import org.spongepowered.api.util.command.CommandSource;
 
 public class CommandBan implements CommandCallable {
 	
-	public Game game;
-	
-	public CommandBan(Game game) {
-		this.game = game;
-	}
-	
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
