@@ -1,4 +1,4 @@
-package src.main.java.me.creepsterlgc.core;
+package me.creepsterlgc.core;
 
 import java.util.Collection;
 
