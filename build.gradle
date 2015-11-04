@@ -1,0 +1,30 @@
+plugins {
+    id 'net.ellune.blossom' version '1.0.1'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'net.ellune.blossom'
+
+group 'me.creepsterlgc'
+
+repositories {
+    jcenter()
+    maven {
+        url 'https://repo.spongepowered.org/maven/'
+    }
+}
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:2.1-20151031.211718-102'
+}
+
+def getGitHash() {
+    def process = 'git rev-parse --short HEAD'.execute()
+    process.waitFor()
+    return '-' + (process.exitValue() ? 'unknown' : process.text.trim())
+}
+
+blossom {
+    replaceToken '@project.version@', project.version + getGitHash(), 'src/main/java/me/creepsterlgc/core/Core.java'
+} 
