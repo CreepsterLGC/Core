@@ -186,7 +186,7 @@ public class CoreZone {
 	}
 	
 	public void allowPVP(boolean state) {
-		String s = "pvp"; if(state == false) s = "deny";
+		String s = "allow"; if(state == false) s = "deny";
 		settings.put("pvp", s);
 	}
 	
@@ -196,7 +196,7 @@ public class CoreZone {
 	}
 	
 	public void allowAnimalSpawning(boolean state) {
-		String s = "animals"; if(state == false) s = "deny";
+		String s = "allow"; if(state == false) s = "deny";
 		settings.put("animals", s);
 	}
 	
@@ -206,7 +206,7 @@ public class CoreZone {
 	}
 	
 	public void allowMonsterSpawning(boolean state) {
-		String s = "monsters"; if(state == false) s = "deny";
+		String s = "allow"; if(state == false) s = "deny";
 		settings.put("monsters", s);
 	}
 	
@@ -216,7 +216,7 @@ public class CoreZone {
 	}
 	
 	public void allowHunger(boolean state) {
-		String s = "hunger"; if(state == false) s = "deny";
+		String s = "allow"; if(state == false) s = "deny";
 		settings.put("hunger", s);
 	}
 	
