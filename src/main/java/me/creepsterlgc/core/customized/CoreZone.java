@@ -191,7 +191,7 @@ public class CoreZone {
 	}
 	
 	public boolean getPVP() {
-		if(!settings.containsKey("pvp")) return false; String s = settings.get("pvp");
+		if(!settings.containsKey("pvp")) return true; String s = settings.get("pvp");
 		if(s.equalsIgnoreCase("allow")) return true; return false;
 	}
 	
@@ -201,7 +201,7 @@ public class CoreZone {
 	}
 	
 	public boolean getAnimalSpawning() {
-		if(!settings.containsKey("animals")) return false; String s = settings.get("animals");
+		if(!settings.containsKey("animals")) return true; String s = settings.get("animals");
 		if(s.equalsIgnoreCase("allow")) return true; return false;
 	}
 	
@@ -211,7 +211,7 @@ public class CoreZone {
 	}
 	
 	public boolean getMonsterSpawning() {
-		if(!settings.containsKey("monsters")) return false; String s = settings.get("monsters");
+		if(!settings.containsKey("monsters")) return true; String s = settings.get("monsters");
 		if(s.equalsIgnoreCase("allow")) return true; return false;
 	}
 	
@@ -221,7 +221,7 @@ public class CoreZone {
 	}
 	
 	public boolean getHunger() {
-		if(!settings.containsKey("hunger")) return false; String s = settings.get("hunger");
+		if(!settings.containsKey("hunger")) return true; String s = settings.get("hunger");
 		if(s.equalsIgnoreCase("allow")) return true; return false;
 	}
 	
@@ -231,7 +231,7 @@ public class CoreZone {
 	}
 	
 	public boolean getInvulnerability() {
-		if(!settings.containsKey("invulnerability")) return false; String s = settings.get("invulnerability");
+		if(!settings.containsKey("invulnerability")) return true; String s = settings.get("invulnerability");
 		if(s.equalsIgnoreCase("allow")) return true; return false;
 	}
 	
