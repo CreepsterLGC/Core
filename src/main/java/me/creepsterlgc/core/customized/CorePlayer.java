@@ -1,4 +1,4 @@
-package me.creepsterlgc.core.customized;
+package main.java.me.creepsterlgc.core.customized;
 
 import java.util.HashMap;
 import java.util.List;

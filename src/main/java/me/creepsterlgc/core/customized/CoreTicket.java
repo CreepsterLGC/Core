@@ -1,8 +1,8 @@
-package me.creepsterlgc.core.customized;
+package main.java.me.creepsterlgc.core.customized;
 
 import java.util.List;
 
-import me.creepsterlgc.core.utils.SerializeUtils;
+import main.java.me.creepsterlgc.core.utils.SerializeUtils;
 
 public class CoreTicket {
 

@@ -1,14 +1,14 @@
-package me.creepsterlgc.core.events;
+package main.java.me.creepsterlgc.core.events;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.living.player.KickPlayerEvent;
 
-import me.creepsterlgc.core.customized.CoreDatabase;
-import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.files.FileMessages;
-import me.creepsterlgc.core.utils.SerializeUtils;
-import me.creepsterlgc.core.utils.TextUtils;
+import main.java.me.creepsterlgc.core.customized.CoreDatabase;
+import main.java.me.creepsterlgc.core.customized.CorePlayer;
+import main.java.me.creepsterlgc.core.files.FileMessages;
+import main.java.me.creepsterlgc.core.utils.SerializeUtils;
+import main.java.me.creepsterlgc.core.utils.TextUtils;
 
 
 public class EventPlayerKick {

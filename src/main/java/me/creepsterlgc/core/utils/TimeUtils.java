@@ -1,4 +1,4 @@
-package me.creepsterlgc.core.utils;
+package main.java.me.creepsterlgc.core.utils;
 
 public class TimeUtils {
 

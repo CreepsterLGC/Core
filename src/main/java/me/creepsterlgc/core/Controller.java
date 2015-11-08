@@ -1,8 +1,8 @@
-package me.creepsterlgc.core;
+package main.java.me.creepsterlgc.core;
 
 import java.util.Collection;
 
-import me.creepsterlgc.core.utils.ServerUtils;
+import main.java.me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Server;

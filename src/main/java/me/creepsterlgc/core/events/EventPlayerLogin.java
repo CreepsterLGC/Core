@@ -1,10 +1,10 @@
-package me.creepsterlgc.core.events;
+package main.java.me.creepsterlgc.core.events;
 
-import me.creepsterlgc.core.customized.CoreBan;
-import me.creepsterlgc.core.customized.CoreDatabase;
-import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.customized.CoreSpawn;
-import me.creepsterlgc.core.utils.TimeUtils;
+import main.java.me.creepsterlgc.core.customized.CoreBan;
+import main.java.me.creepsterlgc.core.customized.CoreDatabase;
+import main.java.me.creepsterlgc.core.customized.CorePlayer;
+import main.java.me.creepsterlgc.core.customized.CoreSpawn;
+import main.java.me.creepsterlgc.core.utils.TimeUtils;
 
 import org.spongepowered.api.entity.Transform;
 import org.spongepowered.api.event.Listener;

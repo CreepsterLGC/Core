@@ -1,10 +1,10 @@
-package me.creepsterlgc.core.events;
+package main.java.me.creepsterlgc.core.events;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 import org.spongepowered.api.block.tileentity.Sign;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.manipulator.mutable.tileentity.SignData;

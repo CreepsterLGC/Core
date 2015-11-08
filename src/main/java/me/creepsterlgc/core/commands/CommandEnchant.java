@@ -1,11 +1,11 @@
-package me.creepsterlgc.core.commands;
+package main.java.me.creepsterlgc.core.commands;
 
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.utils.CommandUtils;
-import me.creepsterlgc.core.utils.ItemUtils;
-import me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.utils.CommandUtils;
+import main.java.me.creepsterlgc.core.utils.ItemUtils;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.data.manipulator.mutable.item.EnchantmentData;

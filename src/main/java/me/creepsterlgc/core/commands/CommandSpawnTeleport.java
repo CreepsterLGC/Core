@@ -1,9 +1,9 @@
-package me.creepsterlgc.core.commands;
+package main.java.me.creepsterlgc.core.commands;
 
-import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CoreDatabase;
-import me.creepsterlgc.core.customized.CoreSpawn;
-import me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.Controller;
+import main.java.me.creepsterlgc.core.customized.CoreDatabase;
+import main.java.me.creepsterlgc.core.customized.CoreSpawn;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;

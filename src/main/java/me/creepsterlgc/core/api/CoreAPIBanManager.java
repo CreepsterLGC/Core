@@ -1,7 +1,7 @@
-package me.creepsterlgc.core.api;
+package main.java.me.creepsterlgc.core.api;
 
-import me.creepsterlgc.core.customized.CoreBan;
-import me.creepsterlgc.core.customized.CoreDatabase;
+import main.java.me.creepsterlgc.core.customized.CoreBan;
+import main.java.me.creepsterlgc.core.customized.CoreDatabase;
 
 public class CoreAPIBanManager {
 

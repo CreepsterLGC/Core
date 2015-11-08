@@ -1,12 +1,12 @@
-package me.creepsterlgc.core.customized;
+package main.java.me.creepsterlgc.core.customized;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.utils.SerializeUtils;
+import main.java.me.creepsterlgc.core.Controller;
+import main.java.me.creepsterlgc.core.utils.SerializeUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;

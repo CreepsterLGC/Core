@@ -1,8 +1,8 @@
-package me.creepsterlgc.core.commands;
+package main.java.me.creepsterlgc.core.commands;
 
-import me.creepsterlgc.core.customized.CoreDatabase;
-import me.creepsterlgc.core.customized.CoreWarp;
-import me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.customized.CoreDatabase;
+import main.java.me.creepsterlgc.core.customized.CoreWarp;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;

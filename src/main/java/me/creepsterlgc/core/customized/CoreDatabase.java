@@ -1,4 +1,4 @@
-package me.creepsterlgc.core.customized;
+package main.java.me.creepsterlgc.core.customized;
 
 import java.io.File;
 import java.sql.Connection;
@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import javax.sql.DataSource;
 
-import me.creepsterlgc.core.files.FileConfig;
-import me.creepsterlgc.core.utils.DeserializeUtils;
+import main.java.me.creepsterlgc.core.files.FileConfig;
+import main.java.me.creepsterlgc.core.utils.DeserializeUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.service.sql.SqlService;

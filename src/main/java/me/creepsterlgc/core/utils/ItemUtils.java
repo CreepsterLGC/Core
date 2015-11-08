@@ -1,7 +1,7 @@
-package me.creepsterlgc.core.utils;
+package main.java.me.creepsterlgc.core.utils;
 
 import java.util.Optional;
-import me.creepsterlgc.core.Controller;
+import main.java.me.creepsterlgc.core.Controller;
 
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.Entity;

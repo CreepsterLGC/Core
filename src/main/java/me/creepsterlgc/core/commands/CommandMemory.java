@@ -1,10 +1,10 @@
-package me.creepsterlgc.core.commands;
+package main.java.me.creepsterlgc.core.commands;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;

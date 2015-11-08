@@ -1,11 +1,11 @@
-package me.creepsterlgc.core.events;
+package main.java.me.creepsterlgc.core.events;
 
 import java.util.HashMap;
 
-import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CoreDatabase;
-import me.creepsterlgc.core.customized.CorePlayer;
-import me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.Controller;
+import main.java.me.creepsterlgc.core.customized.CoreDatabase;
+import main.java.me.creepsterlgc.core.customized.CorePlayer;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;

@@ -1,4 +1,4 @@
-package me.creepsterlgc.core.files;
+package main.java.me.creepsterlgc.core.files;
 
 import java.io.File;
 import java.io.IOException;

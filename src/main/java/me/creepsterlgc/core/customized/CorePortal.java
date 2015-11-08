@@ -1,12 +1,12 @@
-package me.creepsterlgc.core.customized;
+package main.java.me.creepsterlgc.core.customized;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.utils.PermissionsUtils;
-import me.creepsterlgc.core.utils.TextUtils;
+import main.java.me.creepsterlgc.core.Controller;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.utils.TextUtils;
 
 public class CorePortal {
 

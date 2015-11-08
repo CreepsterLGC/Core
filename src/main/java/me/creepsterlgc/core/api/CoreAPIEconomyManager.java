@@ -1,7 +1,7 @@
-package me.creepsterlgc.core.api;
+package main.java.me.creepsterlgc.core.api;
 
-import me.creepsterlgc.core.customized.CoreDatabase;
-import me.creepsterlgc.core.customized.CorePlayer;
+import main.java.me.creepsterlgc.core.customized.CoreDatabase;
+import main.java.me.creepsterlgc.core.customized.CorePlayer;
 
 public class CoreAPIEconomyManager {
 

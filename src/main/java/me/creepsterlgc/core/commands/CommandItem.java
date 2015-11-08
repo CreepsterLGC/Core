@@ -1,13 +1,13 @@
-package me.creepsterlgc.core.commands;
+package main.java.me.creepsterlgc.core.commands;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.utils.CommandUtils;
-import me.creepsterlgc.core.utils.ItemUtils;
-import me.creepsterlgc.core.utils.PermissionsUtils;
-import me.creepsterlgc.core.utils.TextUtils;
+import main.java.me.creepsterlgc.core.utils.CommandUtils;
+import main.java.me.creepsterlgc.core.utils.ItemUtils;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemType;

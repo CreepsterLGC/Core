@@ -1,4 +1,4 @@
-package me.creepsterlgc.core.api;
+package main.java.me.creepsterlgc.core.api;
 
 public class CoreAPI {
 	

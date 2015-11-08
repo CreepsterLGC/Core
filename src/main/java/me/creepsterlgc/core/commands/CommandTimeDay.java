@@ -1,8 +1,8 @@
-package me.creepsterlgc.core.commands;
+package main.java.me.creepsterlgc.core.commands;
 
-import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.utils.PermissionsUtils;
-import me.creepsterlgc.core.utils.ServerUtils;
+import main.java.me.creepsterlgc.core.Controller;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;

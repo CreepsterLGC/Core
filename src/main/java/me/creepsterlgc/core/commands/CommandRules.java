@@ -1,12 +1,12 @@
-package me.creepsterlgc.core.commands;
+package main.java.me.creepsterlgc.core.commands;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import me.creepsterlgc.core.files.FileRules;
-import me.creepsterlgc.core.utils.PermissionsUtils;
-import me.creepsterlgc.core.utils.TextUtils;
+import main.java.me.creepsterlgc.core.files.FileRules;
+import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;

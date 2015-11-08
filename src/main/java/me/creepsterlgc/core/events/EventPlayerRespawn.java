@@ -1,7 +1,7 @@
-package me.creepsterlgc.core.events;
+package main.java.me.creepsterlgc.core.events;
 
-import me.creepsterlgc.core.customized.CoreDatabase;
-import me.creepsterlgc.core.customized.CoreSpawn;
+import main.java.me.creepsterlgc.core.customized.CoreDatabase;
+import main.java.me.creepsterlgc.core.customized.CoreSpawn;
 
 import org.spongepowered.api.entity.Transform;
 import org.spongepowered.api.event.Listener;

@@ -1,4 +1,4 @@
-package me.creepsterlgc.core.utils;
+package main.java.me.creepsterlgc.core.utils;
 
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;

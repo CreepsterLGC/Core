@@ -1,4 +1,4 @@
-package me.creepsterlgc.core.api;
+package main.java.me.creepsterlgc.core.api;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
@@ -6,9 +6,9 @@ import org.spongepowered.api.world.World;
 
 import com.flowpowered.math.vector.Vector3d;
 
-import me.creepsterlgc.core.Controller;
-import me.creepsterlgc.core.customized.CoreDatabase;
-import me.creepsterlgc.core.customized.CoreSpawn;
+import main.java.me.creepsterlgc.core.Controller;
+import main.java.me.creepsterlgc.core.customized.CoreDatabase;
+import main.java.me.creepsterlgc.core.customized.CoreSpawn;
 
 public class CoreAPISpawnManager {
 
