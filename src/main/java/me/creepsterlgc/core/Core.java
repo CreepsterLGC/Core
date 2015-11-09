@@ -29,7 +29,6 @@ import main.java.me.creepsterlgc.core.commands.CommandList;
 import main.java.me.creepsterlgc.core.commands.CommandMail;
 import main.java.me.creepsterlgc.core.commands.CommandMemory;
 import main.java.me.creepsterlgc.core.commands.CommandMessage;
-import main.java.me.creepsterlgc.core.commands.CommandMoney;
 import main.java.me.creepsterlgc.core.commands.CommandMotd;
 import main.java.me.creepsterlgc.core.commands.CommandMute;
 import main.java.me.creepsterlgc.core.commands.CommandOnlinetime;
@@ -169,7 +168,6 @@ public class Core {
     	if(FileCommands.MAIL()) game.getCommandDispatcher().register(this, new CommandMail(), "mail");
     	if(FileCommands.MEMORY()) game.getCommandDispatcher().register(this, new CommandMemory(), "memory");
     	if(FileCommands.MSG()) game.getCommandDispatcher().register(this, new CommandMessage(), "m", "msg", "message", "w", "whisper", "tell");
-    	if(FileCommands.MONEY()) game.getCommandDispatcher().register(this, new CommandMoney(), "money");
     	if(FileCommands.MOTD()) game.getCommandDispatcher().register(this, new CommandMotd(), "motd");
     	if(FileCommands.MUTE()) game.getCommandDispatcher().register(this, new CommandMute(game), "mute");
     	if(FileCommands.ONLINETIME()) game.getCommandDispatcher().register(this, new CommandOnlinetime(game), "onlinetime");
