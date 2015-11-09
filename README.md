@@ -1,3 +1,5 @@
+[![Build Status](http://minecraft.je:8080/buildStatus/icon?job=Core)](http://minecraft.je:8080/job/Core/)
+
 Description:
 ---
 Core is a open source plugin providing a good foundation for any server using Sponge (https://www.spongepowered.org/)
