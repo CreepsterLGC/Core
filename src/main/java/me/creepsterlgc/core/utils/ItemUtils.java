@@ -13,13 +13,14 @@ import org.spongepowered.api.item.Enchantment;
 import org.spongepowered.api.item.Enchantments;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.item.inventory.ItemStackBuilder;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 public class ItemUtils {
 	
 	public static ItemStack build(ItemType type, int quantity) {
-		return Controller.getGame().getRegistry().createItemBuilder().itemType(type).quantity(quantity).build();
+		return Controller.getGame().getRegistry().createBuilder(ItemStackBuilder.class).itemType(type).quantity(quantity).build();
 	}
 	
 	public static void drop(ItemStack item, Player player) {

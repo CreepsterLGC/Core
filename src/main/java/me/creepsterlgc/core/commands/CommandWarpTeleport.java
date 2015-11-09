@@ -4,6 +4,7 @@ import main.java.me.creepsterlgc.core.Controller;
 import main.java.me.creepsterlgc.core.customized.CoreDatabase;
 import main.java.me.creepsterlgc.core.customized.CoreWarp;
 import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
@@ -21,8 +22,6 @@ public class CommandWarpTeleport {
 		
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 		
-		if(!PermissionsUtils.has(sender, "core.warp.teleport")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
-		
 		if(args.length != 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/warp <name>")); return; }
 		
 		Player player = (Player)sender;
@@ -31,6 +30,8 @@ public class CommandWarpTeleport {
 		CoreWarp warp = CoreDatabase.getWarp(name);
 		
 		if(warp == null) { sender.sendMessage(Texts.builder("Warp does not exist!").color(TextColors.RED).build()); return; }
+		
+		if(!PermissionsUtils.has(sender, "core.warp.teleport." + name)) { sender.sendMessage(TextUtils.permissions()); return; }
 		
 		if(PermissionsUtils.has(sender, "core.warp.teleport-unlimited")) {
 			if(!player.transferToWorld(warp.getWorld(), new Vector3d(warp.getX(), warp.getY(), warp.getZ()))) { sender.sendMessage(Texts.builder("Target world does not exist anymore!").color(TextColors.RED).build()); return; }
