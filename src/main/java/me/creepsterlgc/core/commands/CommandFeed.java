@@ -7,7 +7,6 @@ import java.util.Optional;
 import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 import main.java.me.creepsterlgc.core.utils.ServerUtils;
 
-import org.spongepowered.api.Game;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
