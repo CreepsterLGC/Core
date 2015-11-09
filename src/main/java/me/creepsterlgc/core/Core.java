@@ -154,7 +154,7 @@ public class Core {
     	if(FileCommands.ENCHANT()) game.getCommandDispatcher().register(this, new CommandEnchant(game), "enchant");
     	if(FileCommands.FAKEJOIN()) game.getCommandDispatcher().register(this, new CommandFakejoin(), "fakejoin");
     	if(FileCommands.FAKELEAVE()) game.getCommandDispatcher().register(this, new CommandFakeleave(), "fakeleave");
-    	if(FileCommands.FEED()) game.getCommandDispatcher().register(this, new CommandFeed(game), "feed");
+    	if(FileCommands.FEED()) game.getCommandDispatcher().register(this, new CommandFeed(), "feed");
     	if(FileCommands.FLY()) game.getCommandDispatcher().register(this, new CommandFly(), "fly");
     	if(FileCommands.FORCE()) game.getCommandDispatcher().register(this, new CommandForce(game), "force", "sudo");
     	if(FileCommands.GAMEMODE()) game.getCommandDispatcher().register(this, new CommandGamemode(), "gamemode", "gm");

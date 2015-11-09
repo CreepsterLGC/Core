@@ -21,12 +21,6 @@ import org.spongepowered.api.util.command.CommandSource;
 
 public class CommandFeed implements CommandCallable {
 	
-	public Game game;
-	
-	public CommandFeed(Game game) {
-		this.game = game;
-	}
-	
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 		
