@@ -12,30 +12,30 @@ import main.java.me.creepsterlgc.core.utils.TextUtils;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.command.CommandCallable;
-import org.spongepowered.api.util.command.CommandException;
-import org.spongepowered.api.util.command.CommandResult;
-import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.command.CommandCallable;
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.CommandSource;
 
 
 public class CommandFakejoin implements CommandCallable {
-	
+
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
-		
+
 		String[] args = arguments.split(" ");
-		
+
 		if(!PermissionsUtils.has(sender, "core.fakejoin")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
-		
+
 		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/fakejoin [name]")); return CommandResult.success(); }
-		
+
 		String name = sender.getName();
 		if(!arguments.equalsIgnoreCase("")) name = arguments;
-		
+
 		Controller.broadcast(TextUtils.color(FileMessages.EVENTS_JOIN_MESSAGE().replaceAll("%player", name)));
-		
+
 		return CommandResult.success();
-		
+
 	}
 
 	private final Text usage = Texts.builder("Usage: /fakejoin [name]").color(TextColors.YELLOW).build();
@@ -43,7 +43,7 @@ public class CommandFakejoin implements CommandCallable {
 	private final Text description = Texts.builder("Core | Fakejoin Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
-	
+
 	@Override
 	public Text getUsage(CommandSource sender) { return usage; }
 	@Override

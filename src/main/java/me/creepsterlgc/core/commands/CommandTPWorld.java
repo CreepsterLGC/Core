@@ -12,94 +12,94 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.command.CommandCallable;
-import org.spongepowered.api.util.command.CommandException;
-import org.spongepowered.api.util.command.CommandResult;
-import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.command.CommandCallable;
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.world.World;
 
 
 public class CommandTPWorld implements CommandCallable {
-	
+
 	public Game game;
-	
+
 	public CommandTPWorld(Game game) {
 		this.game = game;
 	}
-	
+
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
-		
+
 		String args[] = arguments.split(" ");
-		
+
 		if(!PermissionsUtils.has(sender, "core.tpworld")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
-		
-		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpworld [player] <world>")); return CommandResult.success(); }		
-		
-		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpworld [player] <world>")); return CommandResult.success(); }		
-		
+
+		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpworld [player] <world>")); return CommandResult.success(); }
+
+		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpworld [player] <world>")); return CommandResult.success(); }
+
 		if(args.length == 1) {
-			
+
 			if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
-	
+
 			Player player = (Player) sender;
-			
+
 			String name = args[0];
-	
+
 			if(!game.getServer().getWorld(name).isPresent()) {
 				sender.sendMessage(Texts.builder("World does not exist!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
-			
+
 			if(!game.getServer().getWorld(name).get().getProperties().isEnabled()) {
 				sender.sendMessage(Texts.builder("World does not exists!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
-			
+
 			World world = game.getServer().getWorld(name).get();
-	
+
 			player.setLocation(world.getSpawnLocation());
-			
+
 			sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to world ", TextColors.YELLOW, name));
-		
+
 		}
-		
+
 		if(args.length == 2) {
-			
+
 			if(!PermissionsUtils.has(sender, "core.tpworld-others")) {
 				sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
-			
+
 			Player player = ServerUtils.getPlayer(args[0].toLowerCase());
-			
+
 			if(player == null) {
 				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
-			
+
 			String name = args[1];
-	
+
 			if(!game.getServer().getWorld(name).isPresent()) {
 				sender.sendMessage(Texts.builder("World does not exist!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
-			
+
 			if(!game.getServer().getWorld(name).get().getProperties().isEnabled()) {
 				sender.sendMessage(Texts.builder("World does not exists!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
-			
+
 			World world = game.getServer().getWorld(name).get();
-	
+
 			player.setLocation(world.getSpawnLocation());
-			
+
 			sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported ", TextColors.YELLOW, player.getName(), " to world ", TextColors.YELLOW, name));
-		
+
 		}
-		
+
 		return CommandResult.success();
-		
+
 	}
 
 	private final Text usage = Texts.builder("Usage: /tpworld [player] <world>").color(TextColors.YELLOW).build();
@@ -107,7 +107,7 @@ public class CommandTPWorld implements CommandCallable {
 	private final Text description = Texts.builder("Core | TPWorld Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
-	
+
 	@Override
 	public Text getUsage(CommandSource sender) { return usage; }
 	@Override

@@ -15,33 +15,33 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.command.CommandCallable;
-import org.spongepowered.api.util.command.CommandException;
-import org.spongepowered.api.util.command.CommandResult;
-import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.command.CommandCallable;
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.CommandSource;
 
 
 public class CommandMessage implements CommandCallable {
-	
+
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
-		
+
 		String[] args = arguments.split(" ");
-		
+
 		if(!PermissionsUtils.has(sender, "core.msg")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
-		
+
 		if(args.length < 2) { sender.sendMessage(Texts.builder("Usage: /msg <player> <message>").color(TextColors.YELLOW).build()); return CommandResult.success(); }
-		
+
 		String message = CommandUtils.combineArgs(1, args);
-		
+
 		if(sender instanceof Player) {
-			
+
 			Player checking = (Player) sender;
-			
+
 	    	CoreMute mute = CoreDatabase.getMute(checking.getUniqueId().toString());
-	    	
+
 	    	if(mute != null) {
-	    		
+
 	    		if(mute.getDuration() != 0 && mute.getDuration() <= System.currentTimeMillis()) {
 	    			CoreDatabase.removeMute(checking.getUniqueId().toString());
 	    			mute.delete();
@@ -52,22 +52,22 @@ public class CommandMessage implements CommandCallable {
 	    		}
 	    	}
 		}
-		
+
 		Player player = ServerUtils.getPlayer(args[0]);
-		
+
 		if(player == null) {
 			sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));
 			return CommandResult.success();
 		}
-		
+
 		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		if(sender instanceof Player) p.setReply(sender.getName().toLowerCase());
-		
+
 		sender.sendMessage(Texts.of(TextColors.YELLOW, "To ", player.getName(), ": ", TextColors.WHITE, message));
 		player.sendMessage(Texts.of(TextColors.YELLOW, "From ", sender.getName(), ": ", TextColors.WHITE, message));
-		
+
 		return CommandResult.success();
-		
+
 	}
 
 	private final Text usage = Texts.builder("Usage: /msg").color(TextColors.YELLOW).build();
@@ -75,7 +75,7 @@ public class CommandMessage implements CommandCallable {
 	private final Text description = Texts.builder("Core | Message Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
-	
+
 	@Override
 	public Text getUsage(CommandSource sender) { return usage; }
 	@Override

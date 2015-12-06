@@ -17,44 +17,44 @@ public class EventPlayerInteractEntity {
 
     @Listener
     public void onPlayerInteractEntity(InteractEntityEvent.Primary event) {
-    	
+
     	if(event.getTargetEntity() instanceof Player == false) return;
     	Player player = (Player) event.getTargetEntity();
     	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
-    	
+
     	if(player.getItemInHand().isPresent() && PermissionsUtils.has(player, "core.powertool")) {
-    		
+
     		ItemStack i = player.getItemInHand().get();
     		String id = i.getItem().getId().replaceAll("minecraft:", "");
-    		
+
     		HashMap<String, String> powertools = p.getPowertools();
     		if(powertools.containsKey(id)) {
-    			Controller.getGame().getCommandDispatcher().process(player.getCommandSource().get(), powertools.get(id));
+    			Controller.getGame().getCommandManager().process(player.getCommandSource().get(), powertools.get(id));
     		}
-    		
+
     	}
-    	
+
     }
-    
+
     @Listener
     public void onPlayerInteractEntity(InteractEntityEvent.Secondary event) {
-    	
+
     	if(event.getTargetEntity() instanceof Player == false) return;
     	Player player = (Player) event.getTargetEntity();
     	CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
-    	
+
     	if(player.getItemInHand().isPresent() && PermissionsUtils.has(player, "core.powertool")) {
-    		
+
     		ItemStack i = player.getItemInHand().get();
     		String id = i.getItem().getId().replaceAll("minecraft:", "");
-    		
+
     		HashMap<String, String> powertools = p.getPowertools();
     		if(powertools.containsKey(id)) {
-    			Controller.getGame().getCommandDispatcher().process(player.getCommandSource().get(), powertools.get(id));
+    			Controller.getGame().getCommandManager().process(player.getCommandSource().get(), powertools.get(id));
     		}
-    		
+
     	}
-    	
+
     }
-	
+
 }

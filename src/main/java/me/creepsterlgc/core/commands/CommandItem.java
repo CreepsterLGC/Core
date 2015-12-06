@@ -15,36 +15,36 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.command.CommandCallable;
-import org.spongepowered.api.util.command.CommandException;
-import org.spongepowered.api.util.command.CommandResult;
-import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.command.CommandCallable;
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.CommandSource;
 
 
 public class CommandItem implements CommandCallable {
-	
+
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
-		
+
 		String[] args = arguments.split(" ");
-		
+
 		if(!CommandUtils.isPlayer(sender)) { sender.sendMessage(TextUtils.error("Cannot be run by the console!")); return CommandResult.success(); }
-		
+
 		if(!PermissionsUtils.has(sender, "core.item")) { sender.sendMessage(TextUtils.permissions()); return CommandResult.success(); }
-		
+
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(TextUtils.usage("/i <item> [amount]")); return CommandResult.success(); }
 		if(args.length < 1 || args.length > 2) { sender.sendMessage(TextUtils.usage("/i <item> [amount]")); return CommandResult.success(); }
-		
+
 		Player player = (Player) sender;
-		
+
 		ItemType type = ItemUtils.getType(args[0]);
 		if(type == null) {
 			sender.sendMessage(TextUtils.error("Item not found!"));
 			return CommandResult.success();
 		}
-		
+
 		int amount = 1;
-		
+
 		if(args.length == 2) {
 			if(!CommandUtils.isInt(args[1])) {
 				sender.sendMessage(TextUtils.error("<amount> has to be a number!"));
@@ -52,13 +52,13 @@ public class CommandItem implements CommandCallable {
 			}
 			amount = CommandUtils.getInt(args[1]);
 		}
-		
+
 		ItemStack item = ItemUtils.build(type, amount);
-		
+
 		ItemUtils.drop(item, player);
-		
+
 		sender.sendMessage(Texts.of(TextColors.GRAY, "Added ", TextColors.YELLOW, amount, " ", args[0].toLowerCase(), "(s)"));
-		
+
 		return CommandResult.success();
 
 	}
@@ -68,7 +68,7 @@ public class CommandItem implements CommandCallable {
 	private final Text description = Texts.builder("Core | Item Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
-	
+
 	@Override
 	public Text getUsage(CommandSource sender) { return usage; }
 	@Override

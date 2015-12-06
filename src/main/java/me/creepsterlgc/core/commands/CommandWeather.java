@@ -9,38 +9,38 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.command.CommandCallable;
-import org.spongepowered.api.util.command.CommandException;
-import org.spongepowered.api.util.command.CommandResult;
-import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.command.CommandCallable;
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.CommandSource;
 
 
 public class CommandWeather implements CommandCallable {
-	
+
 	private Game game;
-	
+
 	public CommandWeather(Game game) {
 		this.game = game;
 	}
-	
+
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
-		
+
 		String[] args = arguments.split(" ");
-		
+
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
-		
+
 		if(args.length < 1 || args.length > 2) { sender.sendMessage(usage); return CommandResult.success(); }
-		
+
 		if(args[0].equalsIgnoreCase("sun")) { new CommandWeatherSun(sender, args, game); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("rain")) { new CommandWeatherRain(sender, args, game); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("storm")) { new CommandWeatherStorm(sender, args, game); return CommandResult.success(); }
 		else {
 			sender.sendMessage(usage);
 		}
-		
+
 		return CommandResult.success();
-		
+
 	}
 
 	private final Text usage = Texts.builder("Usage: /weather <sun|rain|storm> [world]").color(TextColors.YELLOW).build();
@@ -48,7 +48,7 @@ public class CommandWeather implements CommandCallable {
 	private final Text description = Texts.builder("Core | Time Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
-	
+
 	@Override
 	public Text getUsage(CommandSource sender) { return usage; }
 	@Override

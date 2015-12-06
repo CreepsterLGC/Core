@@ -16,29 +16,29 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.command.CommandCallable;
-import org.spongepowered.api.util.command.CommandException;
-import org.spongepowered.api.util.command.CommandResult;
-import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.command.CommandCallable;
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.CommandSource;
 
 
 public class CommandPage implements CommandCallable {
-	
+
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
-		
+
 		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
-		
+
 		Player player = (Player) sender;
 		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
-		
+
 		int page;
 		try { page = Integer.parseInt(arguments); }
 		catch(NumberFormatException e) {
 			sender.sendMessage(Texts.builder("<page> has to be a number!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
-		
+
 		HashMap<Integer, List<Text>> pages = p.getPages();
 		if(!pages.containsKey(page)) {
 			sender.sendMessage(Texts.builder("Page does not exist!").color(TextColors.RED).build());
@@ -46,10 +46,10 @@ public class CommandPage implements CommandCallable {
 		}
 
 		List<Text> c = pages.get(page);
-		
+
 		PaginationService paginationService = Controller.getGame().getServiceManager().provide(PaginationService.class).get();
 		PaginationBuilder builder = paginationService.builder();
-		
+
 		Text title = p.getPageTitle();
 		Text header = p.getPageHeader();
 		Text page_previous = null;
@@ -74,7 +74,7 @@ public class CommandPage implements CommandCallable {
 		else {
 			footer = Texts.of(TextColors.GRAY, "This is the only page found.");
 		}
-		
+
 		builder
 		.contents(c)
 		.paddingString("-")
@@ -82,9 +82,9 @@ public class CommandPage implements CommandCallable {
 		.header(header)
 		.footer(footer)
 		.sendTo(sender);
-		
+
 		return CommandResult.success();
-		
+
 	}
 
 	private final Text usage = Texts.builder("Usage: /page <page>").color(TextColors.YELLOW).build();
@@ -92,7 +92,7 @@ public class CommandPage implements CommandCallable {
 	private final Text description = Texts.builder("Core | Page Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
-	
+
 	@Override
 	public Text getUsage(CommandSource sender) { return usage; }
 	@Override

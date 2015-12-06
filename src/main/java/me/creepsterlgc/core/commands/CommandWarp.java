@@ -7,21 +7,21 @@ import java.util.Optional;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.command.CommandCallable;
-import org.spongepowered.api.util.command.CommandException;
-import org.spongepowered.api.util.command.CommandResult;
-import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.command.CommandCallable;
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.CommandSource;
 
 
 public class CommandWarp implements CommandCallable {
-	
+
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
-		
+
 		String[] args = arguments.split(" ");
-		
+
 		if(args.length == 0 || args.length > 3) { sender.sendMessage(usage); return CommandResult.success(); }
-		
+
 		if(args[0].equalsIgnoreCase("create")) { new CommandWarpCreate(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("remove")) { new CommandWarpRemove(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("list")) { new CommandWarpList(sender, args); return CommandResult.success(); }
@@ -56,9 +56,9 @@ public class CommandWarp implements CommandCallable {
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp <invite|uninvite> <name> <player>"));
 			sender.sendMessage(Texts.of(TextColors.YELLOW, "/warp move <name>"));
 		}
-		
+
 		return CommandResult.success();
-		
+
 	}
 
 	private final Text usage = Texts.builder("Usage: /warp help").color(TextColors.YELLOW).build();
@@ -66,7 +66,7 @@ public class CommandWarp implements CommandCallable {
 	private final Text description = Texts.builder("Core | Warp Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
-	
+
 	@Override
 	public Text getUsage(CommandSource sender) { return usage; }
 	@Override
