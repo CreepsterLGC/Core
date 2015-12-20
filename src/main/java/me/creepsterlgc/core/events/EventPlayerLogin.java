@@ -6,6 +6,7 @@ import main.java.me.creepsterlgc.core.customized.CorePlayer;
 import main.java.me.creepsterlgc.core.customized.CoreSpawn;
 import main.java.me.creepsterlgc.core.utils.TimeUtils;
 
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.Transform;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
@@ -20,11 +21,11 @@ public class EventPlayerLogin {
 
     @Listener
     public void onPlayerLogin(ClientConnectionEvent.Login event) {
-    	
+
     	CoreBan ban = CoreDatabase.getBan(event.getProfile().getUniqueId().toString());
-    	
+
     	if(ban != null) {
-    		
+
     		if(ban.getDuration() != 0 && ban.getDuration() <= System.currentTimeMillis()) {
     			CoreDatabase.removeBan(event.getProfile().getUniqueId().toString());
     			ban.delete();
@@ -35,28 +36,28 @@ public class EventPlayerLogin {
 	    		event.setCancelled(true);
 	    		return;
     		}
-    		
+
     	}
-    	
+
 		String uuid = event.getProfile().getUniqueId().toString();
 		CorePlayer player_uuid = CoreDatabase.getPlayer(uuid);
-    	
+
 		if(player_uuid == null) {
-		
+
 			CoreSpawn spawn = CoreDatabase.getSpawn("default");
 			if(spawn != null) {
-				
-				if(event.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {
+
+				if(Sponge.getGame().getServer().getWorld(spawn.getWorld()).isPresent()) {
 					Transform<World> t = event.getToTransform();
-					t.setExtent(event.getGame().getServer().getWorld(spawn.getWorld()).get());
+					t.setExtent(Sponge.getGame().getServer().getWorld(spawn.getWorld()).get());
 					t.setPosition(new Vector3d(spawn.getX(), spawn.getY(), spawn.getZ()));
-					event.setToTransform(t);				
+					event.setToTransform(t);
 				}
-				
+
 			}
-		
+
 		}
-    	
+
     }
-	
+
 }
