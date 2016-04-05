@@ -56,6 +56,7 @@ import main.java.me.creepsterlgc.core.commands.CommandTPWorld;
 import main.java.me.creepsterlgc.core.commands.CommandTempban;
 import main.java.me.creepsterlgc.core.commands.CommandKick;
 import main.java.me.creepsterlgc.core.commands.CommandSpawn;
+import main.java.me.creepsterlgc.core.commands.CommandTicket;
 import main.java.me.creepsterlgc.core.commands.CommandTime;
 import main.java.me.creepsterlgc.core.commands.CommandUnban;
 import main.java.me.creepsterlgc.core.commands.CommandUnmute;
@@ -186,6 +187,7 @@ public class Core {
     	if(FileCommands.SPAWN()) game.getCommandManager().register(this, new CommandSpawn(), "spawn");
     	if(FileCommands.SPEED()) game.getCommandManager().register(this, new CommandSpeed(), "speed");
     	if(FileCommands.TEMPBAN()) game.getCommandManager().register(this, new CommandTempban(game), "tempban");
+    	if(FileCommands.TICKET()) game.getCommandManager().register(this, new CommandTicket(), "ticket");
     	if(FileCommands.TIME()) game.getCommandManager().register(this, new CommandTime(game), "time");
     	if(FileCommands.TP()) game.getCommandManager().register(this, new CommandTP(game), "tp", "teleport");
     	if(FileCommands.TPA()) game.getCommandManager().register(this, new CommandTPA(game), "tpa");
