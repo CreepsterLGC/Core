@@ -14,7 +14,7 @@ public class CommandCoreVersion {
 
 		if(!PermissionsUtils.has(sender, "core.core.version")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 
-		sender.sendMessage(Text.of(TextColors.WHITE, "Using Core ", TextColors.GOLD, "v2.7.3d"));
+		sender.sendMessage(Text.of(TextColors.WHITE, "Using Core ", TextColors.GOLD, "v2.8.1c"));
 
 	}
 
