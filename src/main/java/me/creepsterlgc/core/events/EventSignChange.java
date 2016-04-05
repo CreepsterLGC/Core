@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
+import main.java.me.creepsterlgc.core.utils.TextUtils;
+
 import org.spongepowered.api.block.tileentity.Sign;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.manipulator.mutable.tileentity.SignData;
@@ -12,7 +14,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.tileentity.ChangeSignEvent;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.util.TextMessageException;
 
 
@@ -38,13 +40,8 @@ public class EventSignChange {
     		for(int i = 0; i <= 3; i++) {
     			if( lines.size() < i + 1) continue;
     			Text line =  lines.get(i);
-    			String plain = Texts.toPlain(line);
-    			try {
-					line = Texts.legacy('&').from(plain);
-				} catch (TextMessageException e) {
-					System.out.println("Core: Error while formatting sign text!");
-					e.printStackTrace();
-				}
+    			String plain = line.toPlain();
+    			line = TextUtils.color(plain);
     			n.add(line);
     		}
     		

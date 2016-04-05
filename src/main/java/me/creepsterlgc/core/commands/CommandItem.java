@@ -13,7 +13,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -57,15 +57,15 @@ public class CommandItem implements CommandCallable {
 
 		ItemUtils.drop(item, player);
 
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Added ", TextColors.YELLOW, amount, " ", args[0].toLowerCase(), "(s)"));
+		sender.sendMessage(Text.of(TextColors.GRAY, "Added ", TextColors.YELLOW, amount, " ", args[0].toLowerCase(), "(s)"));
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /i <item> [amount]").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /i <item> [amount]").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Item Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /i <item> [amount]").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /i <item> [amount]").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Item Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

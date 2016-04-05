@@ -7,13 +7,12 @@ import main.java.me.creepsterlgc.core.files.FileConfig;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+import org.spongepowered.api.text.channel.MessageChannel;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.text.sink.MessageSink;
 
 public class ServerUtils {
 	
-	public static MessageSink sink;
+	public static MessageChannel sink;
 	
 	public static Player getPlayer(String player) {
 		
@@ -32,7 +31,7 @@ public class ServerUtils {
 	}
 	
 	public static void broadcast(Text text) {
-		sink.sendMessage(text);
+		sink.send(text);
 	}
 	
 	public static void broadcast(String permission, Text text) {
@@ -65,7 +64,7 @@ public class ServerUtils {
 			
 			if(p.getAFK() && FileConfig.AFK_KICK_ENABLE() && p.getLastaction() < time && !PermissionsUtils.has(player, "core.afk.kick.except")) {
 				
-				player.kick(Texts.of(Texts.of(TextColors.RED, "You have been kicked for being AFK!")));
+				player.kick(Text.of(Text.of(TextColors.RED, "You have been kicked for being AFK!")));
 				
 			}
 			
@@ -73,7 +72,7 @@ public class ServerUtils {
 			if(p.getLastaction() > System.currentTimeMillis() - FileConfig.AFK_TIMER_IN_SECONDS() * 1000) continue;
 			
 			p.setAFK(true);
-			Controller.broadcast(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " is now afk."));
+			Controller.broadcast(Text.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " is now afk."));
 			
 		}
 		

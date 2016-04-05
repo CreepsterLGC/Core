@@ -12,7 +12,7 @@ import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -37,11 +37,11 @@ public class CommandTPDeath implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(!PermissionsUtils.has(sender, "core.tpdeath")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.tpdeath")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpdeath [player]")); return CommandResult.success(); }
+		if(args.length > 1) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpdeath [player]")); return CommandResult.success(); }
 
 		Player player = (Player) sender;
 
@@ -50,12 +50,12 @@ public class CommandTPDeath implements CommandCallable {
 			CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 
 			if(p == null) {
-				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 
 			if(p.getLastdeath().equalsIgnoreCase("")) {
-				sender.sendMessage(Texts.builder("No death tracked!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("No death tracked!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 
@@ -68,13 +68,13 @@ public class CommandTPDeath implements CommandCallable {
 
 			player.setLocation(loc);
 
-			sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to ", TextColors.YELLOW, "your", TextColors.GRAY, " last death location."));
+			sender.sendMessage(Text.of(TextColors.GRAY, "Teleported to ", TextColors.YELLOW, "your", TextColors.GRAY, " last death location."));
 
 		}
 		else if(args.length == 1) {
 
 			if(!PermissionsUtils.has(sender, "core.tpdeath-others")) {
-				sender.sendMessage(Texts.builder("You do not have permissions to teleport to other deaths!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("You do not have permissions to teleport to other deaths!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 
@@ -82,12 +82,12 @@ public class CommandTPDeath implements CommandCallable {
 			CorePlayer p = CoreDatabase.getPlayer(CoreDatabase.getUUID(name));
 
 			if(p == null) {
-				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 
 			if(p.getLastdeath().equalsIgnoreCase("")) {
-				sender.sendMessage(Texts.builder("No death tracked for that player!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("No death tracked for that player!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 
@@ -96,9 +96,9 @@ public class CommandTPDeath implements CommandCallable {
 			double y = Double.parseDouble(p.getLastdeath().split(":")[2]);
 			double z = Double.parseDouble(p.getLastdeath().split(":")[3]);
 
-			if(!player.transferToWorld(world, new Vector3d(x, y, z))) { sender.sendMessage(Texts.builder("Target world does not exist anymore!").color(TextColors.RED).build()); return CommandResult.success(); }
+			if(!player.transferToWorld(world, new Vector3d(x, y, z))) { sender.sendMessage(Text.builder("Target world does not exist anymore!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-			sender.sendMessage(Texts.of(TextColors.GRAY, "Teleported to ", TextColors.YELLOW, p.getName(), "'s", TextColors.GRAY, " last death location."));
+			sender.sendMessage(Text.of(TextColors.GRAY, "Teleported to ", TextColors.YELLOW, p.getName(), "'s", TextColors.GRAY, " last death location."));
 
 		}
 
@@ -106,9 +106,9 @@ public class CommandTPDeath implements CommandCallable {
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /tpdeath [player]").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /tpdeath [player]").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | TPDeath Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /tpdeath [player]").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /tpdeath [player]").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | TPDeath Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

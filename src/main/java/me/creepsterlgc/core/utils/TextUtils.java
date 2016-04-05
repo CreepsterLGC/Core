@@ -1,20 +1,14 @@
 package main.java.me.creepsterlgc.core.utils;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.TextMessageException;
+import org.spongepowered.api.text.serializer.TextSerializers;
 
 public class TextUtils {
 	
 	public static Text color(String message) {
-		Text result = Texts.of();
-    	try {
-    		result = Texts.legacy('&').from(message);
-		} catch (TextMessageException e) {
-			System.out.println("Core: Error while formatting chat message!");
-			e.printStackTrace();
-		}
+		Text result = Text.of();
+    	result = Text.builder().append(TextSerializers.formattingCode('&').deserialize(message)).build();
     	return result;
 	}
 	
@@ -44,15 +38,15 @@ public class TextUtils {
 	}
 	
 	public static Text error(String message) {
-		return Texts.of(TextColors.RED, message);
+		return Text.of(TextColors.RED, message);
 	}
 	
 	public static Text permissions() {
-		return Texts.of(TextColors.RED, "You do not have permissions!");
+		return Text.of(TextColors.RED, "You do not have permissions!");
 	}
 	
 	public static Text usage(String message) {
-		return Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, message);
+		return Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, message);
 	}
 	
 }

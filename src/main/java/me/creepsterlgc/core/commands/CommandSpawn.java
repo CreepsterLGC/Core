@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -34,9 +34,9 @@ public class CommandSpawn implements CommandCallable {
 
 	}
 
-	private final Text usage = Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/spawn [create|remove|list|move] [name]");
-	private final Text help = Texts.of(TextColors.YELLOW, "Help: ", TextColors.GRAY, "/spawn [create|remove|list|move] [name]");
-	private final Text description = Texts.builder("Core | Spawn Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/spawn [create|remove|list|move] [name]");
+	private final Text help = Text.of(TextColors.YELLOW, "Help: ", TextColors.GRAY, "/spawn [create|remove|list|move] [name]");
+	private final Text description = Text.builder("Core | Spawn Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

@@ -9,7 +9,7 @@ import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 import main.java.me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -22,7 +22,7 @@ public class CommandRules implements CommandCallable {
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 
-		if(!PermissionsUtils.has(sender, "core.rules")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.rules")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		for(String s : FileRules.MESSAGE()) {
 			sender.sendMessage(TextUtils.color(s));
@@ -32,9 +32,9 @@ public class CommandRules implements CommandCallable {
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /rules").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /rules").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Rules Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /rules").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /rules").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Rules Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

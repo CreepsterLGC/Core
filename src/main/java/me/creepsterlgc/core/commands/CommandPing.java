@@ -8,7 +8,7 @@ import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -21,21 +21,21 @@ public class CommandPing implements CommandCallable {
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(!PermissionsUtils.has(sender, "core.ping")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.ping")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		Player player = (Player) sender;
 
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Ping: ", TextColors.YELLOW, player.getConnection().getPing(), "ms"));
+		sender.sendMessage(Text.of(TextColors.GRAY, "Ping: ", TextColors.YELLOW, player.getConnection().getLatency(), "ms"));
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /help").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /help").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Ping Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /help").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /help").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Ping Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

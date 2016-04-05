@@ -15,7 +15,7 @@ import main.java.me.creepsterlgc.core.utils.TextUtils;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -32,15 +32,15 @@ public class CommandWhois implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.whois")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.whois")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/whois <player>")); return CommandResult.success(); }
-		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/whois <player>")); return CommandResult.success(); }
+		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/whois <player>")); return CommandResult.success(); }
+		if(args.length > 1) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/whois <player>")); return CommandResult.success(); }
 
 		Player player = ServerUtils.getPlayer(args[0].toLowerCase());
 
 		if(player == null) {
-			sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));
+			sender.sendMessage(Text.of(TextColors.RED, "Player not found!"));
 			return CommandResult.success();
 		}
 
@@ -58,19 +58,19 @@ public class CommandWhois implements CommandCallable {
 		String afk = "no";
 		if(p.getAFK()) afk = "since " + TimeUtils.toString(System.currentTimeMillis() - p.getLastaction() - FileConfig.AFK_TIMER_IN_SECONDS() * 1000);
 
-		sender.sendMessage(Texts.of(TextColors.GOLD, "Whois ", player.getName()));
-		sender.sendMessage(Texts.of(TextColors.YELLOW, "Nick: ", TextColors.GRAY, TextUtils.color(nick)));
-		sender.sendMessage(Texts.of(TextColors.YELLOW, "AFK: ", TextColors.WHITE, afk));
-		sender.sendMessage(Texts.of(TextColors.YELLOW, "Location: ", TextColors.WHITE, "x:", x, " y:", y, " z:", z, " world:", loc.getExtent().getName()));
-		if(PermissionsUtils.has(sender, "core.whois-ip")) sender.sendMessage(Texts.of(TextColors.YELLOW, "IP: ", TextColors.WHITE, player.getConnection().getAddress().getAddress().getHostAddress().toString()));
+		sender.sendMessage(Text.of(TextColors.GOLD, "Whois ", player.getName()));
+		sender.sendMessage(Text.of(TextColors.YELLOW, "Nick: ", TextColors.GRAY, TextUtils.color(nick)));
+		sender.sendMessage(Text.of(TextColors.YELLOW, "AFK: ", TextColors.WHITE, afk));
+		sender.sendMessage(Text.of(TextColors.YELLOW, "Location: ", TextColors.WHITE, "x:", x, " y:", y, " z:", z, " world:", loc.getExtent().getName()));
+		if(PermissionsUtils.has(sender, "core.whois-ip")) sender.sendMessage(Text.of(TextColors.YELLOW, "IP: ", TextColors.WHITE, player.getConnection().getAddress().getAddress().getHostAddress().toString()));
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /whois <player>").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /whois <player>").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Whois Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /whois <player>").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /whois <player>").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Whois Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

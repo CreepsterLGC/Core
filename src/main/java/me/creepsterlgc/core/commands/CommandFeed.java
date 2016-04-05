@@ -10,7 +10,7 @@ import main.java.me.creepsterlgc.core.utils.ServerUtils;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -25,37 +25,37 @@ public class CommandFeed implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.feed")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.feed")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/feed [player]")); return CommandResult.success(); }
+		if(args.length > 1) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/feed [player]")); return CommandResult.success(); }
 
 		if(arguments.equalsIgnoreCase("")) {
 
-			if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+			if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 			Player p = (Player) sender;
 			p.offer(Keys.FOOD_LEVEL, 20);
 
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "You ", TextColors.GRAY, "have been fed."));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "You ", TextColors.GRAY, "have been fed."));
 
 		}
 		else if(args.length == 1) {
 
 			if(!PermissionsUtils.has(sender, "core.feed-others")) {
-				sender.sendMessage(Texts.builder("You do not have permissions to feed other players!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("You do not have permissions to feed other players!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 
 			Player p = ServerUtils.getPlayer(args[0]);
 			if(p == null) {
-				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 
 			p.offer(Keys.FOOD_LEVEL, 20);
 
-			sender.sendMessage(Texts.of(TextColors.YELLOW, p.getName(), TextColors.GRAY, " has been fed."));
-			p.sendMessage(Texts.of(TextColors.GRAY, "You have been fed by ", TextColors.YELLOW, sender.getName()));
+			sender.sendMessage(Text.of(TextColors.YELLOW, p.getName(), TextColors.GRAY, " has been fed."));
+			p.sendMessage(Text.of(TextColors.GRAY, "You have been fed by ", TextColors.YELLOW, sender.getName()));
 
 		}
 
@@ -63,9 +63,9 @@ public class CommandFeed implements CommandCallable {
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /feed [player]").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /feed [player]").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Feed Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /feed [player]").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /feed [player]").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Feed Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

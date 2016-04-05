@@ -13,7 +13,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -32,22 +32,22 @@ public class CommandPowertool implements CommandCallable {
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(!PermissionsUtils.has(sender, "core.powertool")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.powertool")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		Player player = (Player) sender;
 		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 
 		if(!player.getItemInHand().isPresent()) {
-			sender.sendMessage(Texts.of(TextColors.RED, "You need to have an item in your hand!"));
+			sender.sendMessage(Text.of(TextColors.RED, "You need to have an item in your hand!"));
 			return CommandResult.success();
 		}
 
 		ItemStack i = player.getItemInHand().get();
 
 		if(!i.getItem().equals(ItemTypes.GOLDEN_AXE)) {
-			sender.sendMessage(Texts.of(TextColors.RED, "You cannot use this item!"));
+			sender.sendMessage(Text.of(TextColors.RED, "You cannot use this item!"));
 			return CommandResult.success();
 		}
 
@@ -57,7 +57,7 @@ public class CommandPowertool implements CommandCallable {
 
 		if(arguments.equalsIgnoreCase("")) {
 			if(!powertools.containsKey(id)) {
-				sender.sendMessage(Texts.of(TextColors.RED, "This item is not bound!"));
+				sender.sendMessage(Text.of(TextColors.RED, "This item is not bound!"));
 				return CommandResult.success();
 			}
 
@@ -65,7 +65,7 @@ public class CommandPowertool implements CommandCallable {
 			p.setPowertools(powertools);
 			CoreDatabase.addPlayer(p.getUUID(), p);
 
-			sender.sendMessage(Texts.of(TextColors.YELLOW, id, TextColors.GRAY, " is not a powertool anymore."));
+			sender.sendMessage(Text.of(TextColors.YELLOW, id, TextColors.GRAY, " is not a powertool anymore."));
 
 			return CommandResult.success();
 		}
@@ -73,8 +73,8 @@ public class CommandPowertool implements CommandCallable {
 		String command = arguments;
 		command = command.replaceAll("/", "");
 
-		sender.sendMessage(Texts.of(TextColors.YELLOW, id, TextColors.GRAY, " is now a powertool."));
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Command: ", TextColors.YELLOW, "/", command));
+		sender.sendMessage(Text.of(TextColors.YELLOW, id, TextColors.GRAY, " is now a powertool."));
+		sender.sendMessage(Text.of(TextColors.GRAY, "Command: ", TextColors.YELLOW, "/", command));
 
 		powertools.put(id, command);
 		p.setPowertools(powertools);

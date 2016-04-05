@@ -8,7 +8,7 @@ import main.java.me.creepsterlgc.core.utils.CommandUtils;
 import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -23,14 +23,14 @@ public class CommandBroadcast implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.broadcast")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.broadcast")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/broadcast <message>")); return CommandResult.success(); }
-		if(args.length < 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/broadcast <message>")); return CommandResult.success(); }
+		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/broadcast <message>")); return CommandResult.success(); }
+		if(args.length < 1) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/broadcast <message>")); return CommandResult.success(); }
 
 		String message = CommandUtils.combineArgs(0, args);
 
-		Controller.broadcast(Texts.of(TextColors.GOLD, "Server", TextColors.GRAY, ": ", TextColors.WHITE, message));
+		Controller.broadcast(Text.of(TextColors.GOLD, "Server", TextColors.GRAY, ": ", TextColors.WHITE, message));
 
 		return CommandResult.success();
 

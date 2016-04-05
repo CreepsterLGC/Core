@@ -11,6 +11,7 @@ import main.java.me.creepsterlgc.core.commands.CommandBan;
 import main.java.me.creepsterlgc.core.commands.CommandBanlist;
 import main.java.me.creepsterlgc.core.commands.CommandBroadcast;
 import main.java.me.creepsterlgc.core.commands.CommandButcher;
+import main.java.me.creepsterlgc.core.commands.CommandChannel;
 import main.java.me.creepsterlgc.core.commands.CommandCore;
 import main.java.me.creepsterlgc.core.commands.CommandEnchant;
 import main.java.me.creepsterlgc.core.commands.CommandFakejoin;
@@ -31,10 +32,12 @@ import main.java.me.creepsterlgc.core.commands.CommandMemory;
 import main.java.me.creepsterlgc.core.commands.CommandMessage;
 import main.java.me.creepsterlgc.core.commands.CommandMotd;
 import main.java.me.creepsterlgc.core.commands.CommandMute;
+import main.java.me.creepsterlgc.core.commands.CommandNick;
 import main.java.me.creepsterlgc.core.commands.CommandOnlinetime;
 import main.java.me.creepsterlgc.core.commands.CommandPage;
 import main.java.me.creepsterlgc.core.commands.CommandPing;
 import main.java.me.creepsterlgc.core.commands.CommandPowertool;
+import main.java.me.creepsterlgc.core.commands.CommandRealname;
 import main.java.me.creepsterlgc.core.commands.CommandReply;
 import main.java.me.creepsterlgc.core.commands.CommandRules;
 import main.java.me.creepsterlgc.core.commands.CommandSearchitem;
@@ -73,6 +76,7 @@ import main.java.me.creepsterlgc.core.events.EventPlayerMove;
 import main.java.me.creepsterlgc.core.events.EventPlayerQuit;
 import main.java.me.creepsterlgc.core.events.EventPlayerRespawn;
 import main.java.me.creepsterlgc.core.events.EventSignChange;
+import main.java.me.creepsterlgc.core.files.FileChat;
 import main.java.me.creepsterlgc.core.files.FileCommands;
 import main.java.me.creepsterlgc.core.files.FileConfig;
 import main.java.me.creepsterlgc.core.files.FileMessages;
@@ -85,11 +89,10 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.service.ProviderExistsException;
 
 import com.google.inject.Inject;
 
-@Plugin(id = "Core", name = "Core Plugin", version = "@project.version@")
+@Plugin(id = "core", name = "Core Plugin", version = "@project.version@")
 
 public class Core {
 
@@ -111,9 +114,10 @@ public class Core {
     	if(!folder.exists()) folder.mkdir();
 
     	Controller.game = game;
-    	ServerUtils.sink = game.getServer().getBroadcastSink();
+    	ServerUtils.sink = game.getServer().getBroadcastChannel();
 
     	FileConfig.setup();
+    	FileChat.setup();
     	FileCommands.setup();
     	FileMessages.setup();
     	FileMotd.setup();
@@ -125,12 +129,11 @@ public class Core {
         if (!game.getServiceManager().provide(CoreAPI.class).isPresent()) {
             try {
                 game.getServiceManager().setProvider(this, CoreAPI.class, new CoreAPI());
-            } catch (ProviderExistsException e) {
+            } catch (Exception e) {
                 logger.warning("Error while registering CoreAPI!");
             }
         }
 
-    	game.getEventManager().registerListeners(this, this);
     	game.getEventManager().registerListeners(this, new EventPlayerLogin());
     	game.getEventManager().registerListeners(this, new EventPlayerChat());
     	game.getEventManager().registerListeners(this, new EventPlayerDamage());
@@ -149,6 +152,7 @@ public class Core {
     	if(FileCommands.BANLIST()) game.getCommandManager().register(this, new CommandBanlist(), "banlist");
     	if(FileCommands.BROADCAST()) game.getCommandManager().register(this, new CommandBroadcast(), "broadcast");
     	if(FileCommands.BUTCHER()) game.getCommandManager().register(this, new CommandButcher(), "butcher");
+    	if(FileCommands.CHANNEL()) game.getCommandManager().register(this, new CommandChannel(), "channel", "ch", "c");
     	if(FileCommands.CORE()) game.getCommandManager().register(this, new CommandCore(), "core");
     	if(FileCommands.ENCHANT()) game.getCommandManager().register(this, new CommandEnchant(game), "enchant");
     	if(FileCommands.FAKEJOIN()) game.getCommandManager().register(this, new CommandFakejoin(), "fakejoin");
@@ -170,9 +174,11 @@ public class Core {
     	if(FileCommands.MSG()) game.getCommandManager().register(this, new CommandMessage(), "m", "msg", "message", "w", "whisper", "tell");
     	if(FileCommands.MOTD()) game.getCommandManager().register(this, new CommandMotd(), "motd");
     	if(FileCommands.MUTE()) game.getCommandManager().register(this, new CommandMute(game), "mute");
+    	if(FileCommands.NICK()) game.getCommandManager().register(this, new CommandNick(), "nick");
     	if(FileCommands.ONLINETIME()) game.getCommandManager().register(this, new CommandOnlinetime(game), "onlinetime");
     	if(FileCommands.PING()) game.getCommandManager().register(this, new CommandPing(), "ping");
     	if(FileCommands.POWERTOOL()) game.getCommandManager().register(this, new CommandPowertool(game), "powertool");
+    	if(FileCommands.REALNAME()) game.getCommandManager().register(this, new CommandRealname(), "realname");
     	if(FileCommands.REPLY()) game.getCommandManager().register(this, new CommandReply(), "r", "reply");
     	if(FileCommands.RULES()) game.getCommandManager().register(this, new CommandRules(), "rules");
     	if(FileCommands.SEARCHITEM()) game.getCommandManager().register(this, new CommandSearchitem(), "searchitem", "si", "search");

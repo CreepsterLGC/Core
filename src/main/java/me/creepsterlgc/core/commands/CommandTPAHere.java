@@ -13,7 +13,7 @@ import main.java.me.creepsterlgc.core.utils.ServerUtils;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -34,13 +34,13 @@ public class CommandTPAHere implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(!PermissionsUtils.has(sender, "core.tpahere")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.tpahere")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpahere <player>")); return CommandResult.success(); }
+		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpahere <player>")); return CommandResult.success(); }
 
-		if(args.length < 1 || args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpahere <player>")); return CommandResult.success(); }
+		if(args.length < 1 || args.length > 1) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpahere <player>")); return CommandResult.success(); }
 
 		Player s = (Player) sender;
 		String uuid = s.getUniqueId().toString();
@@ -48,7 +48,7 @@ public class CommandTPAHere implements CommandCallable {
 		Player player = ServerUtils.getPlayer(args[0]);
 
 		if(player == null) {
-			sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
@@ -64,7 +64,7 @@ public class CommandTPAHere implements CommandCallable {
 				p.setTPA(tpa);
 			}
 			else {
-				sender.sendMessage(Texts.builder("You already requested a teleport from that player!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("You already requested a teleport from that player!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 		}
@@ -78,7 +78,7 @@ public class CommandTPAHere implements CommandCallable {
 				p.setTPAHere(tpahere);
 			}
 			else {
-				sender.sendMessage(Texts.builder("You already requested a teleport from that player!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("You already requested a teleport from that player!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 		}
@@ -88,17 +88,17 @@ public class CommandTPAHere implements CommandCallable {
 		tpahere.put(uuid, duration);
 		p.setTPAHere(tpahere);
 
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Teleport request has been sent to ", TextColors.YELLOW, player.getName()));
-		player.sendMessage(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " is aking you to teleport to him/her."));
-		player.sendMessage(Texts.of(TextColors.GRAY, "Type ", TextColors.YELLOW, "/tpaccept ", sender.getName(), TextColors.GRAY, " or", TextColors.YELLOW, " /tpdeny ", sender.getName()));
-		player.sendMessage(Texts.of(TextColors.GRAY, "to accept/decline the request."));
+		sender.sendMessage(Text.of(TextColors.GRAY, "Teleport request has been sent to ", TextColors.YELLOW, player.getName()));
+		player.sendMessage(Text.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " is aking you to teleport to him/her."));
+		player.sendMessage(Text.of(TextColors.GRAY, "Type ", TextColors.YELLOW, "/tpaccept ", sender.getName(), TextColors.GRAY, " or", TextColors.YELLOW, " /tpdeny ", sender.getName()));
+		player.sendMessage(Text.of(TextColors.GRAY, "to accept/decline the request."));
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /tpahere <player>").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /tpahere <player>").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | TPAHere Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /tpahere <player>").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /tpahere <player>").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | TPAHere Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

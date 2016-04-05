@@ -11,7 +11,7 @@ import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -32,33 +32,33 @@ public class CommandUnmute implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.unmute")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.unmute")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(usage); return CommandResult.success(); }
 		if(args.length != 1) { sender.sendMessage(usage); return CommandResult.success(); }
 
 		CorePlayer player = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[0].toLowerCase()));
-		if(player == null) { sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(player == null) { sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		CoreMute mute = CoreDatabase.getMute(player.getUUID());
 
 		if(mute == null) {
-			sender.sendMessage(Texts.builder("Player is not muted!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("Player is not muted!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
 		mute.delete();
 		CoreDatabase.removeMute(player.getUUID());
 
-		sender.sendMessage(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " has been unmuted."));
+		sender.sendMessage(Text.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " has been unmuted."));
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /unmute <player>").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /unmute <player>").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Unmute Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /unmute <player>").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /unmute <player>").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Unmute Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

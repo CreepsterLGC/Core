@@ -13,7 +13,7 @@ import main.java.me.creepsterlgc.core.utils.ServerUtils;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -34,12 +34,12 @@ public class CommandTPA implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(!PermissionsUtils.has(sender, "core.tpa")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.tpa")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpa <player>")); return CommandResult.success(); }
-		if(args.length < 1 || args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpa <player>")); return CommandResult.success(); }
+		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpa <player>")); return CommandResult.success(); }
+		if(args.length < 1 || args.length > 1) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tpa <player>")); return CommandResult.success(); }
 
 		Player s = (Player) sender;
 		String uuid = s.getUniqueId().toString();
@@ -47,7 +47,7 @@ public class CommandTPA implements CommandCallable {
 		Player player = ServerUtils.getPlayer(args[0]);
 
 		if(player == null) {
-			sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
@@ -63,7 +63,7 @@ public class CommandTPA implements CommandCallable {
 				p.setTPA(tpa);
 			}
 			else {
-				sender.sendMessage(Texts.builder("You already requested a teleport from that player!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("You already requested a teleport from that player!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 		}
@@ -77,7 +77,7 @@ public class CommandTPA implements CommandCallable {
 				p.setTPAHere(tpahere);
 			}
 			else {
-				sender.sendMessage(Texts.builder("You already requested a teleport from that player!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("You already requested a teleport from that player!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 		}
@@ -87,18 +87,18 @@ public class CommandTPA implements CommandCallable {
 		tpa.put(uuid, duration);
 		p.setTPA(tpa);
 
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Teleport request has been sent to ", TextColors.YELLOW, player.getName()));
-		player.sendMessage(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " requested to teleport to you."));
-		player.sendMessage(Texts.of(TextColors.GRAY, "Type ", TextColors.YELLOW, "/tpaccept ", sender.getName(), TextColors.GRAY, " or", TextColors.YELLOW, " /tpdeny ", sender.getName()));
-		player.sendMessage(Texts.of(TextColors.GRAY, "to accept/decline the request."));
+		sender.sendMessage(Text.of(TextColors.GRAY, "Teleport request has been sent to ", TextColors.YELLOW, player.getName()));
+		player.sendMessage(Text.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " requested to teleport to you."));
+		player.sendMessage(Text.of(TextColors.GRAY, "Type ", TextColors.YELLOW, "/tpaccept ", sender.getName(), TextColors.GRAY, " or", TextColors.YELLOW, " /tpdeny ", sender.getName()));
+		player.sendMessage(Text.of(TextColors.GRAY, "to accept/decline the request."));
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /tpa <player>").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /tpa <player>").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | TPA Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /tpa <player>").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /tpa <player>").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | TPA Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

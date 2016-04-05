@@ -8,7 +8,8 @@ import main.java.me.creepsterlgc.core.files.FileConfig;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.DisplaceEntityEvent;
-import org.spongepowered.api.text.Texts;
+
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
 
@@ -27,7 +28,7 @@ public class EventPlayerMove {
 		p.setLastaction(System.currentTimeMillis());
 		
 		if(p.getAFK()) {
-			Controller.broadcast(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " is no longer afk."));
+			Controller.broadcast(Text.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " is no longer afk."));
 			p.setAFK(false);
 		}
 		

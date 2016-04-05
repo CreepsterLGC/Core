@@ -14,7 +14,8 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.InteractBlockEvent;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
-import org.spongepowered.api.text.Texts;
+
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -73,7 +74,7 @@ public class EventPlayerInteractBlock {
 		int y = location.getBlockY();
 		int z = location.getBlockZ();
 
-		player.sendMessage(Texts.of(TextColors.GRAY, "First point set at: ", TextColors.AQUA, "x:", x, " y:", y, " z:", z));
+		player.sendMessage(Text.of(TextColors.GRAY, "First point set at: ", TextColors.AQUA, "x:", x, " y:", y, " z:", z));
 
     }
 
@@ -126,7 +127,7 @@ public class EventPlayerInteractBlock {
 		int y = location.getBlockY();
 		int z = location.getBlockZ();
 
-		player.sendMessage(Texts.of(TextColors.GRAY, "Second point set at: ", TextColors.AQUA, "x:", x, " y:", y, " z:", z));
+		player.sendMessage(Text.of(TextColors.GRAY, "Second point set at: ", TextColors.AQUA, "x:", x, " y:", y, " z:", z));
 
     }
 

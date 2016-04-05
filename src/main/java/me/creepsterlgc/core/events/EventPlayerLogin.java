@@ -10,7 +10,8 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.Transform;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
-import org.spongepowered.api.text.Texts;
+
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.World;
 
@@ -32,7 +33,7 @@ public class EventPlayerLogin {
     		}
     		else {
 	    		String time = TimeUtils.toString(ban.getDuration() - System.currentTimeMillis());
-	    		event.setMessage(Texts.of(TextColors.GRAY, "Banned for another: ", TextColors.RED, time, "\n\n", TextColors.RED, "Reason: ", TextColors.GRAY, ban.getReason()));
+	    		event.setMessage(Text.of(TextColors.GRAY, "Banned for another: ", TextColors.RED, time, "\n\n", TextColors.RED, "Reason: ", TextColors.GRAY, ban.getReason()));
 	    		event.setCancelled(true);
 	    		return;
     		}

@@ -14,7 +14,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.Enchantment;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -35,17 +35,17 @@ public class CommandEnchant implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(!PermissionsUtils.has(sender, "core.enchant")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.enchant")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/enchant <enchantment> <level>")); return CommandResult.success(); }
-		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/enchant <enchantment> <level>")); return CommandResult.success(); }
+		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/enchant <enchantment> <level>")); return CommandResult.success(); }
+		if(args.length < 1 || args.length > 2) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/enchant <enchantment> <level>")); return CommandResult.success(); }
 
 		Player player = (Player) sender;
 
 		if(!player.getItemInHand().isPresent()) {
-			sender.sendMessage(Texts.of(TextColors.RED, "You need to have an item in your hand!"));
+			sender.sendMessage(Text.of(TextColors.RED, "You need to have an item in your hand!"));
 			return CommandResult.success();
 		}
 
@@ -55,17 +55,17 @@ public class CommandEnchant implements CommandCallable {
 		Enchantment e = ItemUtils.getEnchantment(args[0]);
 
 		if(e == null) {
-			sender.sendMessage(Texts.of(TextColors.RED, "Enchantment not found!"));
+			sender.sendMessage(Text.of(TextColors.RED, "Enchantment not found!"));
 			return CommandResult.success();
 		}
 
 		if(!e.canBeAppliedToStack(i)) {
-			sender.sendMessage(Texts.of(TextColors.RED, "Enchantment is not compatible with this item!"));
+			sender.sendMessage(Text.of(TextColors.RED, "Enchantment is not compatible with this item!"));
 			return CommandResult.success();
 		}
 
 		if(!CommandUtils.isInt(args[1])) {
-			sender.sendMessage(Texts.of(TextColors.RED, "<level> has to be a number!"));
+			sender.sendMessage(Text.of(TextColors.RED, "<level> has to be a number!"));
 			return CommandResult.success();
 		}
 
@@ -76,7 +76,7 @@ public class CommandEnchant implements CommandCallable {
 
 		player.setItemInHand(i);
 
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Added ", TextColors.YELLOW, e.getId().replaceAll("minecraft:", ""), " ", level, TextColors.GRAY, " to ", TextColors.YELLOW, i.getItem().getId().replaceAll("minecraft:", "")));
+		sender.sendMessage(Text.of(TextColors.GRAY, "Added ", TextColors.YELLOW, e.getId().replaceAll("minecraft:", ""), " ", level, TextColors.GRAY, " to ", TextColors.YELLOW, i.getItem().getId().replaceAll("minecraft:", "")));
 
 		return CommandResult.success();
 

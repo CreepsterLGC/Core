@@ -10,7 +10,7 @@ import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 import main.java.me.creepsterlgc.core.utils.TextUtils;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -25,9 +25,9 @@ public class CommandFakeleave implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.fakeleave")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.fakeleave")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(args.length > 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/fakeleave [name]")); return CommandResult.success(); }
+		if(args.length > 1) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/fakeleave [name]")); return CommandResult.success(); }
 
 		String name = sender.getName();
 		if(!arguments.equalsIgnoreCase("")) name = arguments;
@@ -38,9 +38,9 @@ public class CommandFakeleave implements CommandCallable {
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /fakeleave [name]").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /fakeleave [name]").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Fakeleave Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /fakeleave [name]").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /fakeleave [name]").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Fakeleave Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

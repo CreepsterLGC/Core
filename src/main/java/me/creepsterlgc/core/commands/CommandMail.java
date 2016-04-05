@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -24,25 +24,25 @@ public class CommandMail implements CommandCallable {
 		else if(args[0].equalsIgnoreCase("read")) { new CommandMailRead(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("clear")) { new CommandMailClear(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("help")) {
-			sender.sendMessage(Texts.of(TextColors.GOLD, "Mail Help"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/mail send <player> <message>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/mail read"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/mail clear"));
+			sender.sendMessage(Text.of(TextColors.GOLD, "Mail Help"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/mail send <player> <message>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/mail read"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/mail clear"));
 		}
 		else {
-			sender.sendMessage(Texts.of(TextColors.GOLD, "Mail Help"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/mail send <player> <message>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/mail read"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/mail clear"));
+			sender.sendMessage(Text.of(TextColors.GOLD, "Mail Help"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/mail send <player> <message>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/mail read"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/mail clear"));
 		}
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /mail help").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /mail help").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Mail Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /mail help").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /mail help").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Mail Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

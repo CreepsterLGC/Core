@@ -12,7 +12,7 @@ import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -27,15 +27,15 @@ public class CommandBan implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.ban")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.ban")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(args.length < 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/ban <player> <reason>")); return CommandResult.success(); }
+		if(args.length < 2) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/ban <player> <reason>")); return CommandResult.success(); }
 
 		CorePlayer player = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[0].toLowerCase()));
-		if(player == null) { sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(player == null) { sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		if(CoreDatabase.getBan(player.getUUID()) != null) {
-			sender.sendMessage(Texts.builder("Player is already banned!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("Player is already banned!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
@@ -48,14 +48,14 @@ public class CommandBan implements CommandCallable {
 
 		if(Controller.getServer().getPlayer(player.getName()).isPresent()) {
 			Player p = Controller.getServer().getPlayer(player.getName()).get();
-			p.kick(Texts.of(TextColors.RED, "Banned: ", TextColors.GRAY, reason));
-			Controller.broadcast(Texts.of(TextColors.YELLOW, p.getName(), TextColors.GRAY, " has been banned by ", TextColors.YELLOW, sender.getName()));
-			Controller.broadcast(Texts.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
+			p.kick(Text.of(TextColors.RED, "Banned: ", TextColors.GRAY, reason));
+			Controller.broadcast(Text.of(TextColors.YELLOW, p.getName(), TextColors.GRAY, " has been banned by ", TextColors.YELLOW, sender.getName()));
+			Controller.broadcast(Text.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
 			return CommandResult.success();
 		}
 
-		Controller.broadcast(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " has been banned by ", TextColors.YELLOW, sender.getName()));
-		Controller.broadcast(Texts.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
+		Controller.broadcast(Text.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " has been banned by ", TextColors.YELLOW, sender.getName()));
+		Controller.broadcast(Text.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
 
 		return CommandResult.success();
 

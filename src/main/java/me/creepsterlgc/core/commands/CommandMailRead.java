@@ -12,7 +12,7 @@ import main.java.me.creepsterlgc.core.utils.TimeUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandSource;
 
@@ -21,11 +21,11 @@ public class CommandMailRead {
 
 	public CommandMailRead(CommandSource sender, String[] args) {
 
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
+		if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return; }
 
-		if(!PermissionsUtils.has(sender, "core.mail.read")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
+		if(!PermissionsUtils.has(sender, "core.mail.read")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return; }
 
-		if(args.length != 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/mail read")); return; }
+		if(args.length != 1) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/mail read")); return; }
 
 		Player player = (Player) sender;
 		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
@@ -40,12 +40,12 @@ public class CommandMailRead {
 			String time = TimeUtils.toString(System.currentTimeMillis() - Double.parseDouble(mail.split(":", 3)[0]));
 			String name = mail.split(":", 3)[1];
 			String message = mail.split(":", 3)[2];
-			list.put(counter, Texts.of(TextColors.GRAY, time, " ago | ", TextColors.WHITE, name, TextColors.GRAY, ": ", TextColors.WHITE, message));
+			list.put(counter, Text.of(TextColors.GRAY, time, " ago | ", TextColors.WHITE, name, TextColors.GRAY, ": ", TextColors.WHITE, message));
 			counter += 1;
 		}
 
 		if(counter == 1) {
-			sender.sendMessage(Texts.builder("Your inbox is empty!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("Your inbox is empty!").color(TextColors.RED).build());
 			return;
 		}
 
@@ -63,8 +63,8 @@ public class CommandMailRead {
 
 		p.setPages(pages);
 
-		p.setPageTitle(Texts.of(TextColors.GOLD, "Inbox"));
-		p.setPageHeader(Texts.of(TextColors.GREEN, "Time", TextColors.GRAY, " | ", TextColors.GREEN, "Sender", TextColors.GRAY, " | ", TextColors.GREEN, "Message"));
+		p.setPageTitle(Text.of(TextColors.GOLD, "Inbox"));
+		p.setPageHeader(Text.of(TextColors.GREEN, "Time", TextColors.GRAY, " | ", TextColors.GREEN, "Sender", TextColors.GRAY, " | ", TextColors.GREEN, "Message"));
 
 		Controller.getGame().getCommandManager().process(sender.getCommandSource().get(), "page 1");
 

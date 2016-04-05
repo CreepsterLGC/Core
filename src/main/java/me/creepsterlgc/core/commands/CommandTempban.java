@@ -15,7 +15,7 @@ import main.java.me.creepsterlgc.core.utils.TimeUtils;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -36,15 +36,15 @@ public class CommandTempban implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.tempban")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.tempban")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(args.length < 4) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tempban <player> <time> <unit> <reason>")); return CommandResult.success(); }
+		if(args.length < 4) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/tempban <player> <time> <unit> <reason>")); return CommandResult.success(); }
 
 		CorePlayer player = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[0].toLowerCase()));
-		if(player == null) { sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(player == null) { sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		if(CoreDatabase.getBan(player.getUUID()) != null) {
-			sender.sendMessage(Texts.builder("Player is already banned!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("Player is already banned!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
@@ -52,14 +52,14 @@ public class CommandTempban implements CommandCallable {
 
 		try { duration = Double.parseDouble(args[1]); }
 		catch(NumberFormatException e) {
-			sender.sendMessage(Texts.builder("<time> has to be a number!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("<time> has to be a number!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
 		duration = TimeUtils.toMilliseconds(duration, args[2].toLowerCase());
 
 		if(duration == 0) {
-			sender.sendMessage(Texts.builder("<unit> has to be: seconds, minutes, hours or days").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("<unit> has to be: seconds, minutes, hours or days").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
@@ -67,7 +67,7 @@ public class CommandTempban implements CommandCallable {
 		limit *= 1000;
 
 		if(!PermissionsUtils.has(sender, "core.tempban-unlimited") && duration > limit) {
-			sender.sendMessage(Texts.of(TextColors.RED, "You can only ban for a maximum time of ", limit /= 1000, " seconds!"));
+			sender.sendMessage(Text.of(TextColors.RED, "You can only ban for a maximum time of ", limit /= 1000, " seconds!"));
 			return CommandResult.success();
 		}
 
@@ -80,16 +80,16 @@ public class CommandTempban implements CommandCallable {
 
 		if(Controller.getServer().getPlayer(player.getName()).isPresent()) {
 			Player p = Controller.getServer().getPlayer(player.getName()).get();
-			p.kick(Texts.of(TextColors.RED, "Banned: ", TextColors.GRAY, reason));
-			Controller.broadcast(Texts.of(TextColors.YELLOW, p.getName(), TextColors.GRAY, " has been temporary banned by ", TextColors.YELLOW, sender.getName()));
-			Controller.broadcast(Texts.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
-			Controller.broadcast(Texts.of(TextColors.YELLOW, "Time: ", TextColors.GRAY, args[1], " ", args[2].toLowerCase()));
+			p.kick(Text.of(TextColors.RED, "Banned: ", TextColors.GRAY, reason));
+			Controller.broadcast(Text.of(TextColors.YELLOW, p.getName(), TextColors.GRAY, " has been temporary banned by ", TextColors.YELLOW, sender.getName()));
+			Controller.broadcast(Text.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
+			Controller.broadcast(Text.of(TextColors.YELLOW, "Time: ", TextColors.GRAY, args[1], " ", args[2].toLowerCase()));
 			return CommandResult.success();
 		}
 
-		Controller.broadcast(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " has been temporary banned by ", TextColors.YELLOW, sender.getName()));
-		Controller.broadcast(Texts.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
-		Controller.broadcast(Texts.of(TextColors.YELLOW, "Time: ", TextColors.GRAY, args[1], " ", args[2].toLowerCase()));
+		Controller.broadcast(Text.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " has been temporary banned by ", TextColors.YELLOW, sender.getName()));
+		Controller.broadcast(Text.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
+		Controller.broadcast(Text.of(TextColors.YELLOW, "Time: ", TextColors.GRAY, args[1], " ", args[2].toLowerCase()));
 
 		return CommandResult.success();
 

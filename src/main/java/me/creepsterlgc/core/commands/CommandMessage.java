@@ -13,7 +13,7 @@ import main.java.me.creepsterlgc.core.utils.ServerUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -28,9 +28,9 @@ public class CommandMessage implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.msg")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.msg")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(args.length < 2) { sender.sendMessage(Texts.builder("Usage: /msg <player> <message>").color(TextColors.YELLOW).build()); return CommandResult.success(); }
+		if(args.length < 2) { sender.sendMessage(Text.builder("Usage: /msg <player> <message>").color(TextColors.YELLOW).build()); return CommandResult.success(); }
 
 		String message = CommandUtils.combineArgs(1, args);
 
@@ -47,7 +47,7 @@ public class CommandMessage implements CommandCallable {
 	    			mute.delete();
 	    		}
 	    		else {
-		    		checking.sendMessage(Texts.of(TextColors.RED, mute.getReason()));
+		    		checking.sendMessage(Text.of(TextColors.RED, mute.getReason()));
 		    		return CommandResult.success();
 	    		}
 	    	}
@@ -56,23 +56,23 @@ public class CommandMessage implements CommandCallable {
 		Player player = ServerUtils.getPlayer(args[0]);
 
 		if(player == null) {
-			sender.sendMessage(Texts.of(TextColors.RED, "Player not found!"));
+			sender.sendMessage(Text.of(TextColors.RED, "Player not found!"));
 			return CommandResult.success();
 		}
 
 		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 		if(sender instanceof Player) p.setReply(sender.getName().toLowerCase());
 
-		sender.sendMessage(Texts.of(TextColors.YELLOW, "To ", player.getName(), ": ", TextColors.WHITE, message));
-		player.sendMessage(Texts.of(TextColors.YELLOW, "From ", sender.getName(), ": ", TextColors.WHITE, message));
+		sender.sendMessage(Text.of(TextColors.YELLOW, "To ", player.getName(), ": ", TextColors.WHITE, message));
+		player.sendMessage(Text.of(TextColors.YELLOW, "From ", sender.getName(), ": ", TextColors.WHITE, message));
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /msg").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /msg").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Message Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /msg").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /msg").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Message Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

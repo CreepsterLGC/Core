@@ -13,7 +13,7 @@ import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -28,11 +28,11 @@ public class CommandReply implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(!PermissionsUtils.has(sender, "core.msg")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.msg")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(args.length < 1) { sender.sendMessage(Texts.builder("Usage: /r <message>").color(TextColors.YELLOW).build()); return CommandResult.success(); }
+		if(args.length < 1) { sender.sendMessage(Text.builder("Usage: /r <message>").color(TextColors.YELLOW).build()); return CommandResult.success(); }
 
 		String message = CommandUtils.combineArgs(0, args);
 
@@ -49,7 +49,7 @@ public class CommandReply implements CommandCallable {
 	    			mute.delete();
 	    		}
 	    		else {
-		    		checking.sendMessage(Texts.of(TextColors.RED, mute.getReason()));
+		    		checking.sendMessage(Text.of(TextColors.RED, mute.getReason()));
 		    		return CommandResult.success();
 	    		}
 	    	}
@@ -59,27 +59,27 @@ public class CommandReply implements CommandCallable {
 		CorePlayer p = CoreDatabase.getPlayer(player.getUniqueId().toString());
 
 		if(p.getReply().equalsIgnoreCase("")) {
-			sender.sendMessage(Texts.of(TextColors.RED, "No message to reply to!"));
+			sender.sendMessage(Text.of(TextColors.RED, "No message to reply to!"));
 			return CommandResult.success();
 		}
 
 		if(!Controller.getGame().getServer().getPlayer(p.getReply()).isPresent()) {
-			sender.sendMessage(Texts.of(TextColors.RED, "Player is not longer online!"));
+			sender.sendMessage(Text.of(TextColors.RED, "Player is not longer online!"));
 			return CommandResult.success();
 		}
 
 		Player target = Controller.getGame().getServer().getPlayer(p.getReply()).get();
 
-		sender.sendMessage(Texts.of(TextColors.YELLOW, "To ", target.getName(), ": ", TextColors.WHITE, message));
-		target.sendMessage(Texts.of(TextColors.YELLOW, "From ", sender.getName(), ": ", TextColors.WHITE, message));
+		sender.sendMessage(Text.of(TextColors.YELLOW, "To ", target.getName(), ": ", TextColors.WHITE, message));
+		target.sendMessage(Text.of(TextColors.YELLOW, "From ", sender.getName(), ": ", TextColors.WHITE, message));
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /reply").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /reply").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Reply Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /reply").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /reply").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Reply Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

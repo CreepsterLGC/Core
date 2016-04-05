@@ -10,7 +10,8 @@ import main.java.me.creepsterlgc.core.utils.TextUtils;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
-import org.spongepowered.api.text.Texts;
+
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
 
@@ -46,7 +47,7 @@ public class EventPlayerJoin {
 	    	if(FileMessages.EVENTS_FIRSTJOIN_ENABLE()) {
 	    		event.setMessage(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
 	    		if(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_SHOW()) {
-		    		event.setMessage(Texts.of(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(CoreDatabase.getPlayers().size())))));
+		    		event.setMessage(Text.of(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(CoreDatabase.getPlayers().size())))));
 	    		}
 	    	}
 			
@@ -66,7 +67,7 @@ public class EventPlayerJoin {
 	    	if(FileMessages.EVENTS_FIRSTJOIN_ENABLE()) {
 	    		event.setMessage(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", event.getTargetEntity().getName())));
 	    		if(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_SHOW()) {
-		    		event.setMessage(Texts.of(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(CoreDatabase.getPlayers().size())))));
+		    		event.setMessage(Text.of(TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_MESSAGE().replaceAll("%player", player.getName())), "\n", TextUtils.color(FileMessages.EVENTS_FIRSTJOIN_UNIQUEPLAYERS_MESSAGE().replaceAll("%players", String.valueOf(CoreDatabase.getPlayers().size())))));
 	    		}
 	    	}
 			
@@ -80,7 +81,7 @@ public class EventPlayerJoin {
 			player_uuid.setLastaction(System.currentTimeMillis());
 			player_uuid.update();
 			
-			ServerUtils.broadcast(Texts.of(TextColors.GOLD, player_uuid.getName(), " is now known as ", player.getName(), "!"));
+			ServerUtils.broadcast(Text.of(TextColors.GOLD, player_uuid.getName(), " is now known as ", player.getName(), "!"));
 			
 		}
 		else {

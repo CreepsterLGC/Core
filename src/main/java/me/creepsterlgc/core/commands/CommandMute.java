@@ -13,7 +13,7 @@ import main.java.me.creepsterlgc.core.utils.TimeUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -34,15 +34,15 @@ public class CommandMute implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.mute")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.mute")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(args.length < 3) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/mute <player> <time> <unit> [reason]")); return CommandResult.success(); }
+		if(args.length < 3) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/mute <player> <time> <unit> [reason]")); return CommandResult.success(); }
 
 		CorePlayer player = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[0].toLowerCase()));
-		if(player == null) { sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(player == null) { sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		if(CoreDatabase.getBan(player.getUUID()) != null) {
-			sender.sendMessage(Texts.builder("Player is already banned!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("Player is already banned!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
@@ -50,14 +50,14 @@ public class CommandMute implements CommandCallable {
 
 		try { duration = Double.parseDouble(args[1]); }
 		catch(NumberFormatException e) {
-			sender.sendMessage(Texts.builder("<time> has to be a number!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("<time> has to be a number!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
 		duration = TimeUtils.toMilliseconds(duration, args[2].toLowerCase());
 
 		if(duration == 0) {
-			sender.sendMessage(Texts.builder("<unit> has to be: seconds, minutes, hours or days").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("<unit> has to be: seconds, minutes, hours or days").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
@@ -65,7 +65,7 @@ public class CommandMute implements CommandCallable {
 		limit *= 1000;
 
 		if(!PermissionsUtils.has(sender, "core.mute-unlimited") && duration > limit) {
-			sender.sendMessage(Texts.of(TextColors.RED, "You can only mute for a maximum time of ", limit /= 1000, " seconds!"));
+			sender.sendMessage(Text.of(TextColors.RED, "You can only mute for a maximum time of ", limit /= 1000, " seconds!"));
 			return CommandResult.success();
 		}
 
@@ -76,8 +76,8 @@ public class CommandMute implements CommandCallable {
 		CoreMute mute = new CoreMute(player.getUUID(), duration, reason);
 		mute.insert();
 
-		sender.sendMessage(Texts.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " has been muted for ", TextColors.YELLOW, args[1], " ", args[2].toLowerCase()));
-		sender.sendMessage(Texts.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
+		sender.sendMessage(Text.of(TextColors.YELLOW, player.getName(), TextColors.GRAY, " has been muted for ", TextColors.YELLOW, args[1], " ", args[2].toLowerCase()));
+		sender.sendMessage(Text.of(TextColors.YELLOW, "Reason: ", TextColors.GRAY, reason));
 
 		return CommandResult.success();
 

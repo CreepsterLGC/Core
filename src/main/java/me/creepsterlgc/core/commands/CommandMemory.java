@@ -7,7 +7,7 @@ import java.util.Optional;
 import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -20,7 +20,7 @@ public class CommandMemory implements CommandCallable {
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 
-		if(!PermissionsUtils.has(sender, "core.memory")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.memory")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		Runtime runtime = Runtime.getRuntime();
 
@@ -28,15 +28,15 @@ public class CommandMemory implements CommandCallable {
 		double memory_allocated = runtime.totalMemory() / (1024 * 1024);
 		double memory_free = runtime.freeMemory() / (1024 * 1024);
 
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Memory Usage: ", TextColors.YELLOW, memory_allocated, " MB / ", memory_max, " MB ", TextColors.GRAY, "Free: ", TextColors.YELLOW, memory_free, " MB"));
+		sender.sendMessage(Text.of(TextColors.GRAY, "Memory Usage: ", TextColors.YELLOW, memory_allocated, " MB / ", memory_max, " MB ", TextColors.GRAY, "Free: ", TextColors.YELLOW, memory_free, " MB"));
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /memory").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /memory").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Memory Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /memory").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /memory").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Memory Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

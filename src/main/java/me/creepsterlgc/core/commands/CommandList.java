@@ -16,7 +16,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.service.permission.Subject;
 import org.spongepowered.api.service.permission.option.OptionSubject;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -35,12 +35,12 @@ public class CommandList implements CommandCallable {
 	@Override
 	public CommandResult process(CommandSource sender, String arguments) throws CommandException {
 
-		if(!PermissionsUtils.has(sender, "core.list")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.list")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		int online = Controller.getServer().getOnlinePlayers().size();
 		int max = Controller.getServer().getMaxPlayers();
 
-		sender.sendMessage(Texts.of(TextColors.GRAY, "There are currently ", TextColors.GOLD, online, TextColors.GRAY, "/", TextColors.GOLD, max, TextColors.GRAY, " players online."));
+		sender.sendMessage(Text.of(TextColors.GRAY, "There are currently ", TextColors.GOLD, online, TextColors.GRAY, "/", TextColors.GOLD, max, TextColors.GRAY, " players online."));
 
 		if(!FileConfig.LIST_ORDER_BY_GROUPS()) {
 
@@ -105,9 +105,9 @@ public class CommandList implements CommandCallable {
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /afk").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /afk").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | AFK Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /afk").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /afk").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | AFK Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

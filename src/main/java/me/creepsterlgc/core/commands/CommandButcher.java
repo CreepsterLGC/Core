@@ -12,7 +12,7 @@ import org.spongepowered.api.entity.living.animal.Animal;
 import org.spongepowered.api.entity.living.monster.Monster;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -29,11 +29,11 @@ public class CommandButcher implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(!PermissionsUtils.has(sender, "core.butcher")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.butcher")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(args.length < 1) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/butcher [radius]")); return CommandResult.success(); }
+		if(args.length < 1) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/butcher [radius]")); return CommandResult.success(); }
 
 		Player player = (Player) sender;
 		World world = player.getWorld();
@@ -43,7 +43,7 @@ public class CommandButcher implements CommandCallable {
 		if(!arguments.equalsIgnoreCase("")) {
 			try { radius = Integer.parseInt(args[0]); }
 			catch(NumberFormatException e) {
-				sender.sendMessage(Texts.builder("[radius] has to be a number!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("[radius] has to be a number!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 		}
@@ -67,15 +67,15 @@ public class CommandButcher implements CommandCallable {
 			c += 1;
 		}
 
-		sender.sendMessage(Texts.of(TextColors.GRAY, "Removed ", TextColors.YELLOW, c, TextColors.GRAY, " entities."));
+		sender.sendMessage(Text.of(TextColors.GRAY, "Removed ", TextColors.YELLOW, c, TextColors.GRAY, " entities."));
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /butcher [radius]").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /butcher [radius]").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Butcher Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /butcher [radius]").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /butcher [radius]").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Butcher Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

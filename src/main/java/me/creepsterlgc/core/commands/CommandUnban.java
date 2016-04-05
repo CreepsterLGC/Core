@@ -11,7 +11,7 @@ import main.java.me.creepsterlgc.core.utils.PermissionsUtils;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -32,39 +32,39 @@ public class CommandUnban implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.unban")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.unban")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(usage); return CommandResult.success(); }
 		if(args.length != 1) { sender.sendMessage(usage); return CommandResult.success(); }
 
 		CorePlayer player = CoreDatabase.getPlayer(CoreDatabase.getUUID(args[0].toLowerCase()));
-		if(player == null) { sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(player == null) { sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 		CoreBan ban = CoreDatabase.getBan(player.getUUID());
 
 		if(ban == null) {
-			sender.sendMessage(Texts.builder("Player is not banned!").color(TextColors.RED).build());
+			sender.sendMessage(Text.builder("Player is not banned!").color(TextColors.RED).build());
 			return CommandResult.success();
 		}
 
 		ban.delete();
 		CoreDatabase.removeBan(player.getUUID());
 
-		Text t1 = Texts.builder(player.getName()).color(TextColors.YELLOW).build();
-		Text t2 = Texts.builder(" has been unbanned by ").color(TextColors.GRAY).build();
-		Text t3 = Texts.builder(sender.getName()).color(TextColors.YELLOW).build();
+		Text t1 = Text.builder(player.getName()).color(TextColors.YELLOW).build();
+		Text t2 = Text.builder(" has been unbanned by ").color(TextColors.GRAY).build();
+		Text t3 = Text.builder(sender.getName()).color(TextColors.YELLOW).build();
 
-		Text total = Texts.builder().append(t1).append(t2).append(t3).build();
+		Text total = Text.builder().append(t1).append(t2).append(t3).build();
 
-		game.getServer().getBroadcastSink().sendMessage(total);
+		game.getServer().getBroadcastChannel().send(total);
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /unban <player>").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /unban <player>").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Unban Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /unban <player>").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /unban <player>").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Unban Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

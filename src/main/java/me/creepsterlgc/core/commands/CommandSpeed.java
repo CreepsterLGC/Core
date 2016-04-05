@@ -12,7 +12,7 @@ import main.java.me.creepsterlgc.core.utils.TextUtils;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -27,14 +27,14 @@ public class CommandSpeed implements CommandCallable {
 
 		String[] args = arguments.split(" ");
 
-		if(!PermissionsUtils.has(sender, "core.speed")) { sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
+		if(!PermissionsUtils.has(sender, "core.speed")) { sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build()); return CommandResult.success(); }
 
-		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/speed [player] <multiplier>")); return CommandResult.success(); }
-		if(args.length < 1 || args.length > 2) { sender.sendMessage(Texts.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/speed [player] <multiplier>")); return CommandResult.success(); }
+		if(arguments.equalsIgnoreCase("")) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/speed [player] <multiplier>")); return CommandResult.success(); }
+		if(args.length < 1 || args.length > 2) { sender.sendMessage(Text.of(TextColors.YELLOW, "Usage: ", TextColors.GRAY, "/speed [player] <multiplier>")); return CommandResult.success(); }
 
 		if(args.length == 1) {
 
-			if(sender instanceof Player == false) { sender.sendMessage(Texts.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
+			if(sender instanceof Player == false) { sender.sendMessage(Text.builder("Cannot be run by the console!").color(TextColors.RED).build()); return CommandResult.success(); }
 
 			Player p = (Player) sender;
 
@@ -53,19 +53,19 @@ public class CommandSpeed implements CommandCallable {
 			p.offer(Keys.WALKING_SPEED, 0.1 * m);
 			p.offer(Keys.FLYING_SPEED, 0.05 * m);
 
-			sender.sendMessage(Texts.of(TextColors.GRAY, "Speed has been set to: ", TextColors.GOLD, m));
+			sender.sendMessage(Text.of(TextColors.GRAY, "Speed has been set to: ", TextColors.GOLD, m));
 
 		}
 		else if(args.length == 2) {
 
 			if(!PermissionsUtils.has(sender, "core.speed-others")) {
-				sender.sendMessage(Texts.builder("You do not have permissions!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("You do not have permissions!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 
 			Player p = ServerUtils.getPlayer(args[0]);
 			if(p == null) {
-				sender.sendMessage(Texts.builder("Player not found!").color(TextColors.RED).build());
+				sender.sendMessage(Text.builder("Player not found!").color(TextColors.RED).build());
 				return CommandResult.success();
 			}
 
@@ -84,8 +84,8 @@ public class CommandSpeed implements CommandCallable {
 			p.offer(Keys.WALKING_SPEED, 0.1 * m);
 			p.offer(Keys.FLYING_SPEED, 0.05 * m);
 
-			p.sendMessage(Texts.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has set your speed to: ", TextColors.GOLD, m));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, p.getName(), "'s", TextColors.GRAY, " speed has been set to: ", TextColors.GOLD, m));
+			p.sendMessage(Text.of(TextColors.YELLOW, sender.getName(), TextColors.GRAY, " has set your speed to: ", TextColors.GOLD, m));
+			sender.sendMessage(Text.of(TextColors.YELLOW, p.getName(), "'s", TextColors.GRAY, " speed has been set to: ", TextColors.GOLD, m));
 
 		}
 
@@ -93,9 +93,9 @@ public class CommandSpeed implements CommandCallable {
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /speed [player] <multiplier>").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /speed [player] <multiplier>").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Speed Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /speed [player] <multiplier>").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /speed [player] <multiplier>").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Speed Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

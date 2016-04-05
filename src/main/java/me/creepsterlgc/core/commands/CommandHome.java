@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -29,32 +29,32 @@ public class CommandHome implements CommandCallable {
 		else if(args[0].equalsIgnoreCase("list")) { new CommandHomeList(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("move")) { new CommandHomeMove(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("help")) {
-			sender.sendMessage(Texts.of(TextColors.GOLD, "Home Help"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home set <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home delete <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home list [keyword]"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home move [name]"));
+			sender.sendMessage(Text.of(TextColors.GOLD, "Home Help"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home <name>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home set <name>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home delete <name>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home list [keyword]"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home move [name]"));
 		}
 		else if(!arguments.equalsIgnoreCase("") && args.length == 1) {
 			new CommandHomeTeleport(sender, args); return CommandResult.success();
 		}
 		else {
-			sender.sendMessage(Texts.of(TextColors.GOLD, "Home Help"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home set <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home delete <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home list [keyword]"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/home move [name]"));
+			sender.sendMessage(Text.of(TextColors.GOLD, "Home Help"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home <name>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home set <name>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home delete <name>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home list [keyword]"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/home move [name]"));
 		}
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /home help").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /home help").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Home Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /home help").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /home help").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Home Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

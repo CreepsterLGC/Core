@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -26,25 +26,25 @@ public class CommandBanlist implements CommandCallable {
 		else if(args[0].equalsIgnoreCase("list")) { new CommandBanlistList(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("rollback")) { new CommandBanlistRollback(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("help")) {
-			sender.sendMessage(Texts.of(TextColors.GOLD, "Banlist Help"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/banlist check <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/banlist list [keyword]"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/banlist rollback <sender> <time> <unit>"));
+			sender.sendMessage(Text.of(TextColors.GOLD, "Banlist Help"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/banlist check <name>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/banlist list [keyword]"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/banlist rollback <sender> <time> <unit>"));
 		}
 		else {
-			sender.sendMessage(Texts.of(TextColors.GOLD, "Banlist Help"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/banlist check <name>"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/banlist list [keyword]"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/banlist rollback <sender> <time> <unit>"));
+			sender.sendMessage(Text.of(TextColors.GOLD, "Banlist Help"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/banlist check <name>"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/banlist list [keyword]"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/banlist rollback <sender> <time> <unit>"));
 		}
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /banlist help").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /banlist help").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Banlist Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /banlist help").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /banlist help").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Banlist Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 

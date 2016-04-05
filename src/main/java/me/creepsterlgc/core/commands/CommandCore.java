@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.Texts;
+
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
@@ -25,23 +25,23 @@ public class CommandCore implements CommandCallable {
 		if(args[0].equalsIgnoreCase("database")) { new CommandCoreDatabase(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("version")) { new CommandCoreVersion(sender, args); return CommandResult.success(); }
 		else if(args[0].equalsIgnoreCase("help")) {
-			sender.sendMessage(Texts.of(TextColors.GOLD, "Core Help"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/core database"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/core version"));
+			sender.sendMessage(Text.of(TextColors.GOLD, "Core Help"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/core database"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/core version"));
 		}
 		else {
-			sender.sendMessage(Texts.of(TextColors.GOLD, "Core Help"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/core database"));
-			sender.sendMessage(Texts.of(TextColors.YELLOW, "/core version"));
+			sender.sendMessage(Text.of(TextColors.GOLD, "Core Help"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/core database"));
+			sender.sendMessage(Text.of(TextColors.YELLOW, "/core version"));
 		}
 
 		return CommandResult.success();
 
 	}
 
-	private final Text usage = Texts.builder("Usage: /core help").color(TextColors.YELLOW).build();
-	private final Text help = Texts.builder("Help: /core help").color(TextColors.YELLOW).build();
-	private final Text description = Texts.builder("Core | Core Command").color(TextColors.YELLOW).build();
+	private final Text usage = Text.builder("Usage: /core help").color(TextColors.YELLOW).build();
+	private final Text help = Text.builder("Help: /core help").color(TextColors.YELLOW).build();
+	private final Text description = Text.builder("Core | Core Command").color(TextColors.YELLOW).build();
 	private List<String> suggestions = new ArrayList<String>();
 	private String permission = "";
 
